@@ -17,11 +17,11 @@ if [ -r "$CONFIG_HOME/zsh/aliases.sh" ]; then
   source "$CONFIG_HOME/zsh/aliases.sh"
 fi
 
-ssh-node() {
- if [ -z "$1" ]; then
-   echo "Usage: ssh-node <node-name>"
-   return 1
- fi
- 
- ssh -i ~/.ssh/id_conf_mgmt conf-mgmt@$1
-}
+# Source custom configuration
+if [ -r "$CONFIG_HOME/zsh/custom.zshrc" ]; then
+  echo "found"
+  source "$CONFIG_HOME/zsh/custom.zshrc"
+else 
+  echo "not found"
+fi
+
