@@ -1,0 +1,19 @@
+[alias]
+	ec = commit --allow-empty -m
+	cm = commit -m
+	gconf = config --global
+  lconf = config --local
+  sconf = config --system
+	again = commit -C HEAD --amend --no-edit
+	rollback = reset --hard
+	push-skip = push -o ci.skip
+	fpush = push -f
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[oh-my-zsh]
+	hide-dirty = 1
+[init]
+	defaultBranch = main
