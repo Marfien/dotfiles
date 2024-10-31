@@ -19,9 +19,6 @@ fi
 
 # Source custom configuration
 if [ -r "$CONFIG_HOME/zsh/custom.zshrc" ]; then
-  echo "found"
   source "$CONFIG_HOME/zsh/custom.zshrc"
-else 
-  echo "not found"
 fi
 
