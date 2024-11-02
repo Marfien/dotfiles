@@ -1,9 +1,9 @@
 [alias]
 	ec = commit --allow-empty -m
 	cm = commit -m
+	sconf = config --system
 	gconf = config --global
-  lconf = config --local
-  sconf = config --system
+	lconf = config --local
 	again = commit -C HEAD --amend --no-edit
 	rollback = reset --hard
 	push-skip = push -o ci.skip
@@ -17,3 +17,5 @@
 	hide-dirty = 1
 [init]
 	defaultBranch = main
+[core]
+	autocrlf = input
