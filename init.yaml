@@ -1,11 +1,17 @@
 # This contains all packages that need to be installed on the system
 initCommands:
   unix: |
-    # Install brew co
+    # Install Homebrew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   windows: |
-    // Setup wsl
+    # Install some linux distro
+    wsl --install
+    wsl rm -rf ~/*
+    wsl git clone git@github.com:Marfien/dotfiles.git ~
+    wsl /bin/bash ~/.bin/install.sh
 packages:
   brew:
+    - zsh
     - get
     - curl
     - flux
@@ -15,6 +21,7 @@ packages:
     - tofuenv
     - kubernetes-cli
     - grep
+    - python
 
 casks:
   - brew: hyper
