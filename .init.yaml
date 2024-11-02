@@ -3,6 +3,14 @@ initCommands:
   unix: |
     # Install Homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ZSH_BIN=$(command -v zsh)
+    if [ $? -ne 0 ]; then
+      brew install zsh
+      ZSH_BIN=$(brew --prefix)/bin/zsh
+      echo "$ZSH_BIN" >> /etc/shells
+    fi
+
+    chpass -s "$ZSH_BIN"
   windows: |
     # Install some linux distro
     wsl --install
@@ -11,17 +19,22 @@ initCommands:
     wsl /bin/bash ~/.bin/install.sh
 packages:
   brew:
-    - zsh
-    - get
+    - wget
     - curl
+    - grep
+    - yq
+    - neovim
+    - tree-sitter
+    - openssl
+    - python
+    - openjdk@21
+    - openjdk@17
+    - openjdk@8
+    - tofuenv
     - flux
     - helm
-    - yq
-    - openssl
-    - tofuenv
     - kubernetes-cli
-    - grep
-    - python
+    - derailed/k9s/k9s
 
 casks:
   - brew: hyper
@@ -29,3 +42,4 @@ casks:
   - brew: alt-tab
   - brew: font-meslo-lg-nerd-font
     choco: nerd-fonts-meslo
+
