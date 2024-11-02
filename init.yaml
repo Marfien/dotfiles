@@ -1,0 +1,24 @@
+# This contains all packages that need to be installed on the system
+initCommands:
+  unix: |
+    # Install brew co
+  windows: |
+    // Setup wsl
+packages:
+  brew:
+    - get
+    - curl
+    - flux
+    - helm
+    - yq
+    - openssl
+    - tofuenv
+    - kubernetes-cli
+    - grep
+
+casks:
+  - brew: hyper
+    choco: hyper
+  - brew: alt-tab
+  - brew: font-meslo-lg-nerd-font
+    choco: nerd-fonts-meslo
