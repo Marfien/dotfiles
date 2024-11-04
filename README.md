@@ -8,6 +8,14 @@ This repository contains all dotfiles/config files laying in user home directory
 ```shell
 git clone git@github.com:Marfien/dotfiles.git ~
 ```
+Or, if it says the directory is not empty:
+ˋˋˋshell
+cd ~
+git init
+git remote add origin git@github.com:Marfien/dotfiles.git
+git pull -u origin main
+ˋˋˋ
+You might need to delete some files that are conflicting
 
 2. Depending on your operating system, you need to execute on of the following commands next: \
 Windows:
