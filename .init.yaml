@@ -42,4 +42,5 @@ casks:
   - brew: alt-tab
   - brew: font-meslo-lg-nerd-font
     choco: nerd-fonts-meslo
+  - brew: raycast
 
