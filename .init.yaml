@@ -43,4 +43,8 @@ casks:
   - brew: font-meslo-lg-nerd-font
     choco: nerd-fonts-meslo
   - brew: raycast
+  - brew: arc
+    choco: zen-browser --package-parameters="/Optimized"
+  - brew: headlamp
+    choco: headlamp
 
