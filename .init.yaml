@@ -47,4 +47,7 @@ casks:
     choco: zen-browser --package-parameters="/Optimized"
   - brew: headlamp
     choco: headlamp
-
+  - brew: spotify
+    choco: spotify
+  - brew: jetbrains-toolbox
+    choco: jetbrainstoolbox
