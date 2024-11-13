@@ -35,6 +35,7 @@ packages:
     - helm
     - kubernetes-cli
     - derailed/k9s/k9s
+    - k9s
 
 casks:
   - brew: hyper

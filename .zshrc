@@ -2,6 +2,7 @@
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 export PATH="$PATH:/home/maha/go/bin/"
 export CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_HOME=$CONFIG_HOME
 
 # Takes care of linuxbrew (linux) and homebrew (macos)
 if [ -r '/opt/homebrew/bin/brew' ]; then
