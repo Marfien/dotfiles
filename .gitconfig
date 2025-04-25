@@ -8,6 +8,7 @@
 	rollback = reset --hard
 	push-skip = push -o ci.skip
 	pfush = push -f
+	s = status
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
