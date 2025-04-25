@@ -17,12 +17,6 @@ else
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-# setup nvm
-export NVM_DIR="$HOME/.nvm"
-mkdir -p "$NVM_DIR"
-try_source "$(brew --prefix)/opt/nvm/nvm.sh"
-try_source "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
-
 # Configure Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_CUSTOM="$CONFIG_HOME/zsh/oh-my-zsh/custom"
@@ -32,8 +26,12 @@ plugins=(git sudo dirhistory zsh-navigation-tools)
 
 source $ZSH/oh-my-zsh.sh
 
-try_source "$CONFIG_HOME/aliases.zsh"
+# aliases
+try_source "$CONFIG_HOME/zsh/aliases.sh"
+
+for file in "$CONFIG_HOME/zsh/config/"*.sh; do
+  try_source "$file"
+done
 
 # Source custom configuration
 try_source "$CONFIG_HOME/zsh/custom.zsh"
-
