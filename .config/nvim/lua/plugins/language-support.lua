@@ -1,0 +1,36 @@
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "bash",
+        "css",
+        "csv",
+        "dockerfile",
+        "editorconfig",
+        "git_config",
+        "git_rebase",
+        "gitignore",
+        "helm",
+        "html",
+        "http",
+        "java",
+        "javascript",
+        "jq",
+        "json",
+        "json5",
+        "python",
+        "regex",
+        "sql",
+        "tmux",
+        "toml",
+        "tsx",
+        "typescript",
+        "yaml",
+      },
+    },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+  },
+}
