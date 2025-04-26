@@ -17,6 +17,7 @@ formulae:
   - k9s 
   - nvm
   - mas
+  - tmux
 # This will only be installed on macos
 casks:
   - kitty
@@ -31,5 +32,5 @@ casks:
   - discord
   - anki
   - chatgpt
-mac-apps:
+mac_apps:
   - 1494023538 # Plush

@@ -8,3 +8,6 @@ alias vim='nvim'
 alias g='git'
 
 alias rm='rm -i'
+
+alias c='clipcopy'
+alias p='clippaste'

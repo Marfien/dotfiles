@@ -1,0 +1,31 @@
+---
+- name: Install requirements (Debian)
+  become: true
+  when: ansible_os_family == "Debian"
+  apt:
+    name: 
+      - build-essential 
+      - procps
+      - curl
+      - file 
+      - git
+- name: Install requirements (RedHat)
+  become: true
+  when: ansible_os_family == "RedHat"
+  dnf:
+    name:
+      - "@Development Tools"
+      - procps-ng
+      - curl
+      - file
+      - git
+- name: Install requirements (ArchLinux)
+  become: true
+  when: ansible_os_family == "Archlinux"
+  pacman:
+    name:
+      - base-devel
+      - procps-ng
+      - curl
+      - file
+      - git

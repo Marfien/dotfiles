@@ -1,0 +1,16 @@
+---
+- name: Link SSH-Keys
+  file:
+    src: /mnt/c/Users/{{ win_user }}/.ssh
+    dest: ~/.ssh
+    state: link
+- name: Link KubeConfig
+  file:
+    src: /mnt/c/Users/{{ win_user }}/.kube/config
+    dest: ~/.kube/config
+    state: link
+- name: Link Maven Settings
+  file:
+    src: /mnt/c/Users/{{ win_user }}/.m2/settings.xml
+    dest: ~/.m2/settings.xml
+    state: link

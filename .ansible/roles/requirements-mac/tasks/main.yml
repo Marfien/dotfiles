@@ -1,0 +1,4 @@
+---
+- name: Install XCode Dev Tools
+  shell: xcode-select --install
+  ignore_errors: true

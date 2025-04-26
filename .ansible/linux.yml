@@ -1,0 +1,8 @@
+- name: Setup Linux Workstation
+  hosts: local
+  vars:
+    brew_path: /home/linuxbrew/.linuxbrew/bin
+  roles:
+    - requirements-linux
+    - system
+    - packages
