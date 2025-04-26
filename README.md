@@ -3,9 +3,9 @@
 This repository contains all dotfiles/config files laying in user home directory
 (commonly known as `~`)
 
-## Setup
+## Prerequirements
 
-1. Clone the repository into your home directory:
+Clone the repository into your home directory:
 
 ```shell
 git clone git@github.com:Marfien/dotfiles.git ~
@@ -22,17 +22,10 @@ git pull -u origin main
 
 You might need to delete some files that are conflicting
 
-2. Depending on your operating system, you need to execute on of the following commands next:
+# Setup
 
-On Unix, run the following commands:
+Depending on your operating system, you need to execute on of the following commands next:
 
-```shell
-# Install brew
-eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+## Linux/MacOS
 
-if [ -n "$HOMEBREW_ON_LINUX" ]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-elif [ -n "$HOMEBREW_ON_MACOS"]; then
-
-fi
-```
+TODO

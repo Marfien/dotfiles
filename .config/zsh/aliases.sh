@@ -7,3 +7,4 @@ alias dckrmnt'dckr -v .:/mnt -w /mnt'
 alias vim='nvim'
 alias g='git'
 
+alias rm='rm -i'

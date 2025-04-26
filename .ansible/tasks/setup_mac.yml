@@ -1,0 +1,14 @@
+---
+- name: Install casks
+  loop: "{{ casks }}"
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+- name: Install mas-cli
+  comunity.general.homebrew:
+    name: mas
+    state: present
+- name: Install Mac Apps
+  community.general.mas:
+    id: "{{ mac-apps }} "
+    state: present
