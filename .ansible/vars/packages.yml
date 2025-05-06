@@ -14,10 +14,11 @@ formulae:
   - helm
   - kubernetes-cli
   - derailed/k9s/k9s
-  - k9s 
+  - k9s
   - nvm
   - mas
   - tmux
+  - glow
 # This will only be installed on macos
 casks:
   - kitty
