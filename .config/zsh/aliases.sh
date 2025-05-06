@@ -6,6 +6,7 @@ alias dckr='docker run --rm -it --entrypoint /bin/sh'
 alias dckrmnt'dckr -v .:/mnt -w /mnt'
 alias vim='nvim'
 alias g='git'
+alias so='so --no-lucky'
 
 alias rm='rm -i'
 
