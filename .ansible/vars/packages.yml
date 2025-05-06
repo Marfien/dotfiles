@@ -19,6 +19,7 @@ formulae:
   - mas
   - tmux
   - glow
+  - so
 # This will only be installed on macos
 casks:
   - kitty
