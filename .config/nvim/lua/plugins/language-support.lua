@@ -19,6 +19,7 @@ return {
         "jq",
         "json",
         "json5",
+        "latex",
         "python",
         "regex",
         "sql",
@@ -32,5 +33,13 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    opts = {
+      server = {
+        type = "binary",
+      },
+    },
   },
 }
