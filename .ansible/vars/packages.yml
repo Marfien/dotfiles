@@ -7,8 +7,6 @@ formulae:
   - openssl
   - python
   - openjdk@21
-  - openjdk@17
-  - openjdk@8
   - tofuenv
   - flux
   - helm
@@ -20,6 +18,8 @@ formulae:
   - tmux
   - glow
   - so
+  - zip
+  - jenv
 # This will only be installed on macos
 casks:
   - kitty
