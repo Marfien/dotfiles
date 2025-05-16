@@ -3,11 +3,11 @@
   shell: "{{ lookup('ansible.builtin.url', 'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh') }}"
   args:
     executable: /bin/bash
-- name: Install zsh
-  community.general.homebrew:
-    name: zsh
+# - name: Install zsh
+#   community.general.homebrew:
+#     name: zsh
 - name: Find zsh path
-  shell: echo "$(brew --prefix)/bin/zsh"
+  shell: command -v zsh
   register: zsh_path
 - name: Set zsh as default shell
   user:

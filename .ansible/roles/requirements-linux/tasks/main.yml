@@ -9,6 +9,7 @@
       - curl
       - file 
       - git
+      - zsh
 - name: Install requirements (RedHat)
   become: true
   when: ansible_os_family == "RedHat"
@@ -19,6 +20,7 @@
       - curl
       - file
       - git
+      - zsh
 - name: Install requirements (ArchLinux)
   become: true
   when: ansible_os_family == "Archlinux"
@@ -29,3 +31,4 @@
       - curl
       - file
       - git
+      - zsh
