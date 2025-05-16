@@ -2,6 +2,7 @@
 - name: Install packages
   community.general.homebrew:
     name: "{{ formulae }}"
-  environment:
-    PATH: "{{ lookup('env', 'PATH') }}:{{ brew_path }}"
+  # make sure to run anyting brew related as a normal user
+  become: false
+  become_user: "{{ ansible_user_id }}"
 

@@ -1,6 +1,11 @@
 ---
 - name: Install brew
-  command: /bin/bash "{{ lookup('ansible.builtin.url', 'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh')|quote }}"
+  shell: "curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash"
+  become: false
+  become_user: "{{ ansible_user_id }}"
+  args:
+    executable: /bin/bash
+    stdin: "\n"
 # - name: Install zsh
 #   community.general.homebrew:
 #     name: zsh
