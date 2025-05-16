@@ -2,6 +2,8 @@
   hosts: local
   vars:
     brew_path: /home/linuxbrew/.linuxbrew/bin
+  var_files:
+    - vars/packages.yml
   roles:
     - requirements-linux
     - system
