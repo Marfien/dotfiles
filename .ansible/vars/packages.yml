@@ -1,25 +1,26 @@
 formulae:
-  - wget
-  - curl
-  - grep
-  - yq
-  - neovim
-  - openssl
-  - python
-  - openjdk@21
-  - tofuenv
-  - flux
-  - helm
-  - kubernetes-cli
-  - derailed/k9s/k9s
-  - k9s
-  - nvm
-  - mas
-  - tmux
-  - glow
-  - so
-  - zip
-  - jenv
+  all:
+    - wget
+    - curl
+    - grep
+    - yq
+    - neovim
+    - openssl
+    - python
+    - openjdk@21
+    - tofuenv
+    - flux
+    - helm
+    - kubernetes-cli
+    - derailed/k9s/k9s
+    - k9s
+    - nvm
+    - tmux
+    - glow
+    - so
+    - zip
+    - jenv
+  linux: []
 # This will only be installed on macos
 casks:
   - kitty
