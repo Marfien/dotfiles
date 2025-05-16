@@ -1,4 +1,5 @@
 ---
+- debug: var=vars
 - name: Install packages
   community.general.homebrew:
     name: "{{ formulae }}"
