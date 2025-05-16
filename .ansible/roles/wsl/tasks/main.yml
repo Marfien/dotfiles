@@ -1,16 +1,19 @@
 ---
+- name: Get Windows User
+  shell: powershell.exe '$env:UserName'
+  register: windows_user
 - name: Link SSH-Keys
   file:
-    src: /mnt/c/Users/{{ win_user }}/.ssh
+    src: /mnt/c/Users/{{ windows_user.stdout }}/.ssh
     dest: ~/.ssh
     state: link
 - name: Link KubeConfig
   file:
-    src: /mnt/c/Users/{{ win_user }}/.kube/config
+    src: /mnt/c/Users/{{ windows_user.stdout }}/.kube/config
     dest: ~/.kube/config
     state: link
 - name: Link Maven Settings
   file:
-    src: /mnt/c/Users/{{ win_user }}/.m2/settings.xml
+    src: /mnt/c/Users/{{ windows_user.stdout }}/.m2/settings.xml
     dest: ~/.m2/settings.xml
     state: link
