@@ -1,6 +1,7 @@
 ---
 - name: Install packages
   community.general.homebrew:
-    path: "{{ brew_path }}"
     name: "{{ formulae }}"
+  environment:
+    PATH: "{{ lookup('env', 'PATH') }}:{{ brew_path }}"
 
