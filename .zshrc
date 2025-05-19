@@ -20,6 +20,6 @@ done
 # Source custom configuration
 try_source "$CONFIG_HOME/zsh/custom.zsh"
 
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ] && [ -z "$TERMINAL_EMULATOR" ]; then
   exec tmux
 fi
