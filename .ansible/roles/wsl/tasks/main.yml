@@ -2,18 +2,29 @@
 - name: Get Windows User
   shell: powershell.exe '$env:UserName'
   register: windows_user
-- name: Link SSH-Keys
+- name: Create .kube
   file:
-    src: /mnt/c/Users/{{ windows_user.stdout }}/.ssh
-    dest: ~/.ssh
-    state: link
+    path: ~/.kube
+    state: directory
 - name: Link KubeConfig
   file:
     src: /mnt/c/Users/{{ windows_user.stdout }}/.kube/config
     dest: ~/.kube/config
     state: link
+- name: Create .m2
+  file:
+    path: ~/.m2
+    state: directory
 - name: Link Maven Settings
   file:
     src: /mnt/c/Users/{{ windows_user.stdout }}/.m2/settings.xml
     dest: ~/.m2/settings.xml
     state: link
+- name: Create .docker
+  file:
+    path: ~/.docker
+    state: directory
+- name: Link Docker Config
+  file:
+    src: /mnt/c/Users/{{ windows_user.stdout }}/.docker/config.json
+    dest: ~/.docker/config.json
