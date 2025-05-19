@@ -5,7 +5,6 @@
   vars_files:
     - vars/packages.yml
   roles:
-    - requirements-linux
     - system
     - packages
     - wsl

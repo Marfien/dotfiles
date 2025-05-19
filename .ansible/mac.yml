@@ -5,7 +5,6 @@
   var_files:
     - vars/packages.yml
   roles:
-    - requirements-mac
     - system
     - packages
     - casks

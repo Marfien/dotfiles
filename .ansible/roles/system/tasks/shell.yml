@@ -1,0 +1,12 @@
+---
+- name: Install ZSH
+  community.general.homebrew:
+    name: zsh
+- name: Get ZSH path
+  shell: "{{ brew_path }}/brew --prefix zsh"
+  register: zsh_path
+- name: Set zsh as default shell
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: "{{ zsh_path.stdout }}"

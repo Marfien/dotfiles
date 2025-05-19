@@ -1,0 +1,21 @@
+---
+- name: Setup Docker Group for User
+  become: true
+  block:
+    - name: Create Docker Group
+      group:
+        name: docker
+    - name: Add User to Docker Group
+      user:
+        name: '{{ ansible_facts.ansible_env["USER"] }}'
+        groups: docker
+        append: true
+- name: Enable Systemd Services
+  become: true
+  block:
+    - systemd_service:
+        name: docker.service
+        enabled: true
+    - systemd_service:
+        name: containerd.service
+        enabled: true
