@@ -9,6 +9,11 @@ alias g='git'
 alias so='so --no-lucky'
 
 alias rm='rm -i'
+alias ls='ls --colors=always'
+alias lsa='ls -lah'
+alias l='ls -lah'
+alias ll='ls -lh'
+alias la='ls -lAh'
 
 alias c='clipcopy'
 alias p='clippaste'
