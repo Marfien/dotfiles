@@ -1,8 +1,7 @@
-- name: Setup WSL
+- name: Setup Workstation
   hosts: local
-  vars_files:
+  var_files:
     - vars/packages.yml
   roles:
     - system
     - packages
-    - wsl

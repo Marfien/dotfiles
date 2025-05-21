@@ -1,8 +1,8 @@
 ---
-- name: Install packages
-  community.general.homebrew:
-    name: "{{ formulae }}"
-  # make sure to run anyting brew related as a normal user
+- name: Install Brew Bundle
+  shell: 'brew bundle -f ~/.ansible/roles/packages/files/Brewfile'
   become: false
   become_user: "{{ ansible_user_id }}"
+  environment:
+    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:{{ lookup('env', 'PATH') }}"
 

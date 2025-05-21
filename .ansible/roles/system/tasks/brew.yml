@@ -7,7 +7,6 @@
     name:
       - build-essential
       - procps
-      - curl
       - file
       - git
 - name: Install requirements (RedHat)
@@ -17,7 +16,6 @@
     name:
       - "@Development Tools"
       - procps-ng
-      - curl
       - file
       - git
 - name: Install requirements (ArchLinux)
@@ -27,7 +25,6 @@
     name:
       - base-devel
       - procps-ng
-      - curl
       - file
       - git
 - name: Install XCode Dev Tools
@@ -36,9 +33,16 @@
   when: ansible_os_family == "Darwin"
 
 - name: Install brew
-  shell: "curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash"
   become: false
   become_user: "{{ ansible_user_id }}"
-  args:
-    executable: /bin/bash
-    stdin: "\n"
+  tasks:
+    - tempfile: {}
+      register: tempfile
+    - name: Download Install Script
+      get_url:
+        url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+        dest: '{{ tempfile.path }}'
+    - name: Run Install
+      shell:
+        cmd: '{{ tempfile.path }}'
+        executable: /bin/bash

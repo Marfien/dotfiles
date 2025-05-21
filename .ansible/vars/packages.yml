@@ -20,10 +20,12 @@ formulae:
   - zip
   - jenv
   - fd
+  - curl
 
   # shell
   - zsh-autosuggestions
   - zsh-syntax-highlighting
+  - zsh-history-substring-search
   - spaceship
 
 # This will only be installed on macos

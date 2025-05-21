@@ -1,7 +1,0 @@
----
-- name: Install mas-cli
-  comunity.general.homebrew:
-    name: mas
-- name: Install Mac Apps
-  community.general.mas:
-    id: "{{ mac_apps }}"
