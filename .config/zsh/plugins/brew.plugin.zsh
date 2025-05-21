@@ -10,10 +10,7 @@ eval "$($brew shellenv)"
 zsh_plugins=(
   zsh-syntax-highlighting
   zsh-autosuggestions
-  zsh-history-substring-search
 )
-
-source `brew --prefix`/opt/spaceship/spaceship.zsh
 
 for plugin in "${zsh_plugins[@]}"; do
   plugin_path="`brew --prefix`/share/${plugin}/${plugin}.zsh"
