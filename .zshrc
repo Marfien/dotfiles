@@ -21,12 +21,9 @@ for plugin in "$ZSH/plugins"/*.plugin.zsh; do
   source "$plugin"
 done
 
-# copletions
-zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu select
-
+# completions
 autoload -Uz compinit && compinit
-for completion in "$ZSH/completions/"*.completions.zsh; do
+for completion in "$ZSH/completions/"*; do
   source "$completion"
 done
 
