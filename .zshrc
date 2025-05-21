@@ -6,7 +6,7 @@ export XDG_CONFIG_HOME=$CONFIG_HOME
 # configure zsh
 export ZSH="$CONFIG_HOME/zsh"
 export ZSH_SPACESHIP_THEME="minimal"
-export HISTFILE=$ZSH/.zsh_history
+export HISTFILE="$ZSH/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 setopt HIST_IGNORE_ALL_DUPS
@@ -39,6 +39,6 @@ fi
 # bindkey -v
 
 if [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ] && [ -z "$TERMINAL_EMULATOR" ] && command -v tmux &> /dev/null; then
-  exec tmux
+  tmux
 fi
 
