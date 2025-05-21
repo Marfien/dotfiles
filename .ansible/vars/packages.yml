@@ -19,6 +19,13 @@ formulae:
   - so
   - zip
   - jenv
+  - fd
+
+  # shell
+  - zsh-autosuggestions
+  - zsh-syntax-highlighting
+  - spaceship
+
 # This will only be installed on macos
 casks:
   - kitty
