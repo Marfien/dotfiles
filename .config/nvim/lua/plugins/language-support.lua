@@ -28,6 +28,7 @@ return {
         "tsx",
         "typescript",
         "yaml",
+        "latex",
       },
     },
   },
