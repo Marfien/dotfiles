@@ -1,7 +1,5 @@
 - name: Setup Workstation
   hosts: local
-  var_files:
-    - vars/packages.yml
   roles:
     - system
     - packages
