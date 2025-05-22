@@ -40,6 +40,7 @@ cask "headlamp"
 cask "kitty"
 cask "raycast"
 cask "arc"
+cask "skim"
 
 mas "Command X", id: 6448461551
 mas "Goodnotes", id: 1444383602
