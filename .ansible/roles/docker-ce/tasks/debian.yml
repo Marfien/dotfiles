@@ -30,3 +30,12 @@
     - containerd.io
     - docker-buildx-plugin
     - docker-compose-plugin
+- name: Enable Systemd Services
+  become: true
+  block:
+    - systemd_service:
+        name: docker.service
+        enabled: true
+    - systemd_service:
+        name: containerd.service
+        enabled: true
