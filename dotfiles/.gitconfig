@@ -18,3 +18,8 @@
 	defaultBranch = main
 [core]
 	autocrlf = input
+[user]
+  name = Marvin Haase
+  email = contact@marfien.dev
+[includeIf "hasconfig:remote.*.url:soptim.net/**"]
+  path = .soptim.gitconfig

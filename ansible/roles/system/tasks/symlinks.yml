@@ -1,0 +1,13 @@
+---
+- name: Link configs
+  file:
+    src: '{{ item }}'
+    dest: "~/.config/{{ item.split('/')[1:] }}"
+    state: link
+  with_fileglob: 'config/*'
+- name: Link dotfiles
+  file:
+    src: '{{ item }}'
+    dest: "~/{{ item.split('/')[1:] }}"
+    state: link
+  with_fileglob: 'dotfiles/*'
