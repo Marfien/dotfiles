@@ -7,6 +7,11 @@
   register: zsh_path
   environment:
     PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:{{ lookup('env', 'PATH') }}"
+- name: Add to /etc/shells
+  lineinfile:
+    dest: /etc/shells
+    line: '{{ zsh_path }}'
+    state: present
 - name: Set zsh as default shell
   become: true
   user:

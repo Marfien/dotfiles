@@ -35,14 +35,15 @@
 - name: Install brew
   become: false
   become_user: "{{ ansible_user_id }}"
-  tasks:
+  block:
     - tempfile: {}
       register: tempfile
     - name: Download Install Script
       get_url:
         url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-        dest: '{{ tempfile.path }}'
+        dest: "{{ tempfile.path }}"
+        mode: "0775"
     - name: Run Install
       shell:
-        cmd: '{{ tempfile.path }}'
+        cmd: "{{ tempfile.path }}"
         executable: /bin/bash
