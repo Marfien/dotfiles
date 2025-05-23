@@ -33,11 +33,3 @@ done
 if [ -r "$ZSH/custom.zsh" ]; then
   source "$ZSH/custom.zsh"
 fi
-
-# vim mode
-# bindkey -v
-
-if [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ] && [ -z "$TERMINAL_EMULATOR" ] && command -v tmux &> /dev/null; then
-  tmux
-fi
-
