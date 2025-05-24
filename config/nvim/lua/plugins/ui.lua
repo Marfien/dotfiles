@@ -1,6 +1,7 @@
 return {
   {
     "folke/noice.nvim",
+    e3vent = "VeryLazy",
     opts = {
       presets = {
         bottom_search = true, -- use a classic bottom cmdline for search
@@ -11,13 +12,22 @@ return {
       },
     },
     dependencies = {
+      "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
     },
   },
   {
     "rcarriga/nvim-notify",
+    lazy = false,
     opts = {
       timeout = 10000,
     },
+    init = function()
+      vim.notify = require("notify")
+    end,
+  },
+  {
+    "MunifTanjim/nui.nvim",
+    lazy = false,
   },
 }

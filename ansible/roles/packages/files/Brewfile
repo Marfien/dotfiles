@@ -13,7 +13,7 @@ brew "mas"
 brew "maven"
 brew "minikube"
 brew "neovim"
-brew "node", link: false
+brew "node"
 brew "nvm"
 brew "openjdk"
 brew "oras"
@@ -32,6 +32,7 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 brew "fluxcd/tap/flux"
 brew "curl"
+brew "texlive"
 
 cask "alt-tab"
 cask "font-meslo-lg-nerd-font"
@@ -40,7 +41,7 @@ cask "headlamp"
 cask "kitty"
 cask "raycast"
 cask "arc"
-cask "skim"
+cask "sioyek"
 
 mas "Command X", id: 6448461551
 mas "Goodnotes", id: 1444383602

@@ -25,10 +25,8 @@ return {
         "sql",
         "tmux",
         "toml",
-        "tsx",
         "typescript",
         "yaml",
-        "latex",
       },
     },
   },
@@ -42,5 +40,15 @@ return {
         type = "binary",
       },
     },
+  },
+  {
+    "lervag/vimtex",
+    lazy = false, -- already lazy loaded
+    init = function()
+      vim.g.vimtex_view_method = "sioyek"
+
+      vim.g.vimtex_quickfix_open_on_warning = 0
+      vim.g.vimtex_complete_enabled = 1
+    end,
   },
 }
