@@ -1,16 +1,29 @@
 ---
-- name: Collect files to link
-  register: find
-  find:
-    recurse: false
-    file_type: any
-    hidden: true
-    paths:
-      - '{{ dotfiles_home }}/config/'
-      - '{{ dotfiles_home }}/dotfiles/'
-- name: Create symlinks
-  file:
-    src: '{{ item.path }}'
-    dest: "~/{{ item.path | basename }}"
-    state: link
-  with_items: '{{ find.files }}'
+- name: Create dotfile symlinks
+  block:
+  - register: find
+    find:
+      recurse: false
+      file_type: any
+      hidden: true
+      paths:
+        - '{{ dotfiles_home }}/dotfiles/'
+  - file:
+      src: '{{ item.path }}'
+      dest: "~/{{ item.path | basename }}"
+      state: link
+    with_items: '{{ find.files }}'
+- name: Create config symlinks
+  block:
+  - register: find
+    find:
+      recurse: false
+      file_type: any
+      hidden: true
+      paths:
+        - '{{ dotfiles_home }}/config/'
+  - file:
+      src: '{{ item.path }}'
+      dest: "~/.config/{{ item.path | basename }}"
+      state: link
+    with_items: '{{ find.files }}'
