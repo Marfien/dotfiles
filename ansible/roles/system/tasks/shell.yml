@@ -8,6 +8,7 @@
   environment:
     PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:{{ lookup('env', 'PATH') }}"
 - name: Add to /etc/shells
+  become: true
   lineinfile:
     dest: /etc/shells
     line: '{{ zsh_path }}'

@@ -1,6 +1,6 @@
 ---
 - name: Install Brew Bundle
-  shell: "brew bundle --file ~/.ansible/roles/packages/files/Brewfile"
+  shell: "brew bundle --file {{ dotfiles_home }}/ansible/roles/packages/files/Brewfile"
   become: false
   become_user: "{{ ansible_user_id }}"
   environment:

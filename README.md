@@ -10,20 +10,8 @@ Make sure you have `git` and `ansible` installed on your system.
 Clone this repository into your home directory:
 
 ```shell
-git clone git@github.com:Marfien/dotfiles.git ~
+git clone git@github.com:Marfien/dotfiles.git ~/.dotfiles/
 ```
-
-Or, if it says the directory is not empty:
-
-```shell
-cd ~
-git init
-git remote add origin git@github.com:Marfien/dotfiles.git
-git pull --set-upstream origin main
-git submodule update --init --recursive
-```
-
-You might need to deleted conflicting files.
 
 ## Setup
 
@@ -31,8 +19,10 @@ Depending on your operating system, you need to execute on of the following comm
 
 ### Linux/MacOS
 
+This will prompt you for your password twice. One for sudo access and one for the become of ansible.
+The `sudo true` creates a sudo session which allows ansible to install brew in non-interactive mode.
 ```shell
-ansible-playbook -i .ansible/hosts .ansible/<linux|mac|linux>.yml
+sudo true && ansible-playbook -i .ansible/hosts .ansible/<wsl|workstation>.yml --ask-become-pass --extra-vars 'dotfiles_home=~/.dotfiles'
 ```
 
 ## Fast forward
@@ -43,13 +33,9 @@ Example script for Debian/Ubuntu:
 sudo apt install git ansible -y
 ssh-keygen -t ed25519 -C 'My new workstation'
 # Add ssh key to github
-cd ~
-git init
-git branch -m main
-git remote add origin git@github.com:Marfien/dotfiles.git
-git pull --set-upstream origin main
-git submodule update --init --recursive
-ansible-playbook -i .ansible/hosts .ansible/linux.yml
+DOTFILES_HOME="$HOME/.dotfiles"
+git clone git@github.com:Marfien/dotfiles.git "$DOTFILES_HOME"
+sudo true && ansible-playbook -i .ansible/hosts .ansible/workstation.yml --ask-become-pass --extra-vars "dotfiles_home=$DOTFILES_HOME"
 ```
 
 ## TODOs

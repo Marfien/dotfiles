@@ -34,7 +34,7 @@
 
 - name: Install brew
   become: false
-  become_user: "{{ ansible_user_id }}"
+  become_user: '{{ ansible_user_id }}'
   block:
     - tempfile: {}
       register: tempfile
@@ -47,3 +47,7 @@
       shell:
         cmd: "{{ tempfile.path }}"
         executable: /bin/bash
+    - name: Cleanup
+      file:
+        path: "{{ tempfile.path }}"
+        state: absent
