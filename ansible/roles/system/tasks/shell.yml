@@ -2,8 +2,8 @@
 - name: Install ZSH
   community.general.homebrew:
     name: zsh
-- name: Get ZSH path
-  shell: "brew --prefix zsh"
+- name: Get Brew path
+  shell: "echo $(brew --prefix)/bin/zsh"
   register: zsh_path
   environment:
     PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:{{ lookup('env', 'PATH') }}"
@@ -11,7 +11,7 @@
   become: true
   lineinfile:
     dest: /etc/shells
-    line: '{{ zsh_path }}'
+    line: "{{ zsh_path.stdout }}"
     state: present
 - name: Set zsh as default shell
   become: true
