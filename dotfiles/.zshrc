@@ -1,3 +1,7 @@
+if [ "${ZSH_PROFILING_ENABLED:-0}" = "1" ]; then
+  zmodload zsh/zprof
+fi
+
 # Configuring environment
 export PATH="$HOEM/go/bin/:$HOME/bin:/usr/local/bin:$PATH"
 export CONFIG_HOME="$HOME/.config"
@@ -15,16 +19,27 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 
 # aliases
-source "$ZSH/aliases.sh"
+source "$ZSH/aliases.zsh"
+
+# libraries
+autoload colors && colors
+for lib in "$ZSH/lib/"*.zsh; do
+  source "$lib"
+done
+
 
 # plugins
-autoload colors && colors
 for plugin in "$ZSH/plugins"/*.plugin.zsh; do
-  source "$plugin"
+  zsh-defer source "$plugin"
 done
 
 # completions
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+  compinit
+else
+  compinit -C
+fi
 for completion in "$ZSH/completions/"*; do
   source "$completion"
 done
@@ -32,4 +47,8 @@ done
 # custom configuration
 if [ -r "$ZSH/custom.zsh" ]; then
   source "$ZSH/custom.zsh"
+fi
+
+if [ "${ZSH_PROFILING_ENABLED:-0}" = "1" ]; then
+  zprof
 fi
