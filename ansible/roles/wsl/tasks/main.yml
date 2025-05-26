@@ -28,3 +28,4 @@
   file:
     src: /mnt/c/Users/{{ windows_user.stdout }}/.docker/config.json
     dest: ~/.docker/config.json
+    state: link

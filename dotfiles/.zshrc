@@ -35,11 +35,22 @@ done
 
 # completions
 autoload -Uz compinit
-if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+today=$(date +'%j')
+
+if stat --version >/dev/null 2>&1; then
+  # GNU/Linux stat
+  zcomp_day=$(date -d @"$(stat -c %Y ~/.zcompdump 2>/dev/null)" +'%j')
+else
+  # macOS/BSD stat
+  zcomp_day=$(date -j -r "$(stat -f %m ~/.zcompdump 2>/dev/null)" +'%j')
+fi
+
+if [ "$today" != "$zcomp_day" ]; then
   compinit
 else
   compinit -C
 fi
+
 for completion in "$ZSH/completions/"*; do
   source "$completion"
 done
