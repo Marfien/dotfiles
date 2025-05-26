@@ -12,9 +12,6 @@ return {
       },
     },
     opts = {
-      keymap = {
-        preset = "default",
-      },
       snippets = {
         preset = "luasnip",
       },
