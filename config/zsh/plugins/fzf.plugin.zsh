@@ -8,3 +8,10 @@ if [[ ! "$PATH" == *$fzf_path_addition* ]]; then
 fi
 
 source <(fzf --zsh)
+
+# Rebind the cd widget to CMD-X
+if [[ "${FZF_ALT_C_COMMAND-x}" != "" ]]; then
+  bindkey -M emacs '^X' fzf-cd-widget
+  bindkey -M vicmd '^X' fzf-cd-widget
+  bindkey -M ciins '^X' fzf-cd-widget
+fi
