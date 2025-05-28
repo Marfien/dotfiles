@@ -36,21 +36,19 @@ for plugin in "$ZSH/plugins"/*.plugin.zsh; do
 done
 
 # completions
-autoload -Uz compinit
-today=$(date +'%j')
+autoload -Uz compinit; compinit
 
-if stat --version >/dev/null 2>&1; then
-  # GNU/Linux stat
-  zcomp_day=$(date -d @"$(stat -c %Y ~/.zcompdump 2>/dev/null)" +'%j')
-else
-  # macOS/BSD stat
-  zcomp_day=$(date -j -r "$(stat -f %m ~/.zcompdump 2>/dev/null)" +'%j')
+FILE="~/.zcompdump"
+NOW=$(date +%s)
+
+if stat --version >/dev/null 2>&1
+then MODIFIED=$(stat -c %Y "$FILE")
+else MODIFIED=$(stat -f %m "$FILE")
 fi
 
-if [ "$today" != "$zcomp_day" ]; then
-  compinit
-else
-  compinit -C
+if [ $((NOW - MODIFIED)) -le 86400 ]
+then compinit
+else compinit -C
 fi
 
 for completion in "$ZSH/completions/"*; do
