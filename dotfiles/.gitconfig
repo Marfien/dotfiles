@@ -9,6 +9,7 @@
 	push-skip = push -o ci.skip
 	pfush = push --force-with-lease
 	s = status
+  p = push
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
