@@ -38,7 +38,7 @@ done
 # completions
 autoload -Uz compinit; compinit
 
-FILE="~/.zcompdump"
+FILE="$HOME/.zcompdump"
 NOW=$(date +%s)
 
 if stat --version >/dev/null 2>&1
