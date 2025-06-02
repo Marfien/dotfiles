@@ -1,4 +1,0 @@
-- name: Setup Windows
-  hosts: local
-  roles:
-    - windows

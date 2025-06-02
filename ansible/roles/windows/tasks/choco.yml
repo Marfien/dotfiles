@@ -1,3 +1,0 @@
-- name: Install Chocolatey
-  win_shell:
-    argv: winget.exe install --id=Chocolatey.Chocolatey -e

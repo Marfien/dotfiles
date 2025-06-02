@@ -1,6 +1,0 @@
----
-- name: Install Packages
-  win_shell: choco.exe install "{{ dotfiles_home }}/packages.config"
-  win_chocolatey:
-    state: latest
-    name: "{{ dotfiles_home }}/packages.config"

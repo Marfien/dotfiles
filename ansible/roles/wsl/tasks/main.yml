@@ -11,6 +11,7 @@
     src: /mnt/c/Users/{{ windows_user.stdout }}/.kube/config
     dest: ~/.kube/config
     state: link
+    force: true
 - name: Create .m2
   file:
     path: ~/.m2
@@ -20,6 +21,7 @@
     src: /mnt/c/Users/{{ windows_user.stdout }}/.m2/settings.xml
     dest: ~/.m2/settings.xml
     state: link
+    force: true
 - name: Create .docker
   file:
     path: ~/.docker
@@ -29,3 +31,4 @@
     src: /mnt/c/Users/{{ windows_user.stdout }}/.docker/config.json
     dest: ~/.docker/config.json
     state: link
+    force: true
