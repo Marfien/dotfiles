@@ -14,7 +14,7 @@
   when: ansible_os_family == "RedHat"
   dnf:
     name:
-      - "@Development Tools"
+      - '@development-tools'
       - procps-ng
       - file
       - git

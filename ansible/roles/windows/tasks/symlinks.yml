@@ -1,0 +1,10 @@
+- name: Symlink Terminal Config
+  vars:
+    settings_location: ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/
+  block:
+    - file:
+        path: "{{ settings_location }}"
+        state: directory
+    - file:
+        dest: "{{ settings_location }}/settings.json"
+        src: "{{ dotfiles_home }}/other/WindowsTerminal/settings.json"

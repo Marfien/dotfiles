@@ -35,14 +35,18 @@ brew "texlive"
 brew "bat"
 brew "fzf"
 
+cask "docker"
 cask "alt-tab"
 cask "font-meslo-lg-nerd-font"
-cask "gimp"
 cask "headlamp"
 cask "kitty"
 cask "raycast"
 cask "arc"
 cask "sioyek"
+cask "discord"
+cask "anki"
+cask "jetbrains-toolbox"
+cask "spotify"
 
 mas "Command X", id: 6448461551
 mas "Goodnotes", id: 1444383602

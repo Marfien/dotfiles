@@ -2,3 +2,4 @@
 - include_tasks: symlinks.yml
 - include_tasks: brew.yml
 - include_tasks: shell.yml
+- include_tasks: packages.yml

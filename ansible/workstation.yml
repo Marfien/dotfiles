@@ -1,5 +1,4 @@
 - name: Setup Workstation
   hosts: local
   roles:
-    - system
-    - packages
+    - unix

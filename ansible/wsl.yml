@@ -1,6 +1,5 @@
 - name: Setup WSL
   hosts: local
   roles:
-    - system
-    - packages
+    - unix
     - wsl

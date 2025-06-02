@@ -1,0 +1,5 @@
+---
+- include_tasks: symlinks.yml
+- include_tasks: choco.yml
+- include_tasks: wsl.yml
+- include_tasks: packages.yml

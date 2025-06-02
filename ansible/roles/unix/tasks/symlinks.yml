@@ -15,6 +15,9 @@
     with_items: '{{ find.files }}'
 - name: Create config symlinks
   block:
+  - file:
+      path: '~/.config'
+      state: directory
   - register: find
     find:
       recurse: false
