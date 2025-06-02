@@ -8,3 +8,4 @@
     - file:
         dest: "{{ settings_location }}/settings.json"
         src: "{{ dotfiles_home }}/other/WindowsTerminal/settings.json"
+        state: link
