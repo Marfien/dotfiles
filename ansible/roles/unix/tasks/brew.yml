@@ -9,6 +9,7 @@
       - procps
       - file
       - git
+      - curl
 - name: Install requirements (RedHat)
   become: true
   when: ansible_os_family == "RedHat"
@@ -18,6 +19,7 @@
       - procps-ng
       - file
       - git
+      - curl
 - name: Install requirements (ArchLinux)
   become: true
   when: ansible_os_family == "Archlinux"
@@ -27,6 +29,7 @@
       - procps-ng
       - file
       - git
+      - curl
 - name: Install XCode Dev Tools
   shell: xcode-select --install
   ignore_errors: true
