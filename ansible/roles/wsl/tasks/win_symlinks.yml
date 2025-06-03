@@ -1,0 +1,12 @@
+---
+- name: WSL-Config
+  copy:
+    dest: /mnt/c/Users/{{ windows_user.stdout }}/.wslconfig
+    src: "{{ dotfiles_home }}/other/.wslconfig"
+    force: true
+- name: WindowsTerminal Config
+  copy:
+    src: "{{ dotfiles_home }}/other/WindowsTerminal/settings.json"
+    dest: "/mnt/c/Users/maha/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+    force: true
+

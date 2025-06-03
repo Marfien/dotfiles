@@ -1,0 +1,8 @@
+---
+- name: Install Chocolatey
+  shell: winget.exe install chocolatey.chocolatey
+  ignore_errors: true
+- name: Install Chocolatey-Packages
+  shell: 
+    cmd: choco.exe install -y packages.config
+    chdir: "{{ dotfiles_home }}"
