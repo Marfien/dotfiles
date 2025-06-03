@@ -9,7 +9,7 @@ export XDG_CONFIG_HOME=$CONFIG_HOME
 
 # configure zsh
 export ZSH="$CONFIG_HOME/zsh"
-export ZSH_SPACESHIP_THEME="minimal"
+export ZSH_STARSHIP_THEME="minimal"
 
 export HISTFILE="$ZSH/.zsh_history"
 export HISTSIZE=10000

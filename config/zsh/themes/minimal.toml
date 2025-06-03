@@ -1,0 +1,15 @@
+right_format = '$cmd_duration$status'
+format = '$directory$git_branch [❯](bright-black) '
+continuation_prompt = '❯ '
+
+[status]
+disabled = false
+format = '[$status]($style)'
+
+[fill]
+symbol = "-"
+style = 'black strikethrough'
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style)'
+style = 'green'
