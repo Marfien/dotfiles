@@ -34,19 +34,21 @@ brew "curl"
 brew "texlive"
 brew "bat"
 brew "fzf"
+brew "catimg"
 
 cask "docker"
-cask "alt-tab"
+cask "alt-tab" if OS.mac?
 cask "font-meslo-lg-nerd-font"
 cask "headlamp"
 cask "kitty"
-cask "raycast"
-cask "arc"
+cask "raycast" if OS.mac?
+cask "arc" if OS.mac?
 cask "sioyek"
 cask "discord"
 cask "anki"
 cask "jetbrains-toolbox"
 cask "spotify"
+cask "gimp"
 
 mas "Command X", id: 6448461551
 mas "Goodnotes", id: 1444383602

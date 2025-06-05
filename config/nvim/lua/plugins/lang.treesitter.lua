@@ -5,6 +5,7 @@ return {
       -- additional
       ensure_installed = {
         "css",
+        "ruby",
         "csv",
         "dockerfile",
         "editorconfig",
