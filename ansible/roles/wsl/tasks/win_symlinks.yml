@@ -9,4 +9,9 @@
     src: "{{ dotfiles_home }}/other/WindowsTerminal/settings.json"
     dest: "/mnt/c/Users/maha/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
     force: true
-
+- name: Link AHK Config
+  copy:
+    src: "{{ dotfiles_home }}/other/mac-umlauts.ahk"
+    # C:\Users\maha\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+    dest: "/mnt/c/Users/{{ windows_user.stdout }}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/mac-umlauts.ahk"
+    force: true

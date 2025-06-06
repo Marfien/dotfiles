@@ -1,32 +1,48 @@
 ---
 - name: Create dotfile symlinks
   block:
-  - register: find
-    find:
-      recurse: false
-      file_type: any
-      hidden: true
-      paths:
-        - '{{ dotfiles_home }}/dotfiles/'
-  - file:
-      src: '{{ item.path }}'
-      dest: "~/{{ item.path | basename }}"
-      state: link
-    with_items: '{{ find.files }}'
+    - register: find
+      find:
+        recurse: false
+        file_type: any
+        hidden: true
+        paths:
+          - "{{ dotfiles_home }}/dotfiles/"
+    - file:
+        src: "{{ item.path }}"
+        dest: "~/{{ item.path | basename }}"
+        state: link
+      with_items: "{{ find.files }}"
 - name: Create config symlinks
   block:
-  - file:
-      path: '~/.config'
-      state: directory
-  - register: find
-    find:
-      recurse: false
-      file_type: any
-      hidden: true
-      paths:
-        - '{{ dotfiles_home }}/config/'
-  - file:
-      src: '{{ item.path }}'
-      dest: "~/.config/{{ item.path | basename }}"
-      state: link
-    with_items: '{{ find.files }}'
+    - file:
+        path: "~/.config"
+        state: directory
+    - register: find_configs
+      find:
+        recurse: false
+        file_type: any
+        hidden: true
+        paths:
+          - "{{ dotfiles_home }}/config/"
+    - file:
+        src: "{{ item.path }}"
+        dest: "~/.config/{{ item.path | basename }}"
+        state: link
+      with_items: "{{ find_configs.files }}"
+- name: Symlink bin
+  block:
+    - file:
+        path: "~/bin"
+        state: directory
+    - register: find_bins
+      find:
+        recurse: false
+        file_type: file
+        paths:
+          - "{{ dotfiles_home }}/bin/"
+    - file:
+        src: "{{ item.path }}"
+        dest: "~/bin/{{ item.path | basename }}"
+        state: link
+      with_items: "{{ find_bins.files }}"
