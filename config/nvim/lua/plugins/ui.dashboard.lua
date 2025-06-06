@@ -6,7 +6,7 @@ return {
         sections = {
           {
             section = "terminal",
-            cmd = "catimg ~/.config/nvim/assets/dashboard.png; sleep .01",
+            cmd = "catimg ~/.config/nvim/assets/dashboard.png; sleep .001",
             height = 17,
             pane = 1,
           },

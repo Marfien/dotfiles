@@ -25,6 +25,22 @@ return {
     "nvim-lualine/lualine.nvim",
     opts = {
       sections = {
+        lualine_b = {
+          LazyVim.lualine.root_dir({ cwd = true }),
+          { "branch" },
+        },
+        lualine_c = {
+          { LazyVim.lualine.pretty_path() },
+          {
+            "fileformat",
+            icrons_enabled = true,
+            symbols = {
+              unix = "LF",
+              dos = "CRLF",
+              mac = "CR",
+            },
+          },
+        },
         lualine_y = {
           { "location", padding = { left = 0, right = 1 } },
         },
