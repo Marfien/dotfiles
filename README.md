@@ -15,14 +15,22 @@ git clone git@github.com:Marfien/dotfiles.git ~/.dotfiles/
 
 ## Setup
 
-Depending on your operating system, you need to execute on of the following commands next:
+Depending on your operating system, you need to execute on of the
+following commands next:
 
 ### Linux/MacOS
 
-This will prompt you for your password twice. One for sudo access and one for the become of ansible.
-The `sudo true` creates a sudo session which allows ansible to install brew in non-interactive mode.
+This will prompt you for your password twice. One for sudo access and one for the
+become of ansible.
+The `sudo true` creates a sudo session which allows ansible to install brew in
+non-interactive mode.
+
 ```shell
-sudo true && ansible-playbook -i .ansible/hosts .ansible/<wsl|workstation>.yml --ask-become-pass --extra-vars 'dotfiles_home=~/.dotfiles'
+sudo true && ansible-playbook \
+  -i ~/.dotfiles/ansible/hosts \
+  -ask-become-pass \
+  --extra-vars 'dotfiles_home=~/.dotfiles' \
+  .ansible/<wsl|workstation>.yml
 ```
 
 ## Fast forward
@@ -35,10 +43,9 @@ ssh-keygen -t ed25519 -C 'My new workstation'
 # Add ssh key to github
 DOTFILES_HOME="$HOME/.dotfiles"
 git clone git@github.com:Marfien/dotfiles.git "$DOTFILES_HOME"
-sudo true && ansible-playbook -i .ansible/hosts .ansible/workstation.yml --ask-become-pass --extra-vars "dotfiles_home=$DOTFILES_HOME"
+sudo true && ansible-playbook \
+  -i .ansible/hosts \
+  --ask-become-pass \
+  --extra-vars "dotfiles_home=$DOTFILES_HOME" \
+  .ansible/workstation.yml
 ```
-
-## TODOs
-
-[ ] Install docker on WSL
-[ ]
