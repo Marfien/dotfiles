@@ -5,7 +5,7 @@ Timeout() {
     UmlautTypingMode := false
 }
 
->!u:: {
+!u:: {
     global UmlautTypingMode
     UmlautTypingMode := true
     SetTimer(Timeout, -2000)
