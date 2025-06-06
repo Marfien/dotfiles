@@ -1,2 +1,2 @@
 [wsl2]
-vmTidleTimeout=-1
+vmIdleTimeout=-1
