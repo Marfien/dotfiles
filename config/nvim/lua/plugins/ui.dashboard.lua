@@ -50,6 +50,11 @@ return {
             action = ":q",
             key = "q",
           },
+          {
+            hidden = true,
+            action = ":ene | startinsert",
+            key = "n",
+          },
         },
       },
     },

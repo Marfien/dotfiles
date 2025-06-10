@@ -1,44 +1,57 @@
 tap "fluxcd/tap"
 
+# devops
+brew "opentofu"
+brew "minikube"
+brew "helm"
+brew "oras"
 brew "ansible"
+brew "k9s"
+brew "fluxcd/tap/flux"
+
+# data management
 brew "jq"
-brew "fd"
+brew "tree"
+brew "wget"
+brew "curl"
+brew "bat"
+brew "repomix"
+
+# cli
 brew "gh"
 brew "git"
 brew "glow"
-brew "helm"
-brew "jenv"
-brew "k9s"
-brew "luarocks"
-brew "mas" if OS.mac?
-brew "maven"
-brew "minikube"
 brew "neovim"
-brew "node"
-brew "nvm"
+brew "so"
+brew "tmux"
+
+# development
+brew "jenv"
+brew "maven"
 brew "openjdk@21"
 brew "openjdk@17"
 brew "openjdk@8"
-brew "oras"
 brew "python"
-brew "repomix"
-brew "so"
-brew "starship"
-brew "tmux"
-brew "opentofu"
-brew "tree"
-brew "wget"
+brew "node"
+brew "nvm"
+
+# zsh plugins
 brew "zsh"
 brew "zsh-autosuggestions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
-brew "fluxcd/tap/flux"
-brew "curl"
-brew "texlive"
-brew "bat"
 brew "fzf"
-brew "catimg"
+brew "starship"
+
+# lazy.nvim dependencies
 brew "jdtls"
+brew "rg"
+brew "luarocks"
+brew "texlive"
+brew "catimg"
+brew "fd"
+
+brew "mas" if OS.mac?
 
 cask "docker"
 cask "alt-tab" if OS.mac?
