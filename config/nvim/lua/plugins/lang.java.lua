@@ -7,7 +7,7 @@ local brewPath = brewHandle:read("*a")
 brewHandle:close()
 
 -- throw error when brewPath nil
-if brewPath ~= nil then
+if not brewPath then
   error("Brew Path cannot be found")
 end
 
@@ -29,6 +29,9 @@ return {
           },
           useBlocks = true,
         },
+        cleanup = {
+          actionsOnSave = { "qualifyStaticMembers", "qualifyMembers", "addOverride" },
+        },
         completion = {
           favoriteStaticMembers = {
             "org.hamcrest.MatcherAssert.assertThat",
@@ -48,21 +51,31 @@ return {
             "sun.*",
           },
         },
+        saveActions = {
+          organizeImports = true,
+        },
+        maven = {
+          downloadSources = true,
+        },
+        eclipse = {
+          downloadSources = true,
+        },
         configuration = {
           runtimes = {
             {
               name = "JavaSE-1.8",
-              path = brewHandle .. "/opt/openjdk@8",
+              path = brewPath .. "/opt/openjdk@8",
             },
             {
               name = "JavaSE-17",
-              path = brewHandle .. "/opt/openjdk@17",
+              path = brewPath .. "/opt/openjdk@17",
             },
             {
               name = "JavaSE-21",
-              path = brewHandle .. "/opt/openjdk@21",
+              path = brewPath .. "/opt/openjdk@21",
             },
           },
+          updateBuildConfiguration = "automatic",
         },
       },
     },
