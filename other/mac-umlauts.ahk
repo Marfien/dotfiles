@@ -11,6 +11,10 @@ Timeout() {
     SetTimer(Timeout, -2000)
 }
 
+!s:: {
+    SendText "ß"
+}
+
 #HotIf UmlautTypingMode
 
 a:: {
