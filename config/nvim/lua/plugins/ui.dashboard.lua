@@ -47,6 +47,11 @@ return {
           -- hidden section
           {
             hidden = true,
+            action = ":ene | startinsert",
+            key = "n",
+          },
+          {
+            hidden = true,
             action = ":q",
             key = "q",
           },
