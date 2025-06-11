@@ -17,7 +17,7 @@ else
 fi
 
 # Get the origin URL
-ORIGIN_URL="${ARGS[-1]}"
+ORIGIN_URL="${ARGS[${#ARGS[@]} - 1]}"
 
 if [[ "$ORIGIN_URL" =~ ^git@([^:]+):(.+)$ ]]; then
   DOMAIN="${BASH_REMATCH[1]}"
@@ -35,10 +35,15 @@ PATH_PART="${PATH_PART%.git}"
 
 # Determine namespace
 IFS='.' read -ra DOMAIN_PARTS <<<"$DOMAIN"
-if [[ "${DOMAIN_PARTS[0]}" == "git" || ${#DOMAIN_PARTS[@]} -eq 2 ]]; then
-  NAMESPACE="${DOMAIN_PARTS[-2]}"
-else
-  NAMESPACE="${DOMAIN_PARTS[-2]}/${DOMAIN_PARTS[0]}"
+# Get the domain name
+# Domain: sub.domain.tld
+# Index:   0    1     2
+# Rev:    -3   -2    -1
+NAMESPACE="${DOMAIN_PARTS[${#DOMAIN_PARTS[@]} - 2]}"
+
+# If there is a subdomain which is not 'git', include it in the namespace
+if [[ "${DOMAIN_PARTS[0]}" != "git" && ${#DOMAIN_PARTS[@]} -ne 2 ]]; then
+  NAMESPACE="$NAMESPACE/${DOMAIN_PARTS[0]}"
 fi
 
 # Determine full target directory
