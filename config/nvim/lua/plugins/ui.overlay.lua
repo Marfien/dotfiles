@@ -23,14 +23,20 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
+    dependencies = {
+      { "AndreM222/copilot-lualine" },
+    },
     opts = {
       sections = {
+        lualine_a = { "mode" },
         lualine_b = {
-          LazyVim.lualine.root_dir({ cwd = true }),
+          LazyVim.lualine.root_dir(),
           { "branch" },
         },
         lualine_c = {
           { LazyVim.lualine.pretty_path() },
+        },
+        lualine_x = {
           {
             "fileformat",
             icrons_enabled = true,
@@ -40,9 +46,42 @@ return {
               mac = "CR",
             },
           },
+          {
+            "encoding",
+            icons_enabled = true,
+          },
+          { "copilot" },
+          {
+            function()
+              return require("noice").api.status.mode.get()
+            end,
+            cond = function()
+              return package.loaded["noice"] and require("noice").api.status.mode.has()
+            end,
+            color = function()
+              return { fg = Snacks.util.color("Constant") }
+            end,
+          },
+          {
+            -- display debugger information
+            function()
+              return "  " .. require("dap").status()
+            end,
+            cond = function()
+              return package.loaded["dap"] and require("dap").status() ~= ""
+            end,
+            color = function()
+              return { fg = Snacks.util.color("Debug") }
+            end,
+          },
         },
         lualine_y = {
-          { "location", padding = { left = 0, right = 1 } },
+          { "location" },
+        },
+        lualine_z = {
+          function()
+            return " " .. os.date("%R")
+          end,
         },
       },
     },
