@@ -30,7 +30,6 @@ brew "jenv"
 brew "maven"
 brew "openjdk@21"
 brew "openjdk@17"
-brew "openjdk@8"
 brew "python"
 brew "node"
 brew "nvm"
@@ -57,7 +56,7 @@ cask "docker"
 cask "alt-tab" if OS.mac?
 cask "font-meslo-lg-nerd-font"
 cask "headlamp"
-cask "kitty"
+cask "wezterm"
 cask "raycast" if OS.mac?
 cask "arc" if OS.mac?
 cask "sioyek"
