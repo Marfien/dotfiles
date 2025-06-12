@@ -8,6 +8,7 @@ brew "oras"
 brew "ansible"
 brew "k9s"
 brew "fluxcd/tap/flux"
+brew "podman"
 
 # data management
 brew "jq"
@@ -52,7 +53,7 @@ brew "fd"
 
 brew "mas" if OS.mac?
 
-cask "docker"
+# cask "docker-desktop"
 cask "alt-tab" if OS.mac?
 cask "font-meslo-lg-nerd-font"
 cask "headlamp"
