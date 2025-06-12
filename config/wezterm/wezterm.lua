@@ -4,6 +4,16 @@ local default_distro = "Fedora"
 local config = {
 	font = wezterm.font("MesloLGL Nerd Font Mono"),
 	color_scheme = "Tokyo Night",
+	hide_tab_bar_if_only_one_tab = true,
+	max_fps = 30,
+	quote_dropped_files = "Posix",
+	window_padding = {
+		left = "0px",
+		right = "0px",
+		top = "0px",
+		bottom = "0px",
+	},
+	use_resize_increments = true,
 }
 
 -- windows specific config
