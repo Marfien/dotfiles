@@ -1,6 +1,7 @@
 return {
   {
     "zbirenbaum/copilot.lua",
+    enabled = false, -- disable copilot to make programming fun again
     cmd = "Copilot",
     build = ":Copilot auth",
     event = "BufReadPost",

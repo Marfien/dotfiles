@@ -14,8 +14,6 @@ end
 return {
   "mfussenegger/nvim-jdtls",
   opts = {
-    -- this is merged with full_cmd
-    cmd = brewPath .. "/bin/jdtls",
     -- settings is passed directly to jdtls
     settings = {
       java = {
@@ -54,9 +52,9 @@ return {
         saveActions = {
           organizeImports = true,
         },
-        maven = {
-          downloadSources = true,
-        },
+        -- maven = {
+        --   downloadSources = true,
+        -- },
         eclipse = {
           downloadSources = true,
         },

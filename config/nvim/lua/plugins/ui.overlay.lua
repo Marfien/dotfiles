@@ -22,6 +22,13 @@ return {
     end,
   },
   {
+    "petertriho/nvim-scrollbar",
+    opts = function()
+      local colors = require("tokyonight.colors").setup()
+      return {}
+    end,
+  },
+  {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       { "AndreM222/copilot-lualine" },
