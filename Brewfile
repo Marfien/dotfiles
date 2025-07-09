@@ -63,7 +63,6 @@ cask "arc" if OS.mac?
 cask "sioyek"
 cask "discord"
 cask "anki"
-cask "jetbrains-toolbox"
 cask "spotify"
 cask "gimp"
 

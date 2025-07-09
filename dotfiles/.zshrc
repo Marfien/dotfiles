@@ -36,7 +36,7 @@ for plugin in "$ZSH/plugins"/*.plugin.zsh; do
 done
 
 # completions
-autoload -Uz compinit; compinit
+autoload -Uz compinit
 
 FILE="$HOME/.zcompdump"
 NOW=$(date +%s)
