@@ -8,20 +8,32 @@ return {
         },
       },
       dashboard = {
+        preset = {
+          header = [[    *                  *             
+        __                *          
+     ,db'    *     *                 
+    ,d8/       *        *    *       
+    888                              
+    `db\       *     *               
+      `o`_                    **     
+ *               *   *    _      *   
+       *                 / )         
+    *    (\__/) *       ( (  *       
+  ,-.,-.,)    (.,-.,-.,-.) ).,-.,-.  
+ | @|  ={      }= | @|  / / | @|o |  
+_j__j__j_)     `-------/ /__j__j__j_ 
+________(               /___________ 
+ |  | @| \              || o|O | @|  
+ |o |  |,'\       ,   ,'"|  |  |  |  
+vV\|/vV|`-'\  ,---\   | \Vv\hjwVv\//v
+           _) )    `. \ /            
+          (__/       ) )             
+                    (_/              ]],
+        },
         sections = {
-          -- Column 1
           {
-            section = "terminal",
-            cmd = "catimg ~/.config/nvim/assets/dashboard.png",
-            height = 30,
-            padding = 1,
-            pane = 1,
+            section = "header",
           },
-          {
-            section = "startup",
-            pane = 1,
-          },
-          -- Column 2
           {
             icon = " ",
             title = "Projects",
@@ -29,10 +41,8 @@ return {
             indent = 2,
             padding = 1,
             limit = 14,
-            pane = 2,
           },
           {
-            pane = 2,
             icon = " ",
             title = "Git History",
             section = "terminal",
@@ -44,12 +54,10 @@ return {
             cmd = 'git log --pretty=format:"%C(auto,yellow)%h %C(auto,brightblue)%>(12,trunc)%ad %C(auto,reset)%>|(-1,trunc)%s" --date=relative -n 14; sleep 0.1',
             ttl = 5 * 60,
           },
-          -- hidden section
           {
-            hidden = true,
-            action = ":ene | startinsert",
-            key = "n",
+            section = "startup",
           },
+          -- hidden section
           {
             hidden = true,
             action = ":q",
