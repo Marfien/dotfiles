@@ -4,6 +4,9 @@
 
 local opt = vim.opt
 
+--
+-- Clipboard
+--
 if os.getenv("WSL_INTEROP") ~= nil or os.getenv("WSL_DISTRO_NAME") ~= nil then
   -- Windows clipboard
   vim.g.clipboard = {
@@ -21,3 +24,6 @@ if os.getenv("WSL_INTEROP") ~= nil or os.getenv("WSL_DISTRO_NAME") ~= nil then
 else
   opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 end
+
+-- Keep cursor in vertical center
+opt.scrolloff = 999
