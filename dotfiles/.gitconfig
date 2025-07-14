@@ -23,8 +23,9 @@
 [user]
   name = Marvin Haase
   email = contact@marfien.dev
+
+# Work config
 [includeIf "hasconfig:remote.*.url:https://*.soptim.net/*/**"]
   path = ~/.gitconfig.soptim.inc
 [includeIf "hasconfig:remote.*.url:git@*.soptim.net:*/**"]
   path = ~/.gitconfig.soptim.inc
-
