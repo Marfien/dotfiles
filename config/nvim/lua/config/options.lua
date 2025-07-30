@@ -3,13 +3,14 @@
 -- Add any additional options here
 
 local opt = vim.opt
+local g = vim.g
 
 --
 -- Clipboard
 --
 if os.getenv("WSL_INTEROP") ~= nil or os.getenv("WSL_DISTRO_NAME") ~= nil then
   -- Windows clipboard
-  vim.g.clipboard = {
+  g.clipboard = {
     name = "WslClipboard",
     copy = {
       ["+"] = "clip.exe",

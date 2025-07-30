@@ -21,6 +21,7 @@ brew "repomix"
 # cli
 brew "gh"
 brew "git"
+brew "git-lfs"
 brew "glow"
 brew "neovim"
 brew "so"
@@ -29,6 +30,7 @@ brew "tmux"
 # development
 brew "jenv"
 brew "maven"
+brew "openjdk@8" if not OS.mac? # There is no ARM binary for JDK-8
 brew "openjdk@21"
 brew "openjdk@17"
 brew "python"

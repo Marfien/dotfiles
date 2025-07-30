@@ -1,6 +1,7 @@
 return {
   {
     "lervag/vimtex",
+    enabled = false,
     lazy = false, -- lazy-loading will disable inverse search
     config = function()
       -- configure viewer
@@ -11,11 +12,17 @@ return {
       end
 
       vim.g.vimtex_quickfix_open_on_warning = 0
-      vim.g.vimtex_complete_enabled = 1
 
       vim.g.vimtex_compiler_latexmk = {
         aux_dir = "build/aux/",
         out_dir = "build/out/",
+        options = {
+          "-verbose",
+          "-file-line-error",
+          "-synctex=1",
+          "-interaction=nonstopmode",
+          "-shell-escape",
+        },
       }
     end,
   },
