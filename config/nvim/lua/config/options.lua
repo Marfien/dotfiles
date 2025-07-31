@@ -28,3 +28,7 @@ end
 
 -- Keep cursor in vertical center
 opt.scrolloff = 999
+
+-- Spell Checking
+opt.spell = true
+opt.spelllang = { "en", "de" }
