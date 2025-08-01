@@ -18,3 +18,14 @@ alias mkdir='mkdir -p'
 
 alias c='clipcopy'
 alias p='clippaste'
+
+wopen() {
+  if (( # != 1)); then
+    echo "usage: open <file>"
+  fi
+
+  (
+    cd "$(dirname $1)" || return 1
+    explorer.exe "$(basename $1)"
+  )
+}
