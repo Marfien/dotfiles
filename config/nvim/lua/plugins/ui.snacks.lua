@@ -58,6 +58,8 @@ return {
             list = {
               keys = {
                 ["<CR>"] = { "confirm_recurivly", mode = { "n", "i" } },
+                ["<C-k>"] = { "<C-w>k", expr = true, mode = { "n", "i" } },
+                ["<C-j>"] = { "<C-w>j", expr = true, mode = { "n", "i" } },
               },
             },
           },
