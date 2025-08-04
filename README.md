@@ -28,9 +28,9 @@ non-interactive mode.
 ```shell
 sudo true && ansible-playbook \
   -i ~/.dotfiles/ansible/hosts \
-  -ask-become-pass \
+  --ask-become-pass \
   --extra-vars 'dotfiles_home=~/.dotfiles' \
-  .ansible/<wsl|workstation>.yml
+  ansible/<wsl|workstation>.yml
 ```
 
 ## Fast forward
@@ -44,8 +44,8 @@ ssh-keygen -t ed25519 -C 'My new workstation'
 DOTFILES_HOME="$HOME/.dotfiles"
 git clone git@github.com:Marfien/dotfiles.git "$DOTFILES_HOME"
 sudo true && ansible-playbook \
-  -i .ansible/hosts \
+  -i ansible/hosts \
   --ask-become-pass \
   --extra-vars "dotfiles_home=$DOTFILES_HOME" \
-  .ansible/workstation.yml
+  ansible/workstation.yml
 ```
