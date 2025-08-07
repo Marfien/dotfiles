@@ -80,9 +80,94 @@
       }
     ]
   },
-  "schemes": [],
+  "schemes": [
+    {
+      "name": "Catppuccin Frappe",
+
+      "cursorColor": "#F2D5CF",
+      "selectionBackground": "#626880",
+
+      "background": "#303446",
+      "foreground": "#C6D0F5",
+
+      "black": "#51576D",
+      "red": "#E78284",
+      "green": "#A6D189",
+      "yellow": "#E5C890",
+      "blue": "#8CAAEE",
+      "purple": "#F4B8E4",
+      "cyan": "#81C8BE",
+      "white": "#B5BFE2",
+
+      "brightBlack": "#626880",
+      "brightRed": "#E78284",
+      "brightGreen": "#A6D189",
+      "brightYellow": "#E5C890",
+      "brightBlue": "#8CAAEE",
+      "brightPurple": "#F4B8E4",
+      "brightCyan": "#81C8BE",
+      "brightWhite": "#A5ADCE"
+    },
+    {
+      "name": "Catppuccin Latte",
+
+      "cursorColor": "#DC8A78",
+      "selectionBackground": "#ACB0BE",
+
+      "background": "#EFF1F5",
+      "foreground": "#4C4F69",
+
+      "black": "#5C5F77",
+      "red": "#D20F39",
+      "green": "#40A02B",
+      "yellow": "#DF8E1D",
+      "blue": "#1E66F5",
+      "purple": "#EA76CB",
+      "cyan": "#179299",
+      "white": "#ACB0BE",
+
+      "brightBlack": "#ACB0BE",
+      "brightRed": "#D20F39",
+      "brightGreen": "#40A02B",
+      "brightYellow": "#DF8E1D",
+      "brightBlue": "#1E66F5",
+      "brightPurple": "#EA76CB",
+      "brightCyan": "#179299",
+      "brightWhite": "#BCC0CC"
+    }
+  ],
   "showTabsInTitlebar": false,
   "theme": "system",
-  "themes": []
+  "themes": [
+    {
+      "name": "Catppuccin Frappe",
+      "tab": {
+        "background": "#303446FF",
+        "showCloseButton": "always",
+        "unfocusedBackground": null
+      },
+      "tabRow": {
+        "background": "#292C3CFF",
+        "unfocusedBackground": "#232634FF"
+      },
+      "window": {
+        "applicationTheme": "dark"
+      }
+    },
+    {
+      "name": "Catppuccin Latte",
+      "tab": {
+        "background": "#EFF1F5FF",
+        "showCloseButton": "always",
+        "unfocusedBackground": null
+      },
+      "tabRow": {
+        "background": "#E6E9EFFF",
+        "unfocusedBackground": "#DCE0E8FF"
+      },
+      "window": {
+        "applicationTheme": "light"
+      }
+    }
+  ]
 }
-
