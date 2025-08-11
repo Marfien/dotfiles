@@ -32,3 +32,5 @@ opt.scrolloff = 999
 -- Spell Checking
 opt.spell = true
 opt.spelllang = { "en", "de" }
+opt.spellsuggest = { "best", 5 }
+opt.spelloptions = { "camel" }
