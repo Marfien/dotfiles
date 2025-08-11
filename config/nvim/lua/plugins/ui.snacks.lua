@@ -48,6 +48,11 @@ return {
     picker = {
       sources = {
         explorer = {
+          layout = {
+            layout = {
+              position = "right",
+            },
+          },
           hidden = true,
           ignored = true,
           exclude = { ".git" },
