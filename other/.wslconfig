@@ -1,2 +1,3 @@
 [wsl2]
 vmIdleTimeout=-1
+networkingMode=mirrored
