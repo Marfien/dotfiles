@@ -34,9 +34,9 @@ brew "maven"
 brew "openjdk@8" if not OS.mac? # There is no ARM binary for JDK-8
 brew "openjdk@21"
 brew "openjdk@17"
+brew "uv"
 brew "node"
 brew "nvm"
-brew "uv"
 brew "go"
 
 # zsh plugins
