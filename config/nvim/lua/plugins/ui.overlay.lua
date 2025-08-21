@@ -115,6 +115,8 @@ return {
       options = {
         always_show_bufferline = true,
       },
+      -- fix incompatibility in LazyVim
+      highlights = require("catppuccin.groups.integrations.bufferline").get_theme(),
     },
   },
 }

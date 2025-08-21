@@ -14,22 +14,28 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+require("config.options")
+require("config.autocmds")
+require("config.keymaps")
+
 require("lazy").setup({
   spec = {
-    -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import/override with your plugins
     { import = "plugins" },
+    { import = "plugins.lang" },
+    { import = "plugins.ui" },
+    { import = "plugins.misc" },
+    { import = "plugins.editor" },
   },
   defaults = {
     lazy = false,
     version = false,
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
+  install = { colorscheme = { "catppuccin" } },
   checker = {
-    enabled = true, -- check for plugin updates periodically
+    enabled = true,
     notify = true,
   },
+  browser = vim.env.WSL_DISTRO_NAME and "/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" or nil,
   performance = {
     rtp = {
       -- disable some rtp plugins
