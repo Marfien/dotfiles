@@ -34,12 +34,16 @@ map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Wi
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- buffers
+local buffers = require("util.buffers")
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
--- TODO: delete buffers
 map("n", "<leader>bd", "<cmd>delbuf<cr>", { desc = "Delete current buffer" })
-map("n", "<leader>bo", "<cmd>delbuf<cr>", { desc = "Delete other buffers" })
-map("n", "<leader>bD", "<cmd>delbuf<cr>", { desc = "Delete current buffer and window" })
+map("n", "<leader>bo", function()
+  buffers.delete(buffers.others)
+end, { desc = "Delete other buffers" })
+map("n", "<leader>bD", function()
+  buffers.delete(buffers.all)
+end, { desc = "Delete current buffer and window" })
 
 -- unified search behavior
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })

@@ -1,0 +1,82 @@
+local M = {}
+
+local function safe_write()
+  local ok, choice = pcall(
+    vim.fn.confirm,
+    ("Save changes to %q?"):format(vim.fn.bufname()),
+    "&Yes" .. "\n" .. "&No" .. "\n" .. "&Cancel"
+  )
+  if not ok or choice == 0 or choice == 3 then
+    -- ESC or Cancel
+    return false
+  end
+  if choice == 1 then
+    vim.cmd.write()
+    return true
+  end
+end
+
+function swtich_buf(current_buf)
+  for _, win in ipairs(vim.fn.win_findbuf(current_buf)) do
+    vim.api.nvim_win_call(win, function()
+      if not vim.api.nvim_win_is_valid(win) or vim.api.nvim_win_get_buf(win) ~= current_buf then
+        return
+      end
+      -- Try using alternate buffer
+      local alt = vim.fn.bufnr("#")
+      if alt ~= current_buf and vim.fn.buflisted(alt) == 1 then
+        vim.api.nvim_win_set_buf(win, alt)
+        return
+      end
+
+      -- Try using previous buffer
+      local has_previous = pcall(vim.cmd, "bprevious")
+      if has_previous and current_buf ~= vim.api.nvim_win_get_buf(win) then
+        return
+      end
+
+      -- Create new listed buffer
+      local new_buf = vim.api.nvim_create_buf(true, false)
+      vim.api.nvim_win_set_buf(win, new_buf)
+    end)
+  end
+end
+
+local function delete(buf)
+  vim.api.nvim_buf_call(buf, function()
+    if vim.bo.modified and vim.opt.confirm ~= true then
+      if not safe_write() then
+        return
+      end
+    end
+
+    swtich_buf(buf)
+    if vim.api.nvim_buf_is_valid(buf) then
+      pcall(vim.cmd, "bdelete! ", buf)
+    end
+  end)
+end
+
+function M.delete(opts)
+  opts = opts or {}
+
+  if opts.filter then
+    for _, buf in ipairs(vim.tbl_filter(opts.filter, vim.api.nvim_list_bufs())) do
+      if vim.bo[buf].buflisted then
+        delete(buf)
+      end
+    end
+  else
+    delete(opts.buf or 0)
+  end
+end
+
+function M.others(buf)
+  return buf ~= vim.api.nvim_get_current_buf()
+end
+
+function M.all(_)
+  return true
+end
+
+return M
