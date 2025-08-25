@@ -49,7 +49,7 @@ opt.showmode = false -- > lualine
 opt.signcolumn = "yes"
 opt.timeoutlen = 300
 opt.updatetime = 200 -- write swap after this many ms
-opt.wildmode = "longest:full,fill"
+opt.wildmode = "longest:full,full"
 opt.wrap = false
 
 -- folding

@@ -1,3 +1,5 @@
+local paths = require("util.paths")
+
 return {
   {
     "folke/noice.nvim",
@@ -23,10 +25,6 @@ return {
   },
   {
     "petertriho/nvim-scrollbar",
-    opts = function()
-      local colors = require("tokyonight.colors").setup()
-      return {}
-    end,
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -36,12 +34,18 @@ return {
     opts = {
       sections = {
         lualine_a = { "mode" },
-        lualine_b = {
-          LazyVim.lualine.root_dir(),
+        lualine_b = { --󱉭
+          function()
+            return "󱉭 " .. vim.fs.basename(paths.project_root())
+          end,
           { "branch" },
         },
         lualine_c = {
-          { LazyVim.lualine.pretty_path() },
+          {
+            function()
+              return paths.pretty_path(paths.project_root())
+            end,
+          },
         },
         lualine_x = {
           {
@@ -58,17 +62,17 @@ return {
             icons_enabled = true,
           },
           { "copilot" },
-          {
-            function()
-              return require("noice").api.status.mode.get()
-            end,
-            cond = function()
-              return package.loaded["noice"] and require("noice").api.status.mode.has()
-            end,
-            color = function()
-              return { fg = Snacks.util.color("Constant") }
-            end,
-          },
+          -- {
+          --   function()
+          --     return require("noice").api.status.mode.get()
+          --   end,
+          --   cond = function()
+          --     return package.loaded["noice"] and require("noice").api.status.mode.has()
+          --   end,
+          --   color = function()
+          --     return { fg = Snacks.util.color("Constant") }
+          --   end,
+          -- },
           {
             -- display debugger information
             function()
@@ -76,9 +80,6 @@ return {
             end,
             cond = function()
               return package.loaded["dap"] and require("dap").status() ~= ""
-            end,
-            color = function()
-              return { fg = Snacks.util.color("Debug") }
             end,
           },
         },
@@ -115,8 +116,6 @@ return {
       options = {
         always_show_bufferline = true,
       },
-      -- fix incompatibility in LazyVim
-      highlights = require("catppuccin.groups.integrations.bufferline").get_theme(),
     },
   },
 }
