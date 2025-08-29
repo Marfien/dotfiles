@@ -2,18 +2,6 @@ local paths = require("util.paths")
 
 return {
   {
-    "folke/noice.nvim",
-    opts = {
-      presets = {
-        lsp_doc_border = true,
-      },
-    },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-  },
-  {
     "rcarriga/nvim-notify",
     lazy = false,
     opts = {
@@ -62,17 +50,6 @@ return {
             icons_enabled = true,
           },
           { "copilot" },
-          -- {
-          --   function()
-          --     return require("noice").api.status.mode.get()
-          --   end,
-          --   cond = function()
-          --     return package.loaded["noice"] and require("noice").api.status.mode.has()
-          --   end,
-          --   color = function()
-          --     return { fg = Snacks.util.color("Constant") }
-          --   end,
-          -- },
           {
             -- display debugger information
             function()

@@ -33,8 +33,6 @@ opt.pumblend = 10
 opt.pumheight = 10
 opt.ruler = false
 
-opt.conceallevel = 2 -- hide markup characters
-
 -- editor
 opt.confirm = true
 opt.cursorline = true
