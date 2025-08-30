@@ -12,10 +12,10 @@ local unmap = function(mode, lhs, desc)
 end
 
 -- disable arrow keys
-unmap({ "n", "v" }, "<Up>", "Arrows are to be shot, not to move!")
-unmap({ "n", "v" }, "<Down>", "Arrows are to be shot, not to move!")
-unmap({ "n", "v" }, "<Left>", "Arrows are to be shot, not to move!")
-unmap({ "n", "v" }, "<Right>", "Arrows are to be shot, not to move!")
+unmap({ "n", "v" }, "<Up>", "󱡁 Arrows are to be shot, not to move!")
+unmap({ "n", "v" }, "<Down>", "󱡁 Arrows are to be shot, not to move!")
+unmap({ "n", "v" }, "<Left>", "󱡁 Arrows are to be shot, not to move!")
+unmap({ "n", "v" }, "<Right>", "󱡁 Arrows are to be shot, not to move!")
 
 -- better up/down movement for wrapped lines
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })

@@ -6,6 +6,7 @@ return {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       { "nvim-tree/nvim-web-devicons", opts = {} },
+      "folke/noice.nvim",
     },
     opts = {
       defaults = {
@@ -21,11 +22,14 @@ return {
       telescope.setup(opts)
 
       telescope.load_extension("fzf")
+      telescope.load_extension("noice")
     end,
+    -- stylua: ignore
     keys = {
-      { "<leader><space>", require("telescope.builtin").find_files, desc = "Telescope find files" },
-      { "<leader>fl", require("telescope.builtin").live_grep, desc = "Telescope live grep" },
-      { "<leader>fs", require("telescope.builtin").grep_string, desc = "Telescope grep string" },
+      { "<leader><space>", function() require("telescope.builtin").find_files() end, desc = "Telescope find files" },
+      { "<leader>fl", function() require("telescope.builtin").live_grep() end, desc = "Telescope live grep" },
+      { "<leader>fs", function() require("telescope.builtin").grep_string() end, desc = "Telescope grep string" },
+      { "<leader>fm", function() "<cmd>Telescope noice<cr>", desc = "Telescope grep string" },
     },
   },
 }

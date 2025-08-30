@@ -32,7 +32,7 @@ function M.pretty_path(relative)
     dir_string = dir_string .. " 󰌾 "
   end
 
-  return dir_string
+  return require("nvim-web-devicons").get_icon(parts[#parts]) .. " " .. dir_string
 end
 
 return M

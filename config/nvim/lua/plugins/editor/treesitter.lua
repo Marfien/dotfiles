@@ -2,7 +2,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      -- additional
       ensure_installed = {
         "css",
         "ruby",
