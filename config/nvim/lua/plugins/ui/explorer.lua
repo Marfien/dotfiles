@@ -3,7 +3,7 @@ return {
     "stevearc/oil.nvim",
     lazy = false,
     dependencies = {
-      { "nvim-mini/mini.icons", opts = {} },
+      { "nvim-tree/nvim-web-devicons", opts = {} },
     },
     opts = {
       columns = {
@@ -16,6 +16,10 @@ return {
         is_always_hidden = function(name, bufnr)
           return name == ".git"
         end,
+      },
+      keymaps = {
+        ["q"] = { "actions.close", mode = "n" },
+        ["ESC"] = { "actions.close", mode = "n" },
       },
     },
     keys = {
