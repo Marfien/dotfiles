@@ -29,7 +29,7 @@ return {
       { "<leader><space>", function() require("telescope.builtin").find_files() end, desc = "Telescope find files" },
       { "<leader>fl", function() require("telescope.builtin").live_grep() end, desc = "Telescope live grep" },
       { "<leader>fs", function() require("telescope.builtin").grep_string() end, desc = "Telescope grep string" },
-      { "<leader>fm", function() "<cmd>Telescope noice<cr>", desc = "Telescope grep string" },
+      { "<leader>fm", "<cmd>Telescope noice<cr>", desc = "Telescope grep string" },
     },
   },
 }

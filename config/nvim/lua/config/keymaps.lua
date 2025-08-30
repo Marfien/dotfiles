@@ -41,10 +41,10 @@ map("n", "<leader>bd", function()
   buffers.delete()
 end, { desc = "Delete current buffer" })
 map("n", "<leader>bo", function()
-  buffers.delete(buffers.others)
+  buffers.delete({ filter = buffers.others })
 end, { desc = "Delete other buffers" })
 map("n", "<leader>bD", function()
-  buffers.delete(buffers.all)
+  buffers.delete({ filter = buffers.all })
 end, { desc = "Delete current buffer and window" })
 
 -- unified search behavior

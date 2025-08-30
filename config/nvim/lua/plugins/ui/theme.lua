@@ -13,6 +13,7 @@ return {
         dashboard = true,
         flash = true,
         fzf = true,
+        blink_cmp = true,
         grug_far = true,
         gitsigns = true,
         headlines = true,
