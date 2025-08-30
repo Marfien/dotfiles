@@ -1,7 +1,7 @@
 return {
   {
     "nvim-mini/mini.pairs",
-    event = "LazyFile",
+    event = "VeryLazy",
     opts = {
       skip_ts = { "string" },
       skip_unbalanced = true,
@@ -10,7 +10,7 @@ return {
   },
   {
     "windwp/nvim-ts-autotag",
-    event = "LazyFile",
+    event = "BufEnter",
     opts = {},
   },
 }
