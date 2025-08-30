@@ -31,6 +31,7 @@ brew "spotify_player"
 # development
 brew "jenv"
 brew "maven"
+brew "gradle"
 brew "openjdk@8" if not OS.mac? # There is no ARM binary for JDK-8
 brew "openjdk@21"
 brew "openjdk@17"
@@ -69,6 +70,7 @@ cask "discord"
 cask "anki"
 cask "spotify"
 cask "gimp"
+cask "curseforge" if OS.mac?
 
 mas "Command X", id: 6448461551
 mas "Goodnotes", id: 1444383602
