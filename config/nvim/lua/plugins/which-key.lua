@@ -7,6 +7,7 @@ return {
       { "<leader>f", group = "Find" },
       { "<leader>b", group = "Buffer" },
       { "<leader>w", group = "Window" },
+      { "<leader>.", group = "Management" },
     },
   },
   keys = {

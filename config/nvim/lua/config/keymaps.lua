@@ -60,7 +60,7 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- Lazy UI
-map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
+map("n", "<leader>.l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- Terminal
 map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
