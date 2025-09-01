@@ -1,7 +1,6 @@
 tap "fluxcd/tap"
 
 # devops
-brew "opentofu"
 brew "minikube"
 brew "helm"
 brew "oras"
@@ -9,6 +8,7 @@ brew "ansible"
 brew "k9s"
 brew "fluxcd/tap/flux"
 brew "podman"
+brew "terraform"
 
 # data management
 brew "jq"
