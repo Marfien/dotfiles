@@ -1,24 +1,7 @@
 local opt = vim.opt
 local g = vim.g
 
--- Clipboard
-if os.getenv("WSL_INTEROP") ~= nil or os.getenv("WSL_DISTRO_NAME") ~= nil then
-  -- Windows clipboard
-  g.clipboard = {
-    name = "WslClipboard",
-    copy = {
-      ["+"] = "clip.exe",
-      ["*"] = "clip.exe",
-    },
-    paste = {
-      ["+"] = 'powershell.exe -noprofile -command [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      ["*"] = 'powershell.exe -noprofile -command [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    },
-    cache_enabled = 0,
-  }
-else
-  opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-end
+opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 
 -- Spell Checking
 opt.spell = true
