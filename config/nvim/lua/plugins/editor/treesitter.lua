@@ -17,6 +17,12 @@ return {
         "pug",
         "sql",
       },
+      highlight = {
+        enabled = true,
+      },
+      indent = {
+        enabled = true,
+      },
     },
   },
 }
