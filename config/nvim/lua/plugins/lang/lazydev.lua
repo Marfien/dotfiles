@@ -15,9 +15,12 @@ return {
     },
     {
       "saghen/blink.cmp",
+      dependencies = {
+        "folke/lazydev.nvim",
+      },
       opts = {
         sources = {
-          default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+          default = { "lazydev" },
           providers = {
             lazydev = {
               name = "LazyDev",
@@ -27,6 +30,22 @@ return {
             },
           },
         },
+      },
+    },
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {
+        "stylua",
+      },
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
       },
     },
   },

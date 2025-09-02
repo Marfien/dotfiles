@@ -12,8 +12,8 @@ local function safe_write()
   end
   if choice == 1 then
     vim.cmd.write()
-    return true
   end
+  return true
 end
 
 function swtich_buf(current_buf)

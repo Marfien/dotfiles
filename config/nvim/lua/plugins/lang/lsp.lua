@@ -19,7 +19,8 @@ return {
     build = ":MasonUpdate",
     opts = {},
     keys = {
-      { "<leader>.m", "<cmd>Mason<cr>", desc = "Open Mason UI" },
+      { "<leader>.m", "<cmd>Mason<cr>", desc = "Mason" },
+      { "<leader>.p", "<cmd>LspInfo<cr>", desc = "LspInfo" },
     },
   },
 }

@@ -30,6 +30,8 @@ return {
       },
       win_options = {
         winbar = "%!v:lua.get_oil_winbar()",
+        relativenumber = false,
+        colorcolumn = "",
       },
       keymaps = {
         ["q"] = { "actions.close", mode = "n" },

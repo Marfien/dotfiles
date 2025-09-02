@@ -1,10 +1,8 @@
 local M = {}
 
-M.servers = {}
-
 function M.on_attach(_, bufnum)
   local nmap = function(keys, func, desc)
-    vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+    vim.keymap.set("n", keys, func, { buffer = bufnum, desc = desc })
   end
 
   nmap("<leader>cr", vim.lsp.buf.rename, "Rename")
@@ -19,20 +17,6 @@ function M.on_attach(_, bufnum)
   nmap("gI", require("telescope.builtin").lsp_implementations, "Goto Implementation")
 
   nmap("K", vim.lsp.buf.hover, "Hover Documentation") -- See `:help K` for why this keymap
-
-  -- Conform formats on every safe
-  -- vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-  --   vim.lsp.buf.format()
-  -- end, { desc = "Format current buffer with LSP" })
-end
-
-function M.setup_handler(server_name)
-  require("lspconfig")[server_name].setup({
-    capabilities = require("blink.cmp").get_lsp_capabilities(),
-    on_attach = M.on_attach
-    settings = servers[server_name],
-    filetypes = servers[server_name].filetypes
-  })
 end
 
 return M
