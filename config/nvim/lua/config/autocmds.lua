@@ -15,7 +15,8 @@ local function find_venv()
 end
 
 vim.api.nvim_create_autocmd({ "DirChanged" }, {
-  pattern = { "global" },
+  group = vim.api.nvim_create_augroup("venv_detect", {}),
+  pattern = "global",
   callback = function()
     local venv_dir = find_venv()
 
@@ -26,4 +27,12 @@ vim.api.nvim_create_autocmd({ "DirChanged" }, {
       vim.notify("Activated virtual environment: \n" .. venv_dir)
     end
   end,
+})
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("highlight_yank", {}),
+  pattern = "*",
+  callback = function ()
+    vim.highlight.on_yank({higroup = "IncSearch", timeout = 200})
+  end
 })

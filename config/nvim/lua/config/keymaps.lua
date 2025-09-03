@@ -75,3 +75,8 @@ map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 -- locations
 -- quickfixes
 -- diagnostics
+
+-- disable default lsp keymaps
+for _, bind in ipairs({ "grn", "gra", "gri", "grr", "q:" }) do
+  pcall(keymap.del, "n", bind)
+end

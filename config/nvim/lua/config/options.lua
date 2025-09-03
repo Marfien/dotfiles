@@ -60,6 +60,9 @@ opt.ignorecase = true
 opt.inccommand = "nosplit" -- preview incremental substitution
 opt.jumpoptions = "view"
 
+opt.splitbelow = true
+opt.splitright = true
+
 -- indenting
 opt.shiftround = true
 opt.shiftwidth = 2

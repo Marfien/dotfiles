@@ -25,7 +25,7 @@ return {
       view_options = {
         show_hidden = true,
         is_always_hidden = function(name, bufnr)
-          return name == ".git"
+          return name == ".git" or name == ".."
         end,
       },
       win_options = {

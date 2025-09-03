@@ -1,7 +1,10 @@
 return {
   {
     "stevearc/conform.nvim",
+    event = { "VeryLazy" },
     opts = {
+      log_level = vim.log.levels.WARNING,
+      notify_on_error = true,
       format_on_save = {
         -- These options will be passed to conform.format()
         timeout_ms = 500,

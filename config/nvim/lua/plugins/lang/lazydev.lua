@@ -9,8 +9,6 @@ return {
     },
     opts = {
       library = {
-        "vim",
-        "lazy.nvim",
         { path = "wezterm-types", mods = { "wezterm" } },
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
       },
@@ -40,8 +38,11 @@ return {
     opts = {
       ensure_installed = {
         formatter = {
-        "stylua",
-        }
+          "stylua",
+        },
+        lsp = {
+          "lua-language-server",
+        },
       },
     },
   },
@@ -50,6 +51,14 @@ return {
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
+      },
+    },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "lua",
       },
     },
   },
