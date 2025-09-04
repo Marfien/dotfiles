@@ -1,11 +1,22 @@
-return require("util.lsp").lang_support("go", "gopls", { "goimports", "gofumpt" }, {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "gomod",
-        "gowork",
-        "gosum",
+return require("util.lsp").ensure_lang({
+  ft = { "go", "gomod", "gowork", "gosum" },
+  lsp = "gopls",
+  formatters = { "goimports", "gofumpt" },
+  dap = "delve",
+  test_adapter = function()
+    return require("neotest-go")
+  end,
+  other = {
+    {
+      "leoluz/nvim-dap-go",
+      ft = "go",
+      opts = {},
+    },
+    {
+      "nvim-neotest/neotest-go",
+      ft = "go",
+      dependencies = {
+        "mfussenegger/nvim-dap",
       },
     },
   },

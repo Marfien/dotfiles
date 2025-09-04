@@ -5,17 +5,12 @@ vim.g.maplocalleader = "\\"
 
 local keymap = vim.keymap
 local map = keymap.set
-local unmap = function(mode, lhs, desc)
-  map(mode, lhs, function()
-    vim.notify("Unmapped: " .. desc)
-  end, { desc = desc })
-end
 
 -- disable arrow keys
-unmap({ "n", "v" }, "<Up>", "󱡁 Arrows are to be shot, not to move!")
-unmap({ "n", "v" }, "<Down>", "󱡁 Arrows are to be shot, not to move!")
-unmap({ "n", "v" }, "<Left>", "󱡁 Arrows are to be shot, not to move!")
-unmap({ "n", "v" }, "<Right>", "󱡁 Arrows are to be shot, not to move!")
+pcall(keymap.del, { "n", "v" }, "<Up>")
+pcall(keymap.del, { "n", "v" }, "<Down>")
+pcall(keymap.del, { "n", "v" }, "<Left>")
+pcall(keymap.del, { "n", "v" }, "<Right>")
 
 -- better up/down movement for wrapped lines
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })

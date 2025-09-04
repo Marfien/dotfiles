@@ -1,9 +1,12 @@
+local paths = require("util.paths")
+
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
     { "AndreM222/copilot-lualine" },
     { "nvim-tree/nvim-web-devicons", opts = {} },
     { "folke/noice.nvim" },
+    { "stevearc/aerial.nvim" },
   },
   opts = {
     sections = {
@@ -20,6 +23,7 @@ return {
             return paths.pretty_path(paths.project_root())
           end,
         },
+        { "aerial" },
       },
       lualine_x = {
         { "lsp_status" },

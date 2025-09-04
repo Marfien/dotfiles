@@ -1,3 +1,8 @@
-return require("util.lsp").lang_support("lua", "lua-language-server", { "stylua" }, {
-  "justinsgithub/wezterm-types",
+return require("util.lsp").ensure_lang({
+  ft = { "lua" },
+  lsp = "lua-language-server",
+  formatters = { "stylua" },
+  other = {
+    "justinsgithub/wezterm-types",
+  },
 })

@@ -12,7 +12,7 @@ return {
       },
     },
     keys = {
-      { "<leader>.c", "<cmd>ConformInfo<cr>", { desc = "Conform" } },
+      { "<leader>.c", "<cmd>ConformInfo<cr>", desc = "Conform" },
     },
   },
 }

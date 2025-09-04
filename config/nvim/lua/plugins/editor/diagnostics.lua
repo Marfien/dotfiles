@@ -19,8 +19,19 @@ return {
       require("tiny-inline-diagnostic").setup(opts)
       vim.diagnostic.config({
         virtual_text = false,
---        signs = false,
-      }) -- Disable default virtual text
+        signs = false,
+      })
     end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufEnter",
+    opts = {
+      signs = false,
+      pattern = "\b(KEYWORDS)\b",
+    },
+    keys = {
+      { "<leader>ft", "<cmd>:TodoTelescope<cr>", desc = "Find TODOs" },
+    },
   },
 }

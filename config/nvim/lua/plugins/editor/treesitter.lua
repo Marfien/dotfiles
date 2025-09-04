@@ -1,6 +1,10 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    opts_extend = {
+      "ensure_installed",
+    },
     opts = {
       ensure_installed = {
         "css",
@@ -24,6 +28,9 @@ return {
         enabled = true,
       },
     },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter-context",

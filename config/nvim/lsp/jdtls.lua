@@ -16,6 +16,11 @@ if not brewPath then
 end
 
 return {
+  --  cmd = {
+  --    vim.fn.expand("~/.local/share/nvim/mason/bin/jdtls"),
+  --    ("--jvm-arg=-javaagent:%s"):format(vim.fn.expand("~/.local/share/nvim/mason/packages/jdtls/lombok.jar")),
+  --  },
+  bundles = vim.split(vim.fn.glob("~/.local/share/nvim/mason/packages/java-*/extension/server/*.jar", true), "\n"),
   settings = {
     java = {
       inlayHints = {

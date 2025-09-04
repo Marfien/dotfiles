@@ -1,6 +1,6 @@
 local M = {}
 
-function on_attach(bufnum, client_id)
+local function on_attach(bufnum, client_id)
   local nmap = function(keys, func, desc)
     vim.keymap.set("n", keys, func, { buffer = bufnum, desc = desc })
   end
@@ -38,9 +38,7 @@ function M.ensure_treesitter(ft)
   return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = {
-        ft,
-      },
+      ensure_installed = ft,
     },
   }
 end
@@ -66,6 +64,18 @@ function M.ensure_formatters(ft, pkgs)
   }
 end
 
+function M.ensure_dap(pkg)
+  return {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = {
+        dap = {
+          pkg,
+        },
+      },
+    },
+  }
+end
 function M.ensure_lsp(pkg)
   return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -79,19 +89,37 @@ function M.ensure_lsp(pkg)
   }
 end
 
-function M.lang_support(filetype, lsp, formatters, other)
-  local plugins = other or {}
+function M.ensure_lang(opts)
+  opts = opts or {}
+  local plugins = opts.other or {}
 
-  table.insert(plugins, M.ensure_treesitter(filetype))
+  table.insert(plugins, M.ensure_treesitter(opts.parsers or opts.ft))
 
-  if lsp then
-    table.insert(plugins, M.ensure_lsp(lsp))
+  if opts.lsp then
+    table.insert(plugins, M.ensure_lsp(opts.lsp))
   end
 
-  if formatters then
-    local formatter_configs = M.ensure_formatters(filetype, formatters)
-    table.insert(plugins, formatter_configs[1])
-    table.insert(plugins, formatter_configs[2])
+  if opts.formatters then
+    for _, ft in ipairs(opts.ft) do
+      for _, pl in ipairs(M.ensure_formatters(ft, opts.formatters)) do
+        table.insert(plugins, pl)
+      end
+    end
+  end
+
+  if opts.dap then
+    table.insert(plugins, M.ensure_dap(opts.dap))
+  end
+
+  if opts.test_adapter then
+    table.insert(plugins, {
+      "nvim-neotest/neotest",
+      opts = {
+        adapters = {
+          opts.test_adapter,
+        },
+      },
+    })
   end
 
   return plugins

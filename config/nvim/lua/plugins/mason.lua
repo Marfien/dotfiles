@@ -1,3 +1,9 @@
+local mason_to_x = {
+  ["lua-language-server"] = "lua_ls",
+  ["java-debug-adapter"] = "java-adapter",
+  ["terraform-ls"] = "terraformls",
+}
+
 return {
   {
     "mason-org/mason.nvim",
@@ -16,7 +22,6 @@ return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     dependencies = {
       "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
     },
     opts = {
       ensure_installed = {
@@ -45,7 +50,7 @@ return {
       require("mason-tool-installer").setup({ ensure_installed = mti_opts_ensure_installed })
 
       for _, lsp in ipairs(opts.ensure_installed.lsp) do
-        local lspconfig_name = require("mason-lspconfig.mappings").get_mason_map().package_to_lspconfig[lsp] or lsp
+        local lspconfig_name = mason_to_x[lsp] or lsp
         vim.lsp.enable(lspconfig_name)
       end
 

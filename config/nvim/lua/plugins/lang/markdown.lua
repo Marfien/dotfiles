@@ -1,17 +1,23 @@
-return require("util.lsp").lang_support("markdown", nil, { "prettier" }, {
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
-    opts = {
-      checkbox = {
-        enabled = true,
+return require("util.lsp").ensure_lang({
+  parsers = { "markdown" },
+  ft = { "md", "markdown" },
+  formatters = { "prettier" },
+  other = {
+    {
+      "MeanderingProgrammer/render-markdown.nvim",
+      ft = "md",
+      dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-tree/nvim-web-devicons",
       },
-      completions = {
-        lsp = {
+      opts = {
+        checkbox = {
           enabled = true,
+        },
+        completions = {
+          lsp = {
+            enabled = true,
+          },
         },
       },
     },
