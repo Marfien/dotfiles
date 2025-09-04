@@ -13,7 +13,8 @@ return {
       _G.floatty_toggle = floatty.toggle
     end,
     keys = {
-      { "<c-_>", "<cmd>lua floatty_toggle()<cr>", desc = "Toggle Terminal", mode = { "n", "t" } },
+      { "<c-/>", "<cmd>lua floatty_toggle()<cr>", desc = "Toggle Terminal", mode = { "n", "t" } },
+      { "<c-_>", "<cmd>lua floatty_toggle()<cr>", desc = "which_key_ignore", mode = { "n", "t" } },
     },
   },
 }

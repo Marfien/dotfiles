@@ -9,10 +9,7 @@ brewHandle:close()
 -- throw error when brewPath nil
 if not brewPath then
   vim.notify("Brew Path cannot be found. Disabling nvim-jdtls...")
-  return {
-    "mfussenegger/nvim-jdtls",
-    enabled = false,
-  }
+  return false
 end
 
 return {

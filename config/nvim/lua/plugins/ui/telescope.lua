@@ -1,7 +1,7 @@
 local timeout_seconds = 30
 local resume_timeout = nil
 
-local function telescope_left()
+local function on_close()
   if resume_timeout then
     resume_timeout:stop()
     resume_timeout:close()
@@ -30,14 +30,20 @@ end
 return {
   {
     "nvim-telescope/telescope.nvim",
-    event = "VeryLazy",
+    lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      { "nvim-tree/nvim-web-devicons", opts = {} },
+      { "nvim-tree/nvim-web-devicons" },
       "folke/noice.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
     },
     opts = {
+      extensions = {
+        ["ui-select"] = {
+          require("telescope.themes").get_dropdown({}),
+        },
+      },
       pickers = {
         find_files = {
           hidden = true,
@@ -73,14 +79,13 @@ return {
 
       telescope.load_extension("fzf")
       telescope.load_extension("noice")
+      telescope.load_extension("ui-select")
 
       vim.api.nvim_create_autocmd({ "BufLeave", "BufWinLeave" }, {
         callback = function(event)
-          if vim.bo[event.buf].filetype ~= "TelescopePrompt" then
-            return
+          if vim.bo[event.buf].filetype == "TelescopePrompt" then
+            on_close()
           end
-
-          telescope_left()
         end,
       })
     end,

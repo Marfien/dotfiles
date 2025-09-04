@@ -17,7 +17,6 @@ return {
         "html",
         "http",
         "jq",
-        "ruby",
         "pug",
         "sql",
       },
