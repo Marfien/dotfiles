@@ -5,6 +5,7 @@ return {
     preset = "helix",
     spec = {
       { "<leader>a", group = "AI" },
+      { "<leader>g", group = "Git" },
       { "<leader>f", group = "Find" },
       { "<leader>b", group = "Buffer" },
       { "<leader>w", group = "Window" },

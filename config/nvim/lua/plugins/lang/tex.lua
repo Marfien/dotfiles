@@ -5,7 +5,7 @@ return require("util.lsp").ensure_lang({
   other = {
     {
       "lervag/vimtex",
-      lazy = false, -- lazy-loading will disable inverse search
+      lazy = false,
       ft = "tex",
       config = function()
         -- configure viewer

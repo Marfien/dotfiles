@@ -20,6 +20,7 @@ return {
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    event = "BufReadPre",
     dependencies = {
       "mason-org/mason.nvim",
     },

@@ -1,7 +1,9 @@
 return {
   {
     "mfussenegger/nvim-dap",
-    event = "VeryLazy",
+    dependencies = {
+      "theHamsta/nvim-dap-virtual-text",
+    },
     opts_extend = {
       "dap.adapters",
     },
@@ -24,7 +26,6 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
-    event = "VeryLazy",
     dependencies = {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
@@ -56,9 +57,8 @@ return {
   },
   {
     "theHamsta/nvim-dap-virtual-text",
-    event = "VeryLazy",
+    lazy = true,
     dependencies = {
-      "mfussenegger/nvim-dap",
       "nvim-treesitter/nvim-treesitter",
     },
     opts = {},
