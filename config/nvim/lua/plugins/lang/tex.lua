@@ -1,7 +1,8 @@
-return {
+return require("util.lsp").lang_support("tex", nil, { "tex-fmt", "bibtex-tidy" }, {
   {
     "lervag/vimtex",
     lazy = false, -- lazy-loading will disable inverse search
+    ft = "tex",
     config = function()
       -- configure viewer
       vim.g.vimtex_view_method = "sioyek"
@@ -26,22 +27,4 @@ return {
       }
     end,
   },
-  {
-    "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "tex-fmt",
-        "bibtex-tidy",
-      },
-    },
-  },
-  {
-    "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
-        tex = { "tex-fmt" },
-        bib = { "bibtex-tidy" },
-      },
-    },
-  },
-}
+})

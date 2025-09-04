@@ -34,4 +34,67 @@ function M.autocmd()
   }
 end
 
+function M.ensure_treesitter(ft)
+  return {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        ft,
+      },
+    },
+  }
+end
+
+function M.ensure_formatters(ft, pkgs)
+  return {
+    {
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+      opts = {
+        ensure_installed = {
+          formatter = pkgs,
+        },
+      },
+    },
+    {
+      "stevearc/conform.nvim",
+      opts = {
+        formatters_by_ft = {
+          [ft] = pkgs,
+        },
+      },
+    },
+  }
+end
+
+function M.ensure_lsp(pkg)
+  return {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = {
+        lsp = {
+          pkg,
+        },
+      },
+    },
+  }
+end
+
+function M.lang_support(filetype, lsp, formatters, other)
+  local plugins = other or {}
+
+  table.insert(plugins, M.ensure_treesitter(filetype))
+
+  if lsp then
+    table.insert(plugins, M.ensure_lsp(lsp))
+  end
+
+  if formatters then
+    local formatter_configs = M.ensure_formatters(filetype, formatters)
+    table.insert(plugins, formatter_configs[1])
+    table.insert(plugins, formatter_configs[2])
+  end
+
+  return plugins
+end
+
 return M

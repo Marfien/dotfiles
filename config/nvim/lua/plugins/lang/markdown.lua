@@ -1,4 +1,4 @@
-return {
+return require("util.lsp").lang_support("markdown", nil, {"prettier"}, {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = {
@@ -16,4 +16,4 @@ return {
       },
     },
   },
-}
+})

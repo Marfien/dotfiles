@@ -9,6 +9,11 @@ return {
       "folke/noice.nvim",
     },
     opts = {
+      pickers = {
+        find_files = {
+          hidden = true,
+        },
+      },
       defaults = {
         mappings = {
           n = {

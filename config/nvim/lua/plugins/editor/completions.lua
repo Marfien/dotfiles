@@ -7,7 +7,12 @@ return {
       "rafamadriz/friendly-snippets",
     },
     opts = {
-      keymap = { preset = "enter" },
+      keymap = {
+        preset = "enter",
+
+        ["<c-j>"] = { "select_next", "fallback_to_mappings" },
+        ["<c-k>"] = { "select_prev", "show_signature", "hide_signature", "fallback_to_mappings" },
+      },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
       },
@@ -20,8 +25,8 @@ return {
         menu = {
           draw = {
             columns = {
-              { "label",     "label_description", gap = 1 },
-              { "kind_icon", "kind",              gap = 1, "source_name" },
+              { "label", "label_description", gap = 1 },
+              { "kind_icon", "kind", gap = 1, "source_name" },
             },
           },
         },
