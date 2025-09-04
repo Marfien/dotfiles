@@ -29,3 +29,8 @@
   path = ~/.gitconfig.soptim.inc
 [includeIf "hasconfig:remote.*.url:git@*.soptim.net:*/**"]
   path = ~/.gitconfig.soptim.inc
+
+[merge]
+  tool = nvimdiff
+
+[mergetool "nvimdiff"]
