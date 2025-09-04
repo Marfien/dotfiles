@@ -9,15 +9,12 @@ local function on_attach(bufnum, client_id)
   nmap("<leader>cr", vim.lsp.buf.rename, "Rename")
   nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
   nmap("<leader>ck", vim.lsp.buf.signature_help, "Code Signature")
-  nmap("<leader>cs", require("telescope.builtin").lsp_document_symbols, "Code Symbols")
-  nmap("<leader>cw", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
-
-  -- find mappings
-  nmap("<leader>fi", require("telescope.builtin").lsp_implementations, "Find Implementation")
-  nmap("<leader>fr", require("telescope.builtin").lsp_references, "Find References")
+  nmap("<leader>cs", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
+  nmap("<leader>ci", require("telescope.builtin").lsp_implementations, "Find Implementation")
+  nmap("<leader>cr", require("telescope.builtin").lsp_references, "Find References")
+  nmap("<leader>cd", require("telescope.builtin").lsp_definitions, "Goto Definition")
 
   -- goto mappings
-  nmap("gd", require("telescope.builtin").lsp_definitions, "Goto Definition")
   nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
 
   pcall(vim.keymap.del, "n", "K", { buffer = bufnum })

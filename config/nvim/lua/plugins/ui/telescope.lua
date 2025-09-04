@@ -45,6 +45,15 @@ return {
         },
       },
       pickers = {
+        lsp_definitions = {
+          theme = "dropdown",
+        },
+        lsp_references = {
+          theme = "dropdown",
+        },
+        lsp_implementations = {
+          theme = "dropdown",
+        },
         find_files = {
           hidden = true,
           file_ignore_patterns = {
