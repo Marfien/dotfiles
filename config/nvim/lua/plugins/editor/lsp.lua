@@ -18,12 +18,6 @@ return {
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
     },
-    opts_extend = {
-      "ensure_installed.lsp",
-      "ensure_installed.dap",
-      "ensure_installed.formatter",
-      "ensure_installed.linter",
-    },
     opts = {
       ensure_installed = {
         lsp = {},
@@ -33,7 +27,7 @@ return {
       },
     },
     config = function(_, opts)
-      mti_opts_ensure_installed = {}
+      local mti_opts_ensure_installed = {}
 
       for _, val in ipairs(opts.ensure_installed.lsp) do
         table.insert(mti_opts_ensure_installed, val)
@@ -62,5 +56,11 @@ return {
       -- on_attach
       vim.api.nvim_create_autocmd("LspAttach", require("util.lsp").autocmd())
     end,
+    opts_extend = {
+      "ensure_installed.lsp",
+      "ensure_installed.dap",
+      "ensure_installed.formatter",
+      "ensure_installed.linter",
+    },
   },
 }

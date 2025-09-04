@@ -1,4 +1,4 @@
-return require("util.lsp").lang_support("go", "gopls", { "goimport", "gofumpt" }, {
+return require("util.lsp").lang_support("go", "gopls", { "goimports", "gofumpt" }, {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {

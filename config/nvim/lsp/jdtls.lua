@@ -18,6 +18,11 @@ end
 return {
   settings = {
     java = {
+      inlayHints = {
+        parameterNames = {
+          enabled = "all",
+        },
+      },
       contentProvider = { preferred = "fernflower" },
       codeGeneration = {
         toString = {
