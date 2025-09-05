@@ -49,12 +49,13 @@ brew "fzf"
 brew "starship"
 
 # lazy.nvim dependencies
-brew "jdtls"
 brew "rg"
 brew "luarocks"
 brew "texlive"
 brew "catimg"
 brew "fd"
+tap "alesbrelih/gitlab-ci-ls"
+brew "alesbrelih/gitlab-ci-ls/gitlab-ci-ls"
 
 brew "mas" if OS.mac?
 

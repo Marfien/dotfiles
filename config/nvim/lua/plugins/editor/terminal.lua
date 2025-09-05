@@ -11,6 +11,8 @@ return {
     config = function(_, opts)
       local floatty = require("floatty").setup(opts)
       _G.floatty_toggle = floatty.toggle
+
+      vim.keymap.set("t", "<ESC><ESC><ESC>", "<C-\\><C-n>", { desc = "Go to normal mode" })
     end,
     keys = {
       { "<c-/>", "<cmd>lua floatty_toggle()<cr>", desc = "Toggle Terminal", mode = { "n", "t" } },

@@ -1,4 +1,17 @@
 local timeout_seconds = 30
+local file_ignore_patterns = {
+  ".git/",
+  ".cache",
+  "%.o",
+  "%.a",
+  "%.out",
+  "%.class",
+  "%.pdf",
+  "%.mkv",
+  "%.mp4",
+  "%.zip",
+}
+
 local resume_timeout = nil
 
 local function on_close()
@@ -30,7 +43,6 @@ end
 return {
   {
     "nvim-telescope/telescope.nvim",
-    lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -39,11 +51,6 @@ return {
       "nvim-telescope/telescope-ui-select.nvim",
     },
     opts = {
-      extensions = {
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown({}),
-        },
-      },
       pickers = {
         lsp_definitions = {
           theme = "dropdown",
@@ -54,20 +61,15 @@ return {
         lsp_implementations = {
           theme = "dropdown",
         },
+        live_grep = {
+          file_ignore_patterns = file_ignore_patterns,
+          additional_args = function(_)
+            return { "--hidden" }
+          end,
+        },
         find_files = {
           hidden = true,
-          file_ignore_patterns = {
-            ".git/",
-            ".cache",
-            "%.o",
-            "%.a",
-            "%.out",
-            "%.class",
-            "%.pdf",
-            "%.mkv",
-            "%.mp4",
-            "%.zip",
-          },
+          file_ignore_patterns = file_ignore_patterns,
         },
       },
       defaults = {
@@ -84,7 +86,14 @@ return {
     },
     config = function(_, opts)
       local telescope = require("telescope")
-      telescope.setup(opts)
+
+      telescope.setup(vim.tbl_deep_extend("force", opts, {
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown({}),
+          },
+        },
+      }))
 
       telescope.load_extension("fzf")
       telescope.load_extension("noice")
@@ -101,9 +110,9 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader><space>", "<cmd>lua telescope_resume_or_files()<cr>", desc = "Resume or find files" },
-      { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", desc = "Find files" },
-      { "<leader>fl", "<cmd>lua require('telescope.builtin').live_grep()<cr>", desc = "Live grep" },
-      { "<leader>fs", "<cmd>lua require('telescope.builtin').grep_string()<cr>", desc = "Grep string" },
+      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+      { "<leader>fl", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+      { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Grep string" },
       { "<leader>fn", "<cmd>Telescope noice<cr>", desc = "Telescope notifications" },
     },
   },

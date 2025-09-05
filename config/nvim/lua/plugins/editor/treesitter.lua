@@ -2,6 +2,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
+    build = ":TSUpdate",
     opts_extend = {
       "ensure_installed",
     },
@@ -19,12 +20,13 @@ return {
         "jq",
         "pug",
         "sql",
+        "bash",
       },
       highlight = {
-        enabled = true,
+        enable = true,
       },
       indent = {
-        enabled = true,
+        enable = true,
       },
     },
     config = function(_, opts)

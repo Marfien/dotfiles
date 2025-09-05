@@ -1,11 +1,10 @@
 local opt = vim.opt
-local g = vim.g
 
 opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 
 -- Spell Checking
 opt.spell = true
-opt.spelllang = { "en", "de" }
+-- opt.spelllang = { "en", "de" }
 opt.spellsuggest = { "best", 5 }
 opt.spelloptions = { "camel" }
 opt.smartcase = true
