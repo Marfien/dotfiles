@@ -57,10 +57,6 @@ map("v", ">", ">gv")
 -- Lazy UI
 map("n", "<leader>.l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
--- Terminal
-map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
-
 -- Window management
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })

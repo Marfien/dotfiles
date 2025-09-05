@@ -26,6 +26,7 @@ return {
   {
     "folke/todo-comments.nvim",
     cmd = "TodoTelescope",
+    event = { "BufReadPost" },
     opts = {
       signs = false,
       pattern = "\b(KEYWORDS)\b",
