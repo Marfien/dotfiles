@@ -1,5 +1,6 @@
 return require("util.lsp").ensure_lang({
-  ft = { "go", "gomod", "gowork", "gosum" },
+  parsers = { "go", "gomod", "gowork", "gosum" },
+  ft = { "go", "sum", "mod", "work" },
   lsp = "gopls",
   formatters = { "goimports", "gofumpt" },
   dap = "delve",

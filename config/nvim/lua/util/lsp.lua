@@ -86,6 +86,8 @@ function M.ensure_lsp(pkg)
   }
 end
 
+---@class util.lsp.LangSpec
+---@field lsp string
 function M.ensure_lang(opts)
   opts = opts or {}
   local plugins = opts.other or {}

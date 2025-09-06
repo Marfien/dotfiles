@@ -33,4 +33,5 @@
 [merge]
   tool = nvimdiff
 
-[mergetool "nvimdiff"]
+[pull]
+  rebase = true
