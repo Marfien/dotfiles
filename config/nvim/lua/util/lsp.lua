@@ -88,6 +88,16 @@ end
 
 ---@class util.lsp.LangSpec
 ---@field lsp string
+---@field other table
+---@field parsers table
+---@field ft table
+---@field formatters table
+---@field dap string
+---@field test_adapter function
+
+---Definition
+---@param opts util.lsp.LangSpec
+---@return table
 function M.ensure_lang(opts)
   opts = opts or {}
   local plugins = opts.other or {}
