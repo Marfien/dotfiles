@@ -6,13 +6,13 @@ local function on_attach(bufnum, client_id)
   end
 
   -- code mapings
-  nmap("<leader>cr", vim.lsp.buf.rename, "Rename")
+  nmap("<leader>cn", vim.lsp.buf.rename, "Rename")
   nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
   nmap("<leader>ck", vim.lsp.buf.signature_help, "Code Signature")
   nmap("<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols")
   nmap("<leader>ci", "<cmd>Telescope lsp_implementations<cr>", "Find Implementation")
-  nmap("<leader>cr", "<cmd>Telescope lsp_references", "Find References")
-  nmap("<leader>cd", "<cmd>Telescope lsp_definitions", "Goto Definition")
+  nmap("<leader>cr", "<cmd>Telescope lsp_references<cr>", "Find References")
+  nmap("<leader>cd", "<cmd>Telescope lsp_definitions<cr>", "Goto Definition")
 
   -- goto mappings
   nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
@@ -88,12 +88,12 @@ end
 
 ---@class util.lsp.LangSpec
 ---@field lsp string
----@field other table
----@field parsers table
+---@field other? table
+---@field parsers? table
 ---@field ft table
----@field formatters table
----@field dap string
----@field test_adapter function
+---@field formatters? table
+---@field dap? string
+---@field test_adapter? function
 
 ---Definition
 ---@param opts util.lsp.LangSpec

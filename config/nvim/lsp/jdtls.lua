@@ -1,24 +1,51 @@
-local brewHandle = io.popen("brew --prefix")
-if not brewHandle then
+local brew_handle = io.popen("brew --prefix")
+if not brew_handle then
   error("Brew Path could not be determined")
 end
 
-local brewPath = brewHandle:read("*a")
-brewHandle:close()
+local brew_path = brew_handle:read("*a")
+brew_handle:close()
 
 -- throw error when brewPath nil
-if not brewPath then
+if not brew_path then
   vim.notify("Brew Path cannot be found. Disabling nvim-jdtls...")
   return false
 end
 
--- TODO: install path
+function get_openjdk_runtime(version)
+  return {
+    name = "OpenJDK-" .. version,
+    path = brew_path .. "/opt/openjdk@" .. version,
+  }
+end
+
+local mason_dir = require("mason-core.installer.InstallLocation").global():get_dir()
+local jdtls_dir = mason_dir .. "/jdtls"
+
+local function get_cache_dir()
+  return (os.getenv("XDG_CACHE_HOME") or vim.uv.os_homedir() .. "/.cache") .. "/jdtls"
+end
+
+local function get_jdtls_jvm_args()
+  -- add lombok
+  local args = { "--jvm-arg=-javaagent:" .. jdtls_dir .. "/lomnok.jar" }
+  for a in string.gmatch((os.getenv("JDTLS_JVM_ARGS") or ""), "%S+") do
+    local arg = string.format("--jvm-arg=%s", a)
+    table.insert(args, arg)
+  end
+  return unpack(args)
+end
+
 return {
   cmd = {
     "jdtls",
-    ("--jvm-arg=-javaagent:%s"):format(vim.fn.expand("~/.local/share/nvim/mason/packages/jdtls/lombok.jar")),
+    "-configuration",
+    get_cache_dir() .. "/config",
+    "-data",
+    get_cache_dir() .. "/workspace",
+    get_jdtls_jvm_args(),
   },
-  bundles = vim.split(vim.fn.glob("~/.local/share/nvim/mason/packages/java-*/extension/server/*.jar", true), "\n"),
+  bundles = vim.split(vim.fn.glob(mason_dir .. "/java-*/extension/server/*.jar", true), "\n"),
   settings = {
     java = {
       inlayHints = {
@@ -69,18 +96,9 @@ return {
       },
       configuration = {
         runtimes = {
-          {
-            name = "JavaSE-1.8",
-            path = brewPath .. "/opt/openjdk@8",
-          },
-          {
-            name = "JavaSE-17",
-            path = brewPath .. "/opt/openjdk@17",
-          },
-          {
-            name = "JavaSE-21",
-            path = brewPath .. "/opt/openjdk@21",
-          },
+          get_openjdk_runtime("8"),
+          get_openjdk_runtime("17"),
+          get_openjdk_runtime("21"),
         },
         updateBuildConfiguration = "automatic",
       },
