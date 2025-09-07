@@ -11,6 +11,7 @@ return {
       { "<leader>w", group = "Window" },
       { "<leader>.", group = "Management" },
       { "<leader>c", group = "Code" },
+      { "<leader>r", group = "Refactor" },
       { "<leader>d", group = "Debug" },
       { "<leader>t", group = "Test" },
     },

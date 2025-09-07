@@ -5,8 +5,7 @@ local function on_attach(bufnum)
     vim.keymap.set("n", keys, func, { buffer = bufnum, desc = desc })
   end
 
-  -- code mapings
-  nmap("<leader>cn", vim.lsp.buf.rename, "Rename")
+  nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
   nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
   nmap("<leader>ck", vim.lsp.buf.signature_help, "Code Signature")
   nmap("<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols")
@@ -27,10 +26,10 @@ local function setup_refactor(buf)
   map("x", "<leader>re", ":Refactor extract ")
   map("x", "<leader>rf", ":Refactor extract_to_file ")
   map("x", "<leader>rv", ":Refactor extract_var ")
-  map({ "n", "x" }, "<leader>ri", ":Refactor inline_var")
-  map("n", "<leader>rI", ":Refactor inline_func")
-  map("n", "<leader>rb", ":Refactor extract_block")
-  map("n", "<leader>rB", ":Refactor extract_block_to_file")
+  map({ "n", "x" }, "<leader>ri", "<cmd>Refactor inline_var<cr>")
+  map("n", "<leader>rI", "<cmd>Refactor inline_func<cr>")
+  map("n", "<leader>rb", "<cmd>Refactor extract_block<cr>")
+  map("n", "<leader>rB", "<cmd>Refactor extract_block_to_file<cr>")
 end
 
 function M.autocmd()

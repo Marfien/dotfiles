@@ -1,15 +1,28 @@
 local M = {}
 
+local root_cache = {}
+
 function M.project_root()
-  -- TODO: lsp project root
+  if vim.lsp.client.root_dir then
+    return vim.lsp.client.root_dir
+  end
 
   local filepath = vim.api.nvim_buf_get_name(0)
+  if root_cache[filepath] then
+    return root_cache[filepath]
+  end
+
   local start_dir = filepath ~= "" and vim.fn.fnamemodify(filepath, ":p:h") or vim.fn.getcwd()
   local git_dir = vim.fs.find(".git", { upward = true, path = start_dir })[1]
+
+  local root = vim.fn.getcwd()
+
   if git_dir then
     return vim.fn.fnamemodify(git_dir, ":h")
   end
-  return vim.fn.getcwd()
+
+  root_cache[filepath] = root
+  return root
 end
 
 function M.pretty_path(relative)
@@ -26,7 +39,7 @@ function M.pretty_path(relative)
     parts = { parts[1], "…", parts[#parts - 1], parts[#parts] }
   end
 
-  dir_string = table.concat(parts, "/")
+  local dir_string = table.concat(parts, "/")
 
   if vim.bo.readonly == 1 then
     dir_string = dir_string .. " 󰌾 "
