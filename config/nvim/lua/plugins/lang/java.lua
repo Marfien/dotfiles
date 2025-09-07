@@ -3,8 +3,12 @@ return require("util.lsp").ensure_lang({
   lsp = "jdtls",
   formatters = { "google-java-format" },
   dap = "java-debug-adapter",
+  setup_refactor = true,
   test_adapter = function()
     return require("neotest-java")()
+  end,
+  on_attach = function()
+    require("jdtls").setup_dap({ hotcoderreplace = "auto" })
   end,
   other = {
     {
@@ -13,18 +17,6 @@ return require("util.lsp").ensure_lang({
       dependencies = {
         "mfussenegger/nvim-dap",
       },
-      config = function()
-        vim.api.nvim_create_autocmd("LspAttach", {
-          callback = function(args)
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-            if not client or client.name ~= "jdtls" then
-              return
-            end
-
-            require("jdtls").setup_dap({ hotcoderreplace = "auto" })
-          end,
-        })
-      end,
     },
     {
       "rcasia/neotest-java",

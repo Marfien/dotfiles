@@ -15,7 +15,7 @@ local file_ignore_patterns = {
 local resume_timeout = nil
 
 local function on_close()
-  if resume_timeout then
+  if resume_timeout ~= nil then
     resume_timeout:stop()
     resume_timeout:close()
   end

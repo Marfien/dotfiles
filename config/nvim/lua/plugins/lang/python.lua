@@ -1,5 +1,6 @@
 return require("util.lsp").ensure_lang({
   parsers = { "python" },
+  setup_refactor = true,
   ft = { "py" },
   lsp = "jedi-language-server",
   formatters = { "black" },

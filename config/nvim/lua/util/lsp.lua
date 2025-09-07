@@ -1,6 +1,6 @@
 local M = {}
 
-local function on_attach(bufnum, client_id)
+local function on_attach(bufnum)
   local nmap = function(keys, func, desc)
     vim.keymap.set("n", keys, func, { buffer = bufnum, desc = desc })
   end
@@ -13,12 +13,24 @@ local function on_attach(bufnum, client_id)
   nmap("<leader>ci", "<cmd>Telescope lsp_implementations<cr>", "Find Implementation")
   nmap("<leader>cr", "<cmd>Telescope lsp_references<cr>", "Find References")
   nmap("<leader>cd", "<cmd>Telescope lsp_definitions<cr>", "Goto Definition")
-
-  -- goto mappings
-  nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
+  nmap("<leader>cD", vim.lsp.buf.declaration, "Goto Declaration")
 
   pcall(vim.keymap.del, "n", "K", { buffer = bufnum })
   nmap("K", vim.lsp.buf.hover, "Hover Documentation") -- See `:help K` for why this keymap
+end
+
+local function setup_refactor(buf)
+  local map = function(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, { buffer = buf, desc = desc })
+  end
+
+  map("x", "<leader>re", ":Refactor extract ")
+  map("x", "<leader>rf", ":Refactor extract_to_file ")
+  map("x", "<leader>rv", ":Refactor extract_var ")
+  map({ "n", "x" }, "<leader>ri", ":Refactor inline_var")
+  map("n", "<leader>rI", ":Refactor inline_func")
+  map("n", "<leader>rb", ":Refactor extract_block")
+  map("n", "<leader>rB", ":Refactor extract_block_to_file")
 end
 
 function M.autocmd()
@@ -26,7 +38,7 @@ function M.autocmd()
     group = vim.api.nvim_create_augroup("lap_attach", {}),
     pattern = "*",
     callback = function(event)
-      on_attach(event.buf, event.data.client_id)
+      on_attach(event.buf)
     end,
   }
 end
@@ -94,6 +106,8 @@ end
 ---@field formatters? table
 ---@field dap? string
 ---@field test_adapter? function
+---@field on_attach? function
+---@field setup_refactor? boolean
 
 ---Definition
 ---@param opts util.lsp.LangSpec
@@ -128,6 +142,26 @@ function M.ensure_lang(opts)
           opts.test_adapter,
         },
       },
+    })
+  end
+
+  if opts.on_attach or opts.setup_refactor then
+    vim.api.nvim_create_autocmd("LspAttach", {
+      pattern = "*",
+      callback = function(event)
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if not client or client.name ~= "lua_ls" then
+          return
+        end
+
+        if opts.on_attach then
+          opts.on_attach(event.buf, client)
+        end
+
+        if opts.setup_refactor then
+          setup_refactor(event.buf)
+        end
+      end,
     })
   end
 
