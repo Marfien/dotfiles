@@ -16,9 +16,11 @@ return {
     opts = {
       indent = {
         char = "▏",
+        priority = 0,
       },
       scope = {
         char = "▍",
+        priority = 0,
         show_start = false,
         show_end = false,
         highlight = "IblIndent",
@@ -33,5 +35,14 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     opts = { show_success_message = true },
+  },
+  {
+    "chrisgrieser/nvim-various-textobjs",
+    event = "VeryLazy",
+    opts = {
+      keymaps = {
+        useDefaults = true,
+      },
+    },
   },
 }

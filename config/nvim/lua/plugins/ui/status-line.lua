@@ -9,6 +9,7 @@ return {
     { "stevearc/aerial.nvim" },
   },
   opts = {
+    globalstatus = true,
     sections = {
       lualine_a = { "mode" },
       lualine_b = {

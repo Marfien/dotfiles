@@ -38,4 +38,12 @@ return {
       "rcarriga/nvim-notify",
     },
   },
+  {
+    "mawkler/modicator.nvim",
+    opts = {
+      highlights = {
+        use_cursorline_backgroukd = true,
+      },
+    },
+  },
 }
