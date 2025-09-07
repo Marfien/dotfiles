@@ -13,6 +13,15 @@ return {
         enabled = true,
       },
     },
+    config = function(_, opts)
+      vim.api.nvim_create_autocmd("TermOpen", {
+        callback = function()
+          vim.opt_local.spell = false
+        end,
+      })
+
+      require("toggleterm").setup(opts)
+    end,
     keys = {
       { "<C-/>", "<cmd>ToggleTerm<cr>", desc = "Toggle Term", mode = { "n", "t" } },
       { "<c-_>", "<cmd>ToggleTerm<cr>", desc = "which_key_ignore", mode = { "n", "t" } },

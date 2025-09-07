@@ -2,6 +2,9 @@ local opt = vim.opt
 
 opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 
+-- fully disable mouse
+opt.mouse = ""
+
 -- Spell Checking
 opt.spell = true
 -- opt.spelllang = { "en", "de" }

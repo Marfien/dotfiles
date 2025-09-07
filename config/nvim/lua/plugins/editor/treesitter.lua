@@ -28,6 +28,19 @@ return {
       indent = {
         enable = true,
       },
+      textobjects = {
+        select = true,
+        keymaps = {
+          ["af"] = { query = "@function.outer", desc = "Function" },
+          ["if"] = { query = "@function.inner", desc = "Function" },
+          ["ac"] = { query = "@class.outer", desc = "Class" },
+          ["ic"] = { query = "@class.inner", desc = "Class" },
+          ["as"] = { query = "@local.scope", query_group = "locals", desc = "Lang Scope" },
+        },
+        selection_modes = {
+          ["@function.outer"] = "V",
+        },
+      },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
@@ -35,5 +48,10 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
 }
