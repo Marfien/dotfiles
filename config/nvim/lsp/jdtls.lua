@@ -3,7 +3,7 @@ if not brew_handle then
   error("Brew Path could not be determined")
 end
 
-local brew_path = brew_handle:read("*a")
+local brew_path = brew_handle:read("*a"):gsub("\n", "")
 brew_handle:close()
 
 -- throw error when brewPath nil
@@ -28,7 +28,7 @@ end
 
 local function get_jdtls_jvm_args()
   -- add lombok
-  local args = { "--jvm-arg=-javaagent:" .. jdtls_dir .. "/lomnok.jar" }
+  local args = {}
   for a in string.gmatch((os.getenv("JDTLS_JVM_ARGS") or ""), "%S+") do
     local arg = string.format("--jvm-arg=%s", a)
     table.insert(args, arg)
@@ -43,6 +43,7 @@ return {
     get_cache_dir() .. "/config",
     "-data",
     get_cache_dir() .. "/workspace",
+    "--jvm-arg=-javaagent:" .. jdtls_dir .. "/lombok.jar",
     get_jdtls_jvm_args(),
   },
   bundles = vim.split(vim.fn.glob(mason_dir .. "/java-*/extension/server/*.jar", true), "\n"),
