@@ -20,6 +20,7 @@ return {
         "jq",
         "pug",
         "sql",
+        "json",
       },
       highlight = {
         enable = true,

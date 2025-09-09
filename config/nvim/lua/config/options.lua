@@ -45,9 +45,6 @@ opt.fillchars = {
   eob = " ",
 }
 opt.foldlevel = 99
-opt.foldtext = ""
-opt.foldmethod = "expr"
-opt.foldtext = "v:lua.require'util.ui'.foldexpr()"
 
 -- formatting
 opt.formatexpr = "v:lua.require'conform'.formatexpr()" -- use conform as formatter
