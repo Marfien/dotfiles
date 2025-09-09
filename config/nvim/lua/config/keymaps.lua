@@ -1,5 +1,3 @@
-local opts = { noremap = true, silent = true }
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
@@ -65,9 +63,8 @@ map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 -- TODO:
 -- locations
 -- quickfixes
--- diagnostics
 
 -- disable default lsp keymaps
-for _, bind in ipairs({ "grn", "gra", "gri", "grr", "q:" }) do
+for _, bind in ipairs({ "grt", "grn", "gra", "gri", "grr", "q:" }) do
   pcall(keymap.del, "n", bind)
 end
