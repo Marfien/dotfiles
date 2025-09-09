@@ -12,15 +12,12 @@ if not brew_path then
   return false
 end
 
-function get_openjdk_runtime(version)
+local function get_openjdk_runtime(version)
   return {
     name = "OpenJDK-" .. version,
     path = brew_path .. "/opt/openjdk@" .. version,
   }
 end
-
-local mason_dir = require("mason-core.installer.InstallLocation").global():get_dir()
-local jdtls_dir = mason_dir .. "/jdtls"
 
 local function get_cache_dir()
   return (os.getenv("XDG_CACHE_HOME") or vim.uv.os_homedir() .. "/.cache") .. "/jdtls"
@@ -36,7 +33,11 @@ local function get_jdtls_jvm_args()
   return unpack(args)
 end
 
-return {
+local mason_dir = require("mason-core.installer.InstallLocation").global():get_dir()
+local jdtls_dir = mason_dir .. "/packages/jdtls"
+-- NOTE: vim.lsp.config takes priority over configuration found in <rtp>/lua/*.lua
+-- And we wont to override configuration made by the lsp-config plugin
+vim.lsp.config("jdtls", {
   cmd = {
     "jdtls",
     "-configuration",
@@ -47,6 +48,9 @@ return {
     get_jdtls_jvm_args(),
   },
   bundles = vim.split(vim.fn.glob(mason_dir .. "/java-*/extension/server/*.jar", true), "\n"),
+})
+
+return {
   settings = {
     java = {
       inlayHints = {

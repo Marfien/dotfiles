@@ -1,3 +1,18 @@
+-- TODO: delte buffers that are invalid
+-- vim.api.nvim_create_autocmd("BufHidden", {
+--   callback = function(event)
+--     if vim.bo[event.buf].filetype == "oil" then
+--       for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+--         local file_name = vim.api.nvim_buf_get_name(buf)
+--         if file_name and file_name ~= "" and vim.fn.filereadable(file_name) == 0 then
+--           --require("util.buffers").delete({ buf = buf })
+--           print("Would delete (" .. buf .. ") " .. file_name)
+--         end
+--       end
+--     end
+--   end,
+-- })
+
 function _G.get_oil_winbar()
   local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
   local dir = require("oil").get_current_dir(bufnr)
