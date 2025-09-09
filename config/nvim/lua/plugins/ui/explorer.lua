@@ -24,7 +24,7 @@ return {
       skip_confirm_for_simple_edits = true,
       view_options = {
         show_hidden = true,
-        is_always_hidden = function(name, bufnr)
+        is_always_hidden = function(name, _)
           return name == ".git" or name == ".."
         end,
       },
@@ -50,6 +50,11 @@ return {
   },
   {
     "benomahony/oil-git.nvim",
+    dependencies = { "stevearc/oil.nvim" },
+    opts = {},
+  },
+  {
+    "JezerM/oil-lsp-diagnostics.nvim",
     dependencies = { "stevearc/oil.nvim" },
     opts = {},
   },

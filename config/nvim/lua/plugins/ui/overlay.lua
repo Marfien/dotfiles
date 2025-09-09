@@ -1,5 +1,3 @@
-local paths = require("util.paths")
-
 return {
   {
     "rcarriga/nvim-notify",
@@ -15,13 +13,14 @@ return {
     "akinsho/bufferline.nvim",
     opts = {
       options = {
+        diagnostics = "nvim_lsp",
         always_show_bufferline = true,
       },
     },
   },
   {
     "folke/noice.nvim",
-    event = "VeryLazy",
+    lazy = false,
     opts = {
       lsp = {
         override = {

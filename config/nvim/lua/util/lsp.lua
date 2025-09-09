@@ -42,6 +42,17 @@ function M.autocmd()
   }
 end
 
+function M.ensure_linters(pkgs)
+  return {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = {
+        formatter = pkgs,
+      },
+    },
+  }
+end
+
 function M.ensure_treesitter(ft)
   return {
     "nvim-treesitter/nvim-treesitter",
@@ -99,11 +110,12 @@ end
 
 ---@class util.lsp.LangSpec
 ---@field lsp string
----@field other? table
----@field parsers? table
+---@field other? table<string>
+---@field parsers? table<string>
 ---@field ft table
 ---@field formatters? table
 ---@field dap? string
+---@field linters? table<string>
 ---@field test_adapter? function
 ---@field on_attach? function
 ---@field setup_refactor? boolean
@@ -127,6 +139,10 @@ function M.ensure_lang(opts)
         table.insert(plugins, pl)
       end
     end
+  end
+
+  if opts.linters then
+    table.insert(plugins, M.ensure_linters(opts.linters))
   end
 
   if opts.dap then

@@ -20,7 +20,6 @@ return {
         "jq",
         "pug",
         "sql",
-        "bash",
       },
       highlight = {
         enable = true,

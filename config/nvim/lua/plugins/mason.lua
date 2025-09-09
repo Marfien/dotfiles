@@ -3,6 +3,7 @@ local mason_to_x = {
   ["java-debug-adapter"] = "java-adapter",
   ["terraform-ls"] = "terraformls",
   ["yaml-language-server"] = "yamlls",
+  ["bash-language-server"] = "bashls",
 }
 
 return {

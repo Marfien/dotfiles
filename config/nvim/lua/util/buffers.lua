@@ -16,7 +16,7 @@ local function safe_write()
   return true
 end
 
-function swtich_buf(current_buf)
+local function swtich_buf(current_buf)
   for _, win in ipairs(vim.fn.win_findbuf(current_buf)) do
     vim.api.nvim_win_call(win, function()
       if not vim.api.nvim_win_is_valid(win) or vim.api.nvim_win_get_buf(win) ~= current_buf then
