@@ -1,4 +1,4 @@
-local timeout_seconds = 30
+local timeout_seconds = 60
 local file_ignore_patterns = {
   ".git/",
   ".cache",

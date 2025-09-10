@@ -1,8 +1,8 @@
 return require("util.lsp").ensure_lang({
   ft = { "java" },
-  lsp = "jdtls",
+  lsps = { "jdtls" },
   formatters = { "google-java-format" },
-  dap = "java-debug-adapter",
+  tools = { "java-debug-adapter" },
   setup_refactor = true,
   test_adapter = function()
     return require("neotest-java")()

@@ -28,9 +28,7 @@ return {
     opts = {
       ensure_installed = {
         lsp = {},
-        dap = {},
-        formatter = {},
-        linter = {},
+        other = {},
       },
     },
     config = function(_, opts)
@@ -39,13 +37,7 @@ return {
       for _, val in ipairs(opts.ensure_installed.lsp) do
         table.insert(mti_opts_ensure_installed, val)
       end
-      for _, val in ipairs(opts.ensure_installed.dap) do
-        table.insert(mti_opts_ensure_installed, val)
-      end
-      for _, val in ipairs(opts.ensure_installed.linter) do
-        table.insert(mti_opts_ensure_installed, val)
-      end
-      for _, val in ipairs(opts.ensure_installed.formatter) do
+      for _, val in ipairs(opts.ensure_installed.other) do
         table.insert(mti_opts_ensure_installed, val)
       end
 

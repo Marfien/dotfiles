@@ -1,13 +1,13 @@
 return require("util.lsp").ensure_lang({
   parsers = { "python" },
-  setup_refactor = true,
   ft = { "py" },
-  lsp = "jedi-language-server",
+  lsps = { "jedi-language-server" },
+  tools = { "debugpy" },
   formatters = { "black" },
   test_adapter = function()
     require("neotest-python")
   end,
-  dap = "debugpy",
+  setup_refactor = true,
   other = {
     {
       "mfussenegger/nvim-dap-python",

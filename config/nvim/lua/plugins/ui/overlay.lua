@@ -23,6 +23,7 @@ return {
     "folke/noice.nvim",
     lazy = false,
     opts = {
+      messages = {},
       lsp = {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -45,5 +46,10 @@ return {
         use_cursorline_backgroukd = true,
       },
     },
+  },
+  {
+    "petertriho/nvim-scrollbar",
+    event = "BufEnter",
+    opts = {},
   },
 }

@@ -1,7 +1,7 @@
 return require("util.lsp").ensure_lang({
   parsers = { "yaml" },
   ft = { "yaml", "yml" },
-  lsp = "yaml-language-server",
+  lsps = { "yaml-language-server" },
   formatters = { "prettier" },
   other = {
     {

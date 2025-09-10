@@ -42,17 +42,6 @@ function M.autocmd()
   }
 end
 
-function M.ensure_linters(pkgs)
-  return {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    opts = {
-      ensure_installed = {
-        formatter = pkgs,
-      },
-    },
-  }
-end
-
 function M.ensure_treesitter(ft)
   return {
     "nvim-treesitter/nvim-treesitter",
@@ -64,14 +53,7 @@ end
 
 function M.ensure_formatters(ft, pkgs)
   return {
-    {
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-      opts = {
-        ensure_installed = {
-          formatter = pkgs,
-        },
-      },
-    },
+    M.ensure_tools(pkgs),
     {
       "stevearc/conform.nvim",
       opts = {
@@ -83,42 +65,37 @@ function M.ensure_formatters(ft, pkgs)
   }
 end
 
-function M.ensure_dap(pkg)
+function M.ensure_tools(pkg)
   return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = {
       ensure_installed = {
-        dap = {
-          pkg,
-        },
+        other = pkg,
       },
     },
   }
 end
-function M.ensure_lsp(pkg)
+function M.ensure_lsps(pkgs)
   return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = {
       ensure_installed = {
-        lsp = {
-          pkg,
-        },
+        lsp = pkgs,
       },
     },
   }
 end
 
 ---@class util.lsp.LangSpec
----@field lsp string
----@field other? table<string>
+---@field lsps? table<string>
+---@field tools? table<string>
 ---@field parsers? table<string>
 ---@field ft table
 ---@field formatters? table
----@field dap? string
----@field linters? table<string>
 ---@field test_adapter? function
 ---@field on_attach? function
 ---@field setup_refactor? boolean
+---@field other? table<string>
 
 ---Definition
 ---@param opts util.lsp.LangSpec
@@ -129,8 +106,8 @@ function M.ensure_lang(opts)
 
   table.insert(plugins, M.ensure_treesitter(opts.parsers or opts.ft))
 
-  if opts.lsp then
-    table.insert(plugins, M.ensure_lsp(opts.lsp))
+  if opts.lsps then
+    table.insert(plugins, M.ensure_lsps(opts.lsps))
   end
 
   if opts.formatters then
@@ -141,12 +118,8 @@ function M.ensure_lang(opts)
     end
   end
 
-  if opts.linters then
-    table.insert(plugins, M.ensure_linters(opts.linters))
-  end
-
-  if opts.dap then
-    table.insert(plugins, M.ensure_dap(opts.dap))
+  if opts.tools then
+    table.insert(plugins, M.ensure_tools(opts.tools))
   end
 
   if opts.test_adapter then
