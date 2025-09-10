@@ -33,5 +33,11 @@
 [merge]
   tool = nvimdiff
 
+[diff]
+  tool = nvimdiff
+
 [pull]
   rebase = true
+
+[push]
+  autoSetupRemote = true
