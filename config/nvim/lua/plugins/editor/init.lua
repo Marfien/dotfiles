@@ -11,16 +11,15 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    version = "*",
     event = "BufEnter",
     main = "ibl",
     opts = {
       indent = {
         char = "▏",
-        priority = 0,
       },
       scope = {
         char = "▍",
-        priority = 0,
         show_start = false,
         show_end = false,
         highlight = "IblIndent",
