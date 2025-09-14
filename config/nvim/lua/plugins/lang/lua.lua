@@ -4,6 +4,20 @@ return require("util.lsp").ensure_lang({
   formatters = { "stylua" },
   setup_refactor = true,
   other = {
-    "justinsgithub/wezterm-types",
+    {
+      "folke/lazydev.nvim",
+      ft = "lua", -- only load on lua files
+      dependencies = {
+        "justinsgithub/wezterm-types",
+      },
+      opts = {
+        library = {
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          -- Load the wezterm types when the `wezterm` module is required
+          -- Needs `justinsgithub/wezterm-types` to be installed
+          { path = "wezterm-types", mods = { "wezterm" } },
+        },
+      },
+    },
   },
 })

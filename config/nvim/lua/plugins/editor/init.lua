@@ -44,4 +44,19 @@ return {
       },
     },
   },
+  {
+    "chrishrb/gx.nvim",
+    keys = {
+      { "gx", "<cmd>Browse<cr>", mode = { "n", "x" }, desc = "Open in Browser" },
+    },
+    cmd = "Browse",
+    init = function()
+      vim.g.netrw_nogx = 1
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    submodules = false,
+    opts = {},
+  },
 }

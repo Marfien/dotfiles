@@ -8,7 +8,7 @@ return require("util.lsp").ensure_lang({
     return require("neotest-java")()
   end,
   on_attach = function()
-    require("jdtls").setup_dap({ hotcoderreplace = "auto" })
+    require("jdtls").setup_dap()
   end,
   other = {
     {

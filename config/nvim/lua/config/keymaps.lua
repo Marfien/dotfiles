@@ -66,7 +66,7 @@ map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 -- quickfixes
 
 -- disable default lsp keymaps
-for _, bind in ipairs({ "grt", "grn", "gra", "gri", "grr", "q:", "gd", "gD" }) do
+for _, bind in ipairs({ "grt", "grn", "gra", "gri", "grr" }) do
   local ok, _ = pcall(keymap.del, "n", bind)
   if not ok then
     vim.notify("Could not remove mapping: " .. bind, vim.log.levels.ERROR)
