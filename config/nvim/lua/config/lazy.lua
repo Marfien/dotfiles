@@ -20,6 +20,8 @@ require("config.keymaps")
 
 require("lazy").setup({
   spec = {
+    -- Spell files for German and English
+    "AlxHnr/vim-spell-files",
     { import = "plugins" },
     { import = "plugins.editor" },
     { import = "plugins.ui" },

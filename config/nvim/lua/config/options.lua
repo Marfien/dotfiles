@@ -7,8 +7,7 @@ opt.mouse = ""
 
 -- Spell Checking
 opt.spell = true
--- opt.spelllang = { "en", "de" }
-opt.spellsuggest = { "best", 5 }
+opt.spelllang = { "en", "de" }
 opt.spelloptions = { "camel" }
 opt.smartcase = true
 

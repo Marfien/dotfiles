@@ -1,6 +1,11 @@
+local spelling_suggestions = 5
+
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
+  init = function()
+    vim.opt.spellsuggest = { "best", spelling_suggestions }
+  end,
   opts = {
     preset = "helix",
     spec = {
@@ -14,6 +19,11 @@ return {
       { "<leader>r", group = "Refactor" },
       { "<leader>d", group = "Debug" },
       { "<leader>t", group = "Test" },
+    },
+    plugins = {
+      spelling = {
+        suggestions = spelling_suggestions,
+      },
     },
   },
   keys = {
