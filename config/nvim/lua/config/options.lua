@@ -44,6 +44,8 @@ opt.fillchars = {
   eob = " ",
 }
 opt.foldlevel = 99
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- formatting
 opt.formatexpr = "v:lua.require'conform'.formatexpr()" -- use conform as formatter

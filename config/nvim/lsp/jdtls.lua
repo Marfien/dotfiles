@@ -35,6 +35,7 @@ end
 
 local mason_dir = require("mason-core.installer.InstallLocation").global():get_dir()
 local jdtls_dir = mason_dir .. "/packages/jdtls"
+
 -- NOTE: vim.lsp.config takes priority over configuration found in <rtp>/lua/*.lua
 -- And we wont to override configuration made by the lsp-config plugin
 vim.lsp.config("jdtls", {
@@ -53,6 +54,9 @@ vim.lsp.config("jdtls", {
 return {
   settings = {
     java = {
+      settings = {
+        url = vim.fn.stdpath("config") .. "/assets/jdtls/settings.pref",
+      },
       inlayHints = {
         parameterNames = {
           enabled = "all",
@@ -93,9 +97,13 @@ return {
       saveActions = {
         organizeImports = true,
       },
-      -- maven = {
-      --   downloadSources = true,
-      -- },
+      format = {
+        enabled = true,
+      },
+      signatureHelp = { enabled = true },
+      maven = {
+        downloadSources = true,
+      },
       eclipse = {
         downloadSources = true,
       },

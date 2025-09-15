@@ -1,0 +1,36 @@
+{
+  "prvsm": {
+    "prefix": "prvsm",
+    "body": ["private static ${1:void} ${2:name}($3) {", "\t$0", "}"],
+    "description": "private method"
+  },
+  "pubsm": {
+    "prefix": "pubsm",
+    "body": ["public static ${1:void} ${2:name}($3) {", "\t$0", "}"],
+    "description": "private method"
+  },
+  "prvm": {
+    "prefix": "prvm",
+    "body": ["private ${1:void} ${2:name}($3) {", "\t$0", "}"],
+    "description": "private method"
+  },
+  "pubm": {
+    "prefix": "pubm",
+    "body": ["public ${1:void} ${2:name}($3) {", "\t$0", "}"],
+    "description": "private method"
+  },
+  "psf": {
+    "prefix": "psf",
+    "body": [
+      "public static final ${1:type} ${2:name} = $0;"
+    ],
+    "description": "public static final"
+  },
+  "prsf": {
+    "prefix": "prsf",
+    "body": [
+      "private static final ${1:type} ${2:name} = $0;"
+    ],
+    "description": "Private static final"
+  }
+}

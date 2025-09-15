@@ -3,6 +3,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = ":TSUpdate",
+    init = function()
+      vim.opt.autoindent = false
+    end,
     opts_extend = {
       "ensure_installed",
     },
@@ -27,6 +30,8 @@ return {
       },
       indent = {
         enable = true,
+        -- the default indent works better for java
+        disable = { "java" },
       },
       textobjects = {
         select = true,

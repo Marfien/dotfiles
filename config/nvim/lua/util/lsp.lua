@@ -142,12 +142,12 @@ function M.ensure_lang(opts)
           return
         end
 
-        if opts.on_attach then
-          opts.on_attach(event.buf, client)
-        end
-
         if opts.setup_refactor then
           setup_refactor(event.buf)
+        end
+
+        if opts.on_attach then
+          opts.on_attach(event.buf, client)
         end
       end,
     })
