@@ -26,3 +26,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end
   end,
 })
+
+-- delete empty buffers when new one is added
+vim.api.nvim_create_autocmd("BufAdd", {
+  callback = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.bo[buf].filetype == "Empty" then
+        require("util.buffers").delete({ buf = buf })
+      end
+    end
+  end,
+})
