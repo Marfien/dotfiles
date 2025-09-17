@@ -11,9 +11,6 @@ return {
     "mason-org/mason.nvim",
     cmd = { "Mason", "MasonLog" },
     build = ":MasonUpdate",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-    },
     opts = {},
     keys = {
       { "<leader>.m", "<cmd>Mason<cr>", desc = "Mason" },
@@ -26,40 +23,10 @@ return {
       "mason-org/mason.nvim",
     },
     opts = {
-      ensure_installed = {
-        lsp = {},
-        other = {},
-      },
+      ensure_installed = {},
     },
-    config = function(_, opts)
-      local mti_opts_ensure_installed = {}
-
-      for _, val in ipairs(opts.ensure_installed.lsp) do
-        table.insert(mti_opts_ensure_installed, val)
-      end
-      for _, val in ipairs(opts.ensure_installed.other) do
-        table.insert(mti_opts_ensure_installed, val)
-      end
-
-      require("mason-tool-installer").setup({ ensure_installed = mti_opts_ensure_installed })
-
-      for _, lsp in ipairs(opts.ensure_installed.lsp) do
-        local lspconfig_name = mason_to_x[lsp] or lsp
-        vim.lsp.enable(lspconfig_name)
-      end
-
-      vim.lsp.config("*", {
-        capabilities = require("blink.cmp").get_lsp_capabilities(),
-      })
-
-      -- on_attach
-      vim.api.nvim_create_autocmd("LspAttach", require("util.lsp").autocmd())
-    end,
     opts_extend = {
-      "ensure_installed.lsp",
-      "ensure_installed.dap",
-      "ensure_installed.formatter",
-      "ensure_installed.linter",
+      "ensure_installed",
     },
   },
 }

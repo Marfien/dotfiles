@@ -1,47 +1,5 @@
 local M = {}
 
-local function on_attach(bufnum)
-  local nmap = function(keys, func, desc)
-    vim.keymap.set("n", keys, func, { buffer = bufnum, desc = desc })
-  end
-
-  nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
-  nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
-  nmap("<leader>ck", vim.lsp.buf.signature_help, "Code Signature")
-  nmap("<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols")
-  nmap("<leader>ci", "<cmd>Telescope lsp_implementations<cr>", "Find Implementation")
-  nmap("<leader>cr", "<cmd>Telescope lsp_references<cr>", "Find References")
-  nmap("<leader>cd", "<cmd>Telescope lsp_definitions<cr>", "Goto Definition")
-  nmap("<leader>cD", vim.lsp.buf.declaration, "Goto Declaration")
-
-  pcall(vim.keymap.del, "n", "K", { buffer = bufnum })
-  nmap("K", vim.lsp.buf.hover, "Hover Documentation") -- See `:help K` for why this keymap
-end
-
-local function setup_refactor(buf)
-  local map = function(mode, lhs, rhs, desc)
-    vim.keymap.set(mode, lhs, rhs, { buffer = buf, desc = desc })
-  end
-
-  map("x", "<leader>re", ":Refactor extract ")
-  map("x", "<leader>rf", ":Refactor extract_to_file ")
-  map("x", "<leader>rv", ":Refactor extract_var ")
-  map({ "n", "x" }, "<leader>ri", "<cmd>Refactor inline_var<cr>")
-  map("n", "<leader>rI", "<cmd>Refactor inline_func<cr>")
-  map("n", "<leader>rb", "<cmd>Refactor extract_block<cr>")
-  map("n", "<leader>rB", "<cmd>Refactor extract_block_to_file<cr>")
-end
-
-function M.autocmd()
-  return {
-    group = vim.api.nvim_create_augroup("lap_attach", {}),
-    pattern = "*",
-    callback = function(event)
-      on_attach(event.buf)
-    end,
-  }
-end
-
 function M.ensure_treesitter(ft)
   return {
     "nvim-treesitter/nvim-treesitter",
@@ -69,32 +27,17 @@ function M.ensure_tools(pkg)
   return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = {
-      ensure_installed = {
-        other = pkg,
-      },
-    },
-  }
-end
-function M.ensure_lsps(pkgs)
-  return {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    opts = {
-      ensure_installed = {
-        lsp = pkgs,
-      },
+      ensure_installed = pkg,
     },
   }
 end
 
 ---@class util.lsp.LangSpec
----@field lsps? table<string>
 ---@field tools? table<string>
 ---@field parsers? table<string>
 ---@field ft table
 ---@field formatters? table
----@field test_adapter? function
 ---@field on_attach? function
----@field setup_refactor? boolean
 ---@field other? table<string>
 
 ---Definition
@@ -105,10 +48,6 @@ function M.ensure_lang(opts)
   local plugins = opts.other or {}
 
   table.insert(plugins, M.ensure_treesitter(opts.parsers or opts.ft))
-
-  if opts.lsps then
-    table.insert(plugins, M.ensure_lsps(opts.lsps))
-  end
 
   if opts.formatters then
     for _, ft in ipairs(opts.ft) do
@@ -122,28 +61,13 @@ function M.ensure_lang(opts)
     table.insert(plugins, M.ensure_tools(opts.tools))
   end
 
-  if opts.test_adapter then
-    table.insert(plugins, {
-      "nvim-neotest/neotest",
-      opts = {
-        adapters = {
-          opts.test_adapter,
-        },
-      },
-    })
-  end
-
-  if opts.on_attach or opts.setup_refactor then
+  if opts.on_attach then
     vim.api.nvim_create_autocmd("LspAttach", {
       pattern = "*",
       callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if not client or client.name ~= "lua_ls" then
           return
-        end
-
-        if opts.setup_refactor then
-          setup_refactor(event.buf)
         end
 
         if opts.on_attach then
@@ -154,6 +78,14 @@ function M.ensure_lang(opts)
   end
 
   return plugins
+end
+
+function M.setup()
+  local lsp_configs = vim.api.nvim_get_runtime_file("lsp/*.lua", true)
+  for _, config in ipairs(lsp_configs) do
+    local id = vim.fs.basename(config):gsub("%.lua$", "")
+    vim.lsp.enable(id)
+  end
 end
 
 return M

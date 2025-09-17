@@ -41,6 +41,7 @@ return {
   },
   {
     "mawkler/modicator.nvim",
+    event = "BufEnter",
     opts = {
       highlights = {
         use_cursorline_backgroukd = true,

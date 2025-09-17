@@ -41,15 +41,38 @@ require("lazy").setup({
     rtp = {
       -- disable some rtp plugins
       disabled_plugins = {
+        "2html_plugin",
+        "bugreport",
+        "compiler",
+        "editorconfig",
+        "ftplugin",
+        "getscript",
+        "getscriptPlugin",
         "gzip",
-        -- "matchit",
-        -- "matchparen",
-        -- "netrwPlugin", -- still needed for downloading spell check files
+        "logipat",
+        "man",
+        "matchit",
+        "netrw",
+        "netrwFileHandlers",
+        "netrwPlugin",
+        "netrwSettings",
+        "optwin",
+        "rplugin",
+        "rrhelper",
+        "spellfile_plugin",
+        "synmenu",
+        "syntax",
+        "tar",
         "tarPlugin",
         "tohtml",
         "tutor",
+        "vimball",
+        "vimballPlugin",
+        "zip",
         "zipPlugin",
       },
     },
   },
 })
+
+vim.schedule(require("util.lsp").setup)

@@ -72,3 +72,14 @@ for _, bind in ipairs({ "grt", "grn", "gra", "gri", "grr" }) do
     vim.notify("Could not remove mapping: " .. bind, vim.log.levels.ERROR)
   end
 end
+
+-- lsp
+map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+map("n", "<leader>ck", vim.lsp.buf.signature_help, { desc = "Code Signature" })
+map("n", "<leader>cD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
+map("n", "<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "Workspace Symbols" })
+map("n", "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", { desc = "Find Implementation" })
+map("n", "<leader>cr", "<cmd>Telescope lsp_references<cr>", { desc = "Find References" })
+map("n", "<leader>cd", "<cmd>Telescope lsp_definitions<cr>", { desc = "Goto Definition" })
+map("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" }) -- See `:help K` for why this keymap

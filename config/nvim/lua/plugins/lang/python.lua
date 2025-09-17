@@ -1,13 +1,8 @@
 return require("util.lsp").ensure_lang({
   parsers = { "python" },
   ft = { "py" },
-  lsps = { "jedi-language-server" },
-  tools = { "debugpy" },
+  tools = { "debugpy", "jedi-language-server" },
   formatters = { "black" },
-  test_adapter = function()
-    require("neotest-python")
-  end,
-  setup_refactor = true,
   other = {
     {
       "mfussenegger/nvim-dap-python",
@@ -22,8 +17,15 @@ return require("util.lsp").ensure_lang({
       dependencies = {
         "nvim-treesitter/nvim-treesitter",
       },
-      opst = {
-        python = nil,
+    },
+    {
+      "nvim-neotest/neotest",
+      opts = {
+        lazy_adapters = {
+          function()
+            return require("neotest-python")
+          end,
+        },
       },
     },
   },
