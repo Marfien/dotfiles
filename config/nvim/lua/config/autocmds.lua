@@ -15,8 +15,9 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
+    local ok, ts_parsers = pcall(require, "nvim-treesitter.parsers")
     -- check if treesitter has parser
-    if require("nvim-treesitter.parsers").has_parser() then
+    if ok and ts_parsers.has_parser() then
       -- use treesitter folding
       vim.opt.foldmethod = "expr"
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"

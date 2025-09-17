@@ -3,7 +3,7 @@ return {
     "stevearc/conform.nvim",
     event = { "VeryLazy" },
     opts = {
-      log_level = vim.log.levels.WARNING,
+      log_level = vim.log.levels.WARN,
       notify_on_error = true,
       format_on_save = {
         -- These options will be passed to conform.format()
