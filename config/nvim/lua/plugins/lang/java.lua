@@ -15,7 +15,7 @@ end
 local function get_openjdk_runtime(version)
   return {
     name = "JavaSE-" .. (version <= 8 and "1." .. version or version),
-    path = brew_path .. "/opt/openjdk@" .. version .. "/bin",
+    path = brew_path .. "/opt/openjdk@" .. version .. "/",
   }
 end
 

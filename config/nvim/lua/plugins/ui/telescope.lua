@@ -77,10 +77,18 @@ return {
         mappings = {
           n = {
             ["q"] = "close",
+            -- delay require
+            ["<c-q>"] = function(bufnr, opts)
+              require("trouble.sources.telescope").open(bufnr, opts)
+            end,
           },
           i = {
             ["<c-j>"] = "move_selection_next",
             ["<c-k>"] = "move_selection_previous",
+            -- delay require
+            ["<c-q>"] = function(bufnr, opts)
+              require("trouble.sources.telescope").open(bufnr, opts)
+            end,
           },
         },
       },

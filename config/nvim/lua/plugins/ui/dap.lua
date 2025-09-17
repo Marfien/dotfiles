@@ -19,9 +19,9 @@ return {
       { "<leader>dp", "<cmd>lua require('dap').pause()<cr>", desc = "Pause" },
       { "<leader>dt", "<cmd>lua require('dap').terminate()<cr>", desc = "Terminate" },
 
-      { "<Down>", "<cmd>lua require('dap').setup_over()<cr>", desc = "Setup Over" },
-      { "<Left>", "<cmd>lua require('dap').setup_out()<cr>", desc = "Setup Out" },
-      { "<Right>", "<cmd>lua require('dap').setup_into()<cr>", desc = "Setup Into" },
+      { "<Down>", "<cmd>lua require('dap').step_over()<cr>", desc = "Setup Over" },
+      { "<Left>", "<cmd>lua require('dap').step_out()<cr>", desc = "Setup Out" },
+      { "<Right>", "<cmd>lua require('dap').step_into()<cr>", desc = "Setup Into" },
     },
   },
   {

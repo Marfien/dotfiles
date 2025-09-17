@@ -53,4 +53,36 @@ return {
     event = "BufEnter",
     opts = {},
   },
+  {
+    "folke/trouble.nvim",
+    opts = {},
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>cc",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics",
+      },
+      {
+        "<leader>cC",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>co",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Outline",
+      },
+      {
+        "<leader>xl",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List",
+      },
+      {
+        "<leader>xl",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List",
+      },
+    },
+  },
 }
