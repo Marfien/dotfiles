@@ -1,5 +1,5 @@
 right_format = '$cmd_duration$status'
-format = '$directory$git_branch $character'
+format = '$directory$git_branch$character'
 continuation_prompt = '> '
 
 [status]
@@ -11,7 +11,7 @@ symbol = "-"
 style = 'black strikethrough'
 
 [git_branch]
-format = '[$symbol$branch(:$remote_branch)]($style)'
+format = '[$symbol$branch(:$remote_branch)]($style) '
 style = 'green'
 
 [character]
