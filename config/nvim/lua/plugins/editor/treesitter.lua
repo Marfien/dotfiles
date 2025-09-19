@@ -2,8 +2,8 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
-    build = ":TSUpdate",
     init = function()
+      pcall(vim.cmd, "TSUpdate")
       vim.opt.autoindent = false
     end,
     opts_extend = {

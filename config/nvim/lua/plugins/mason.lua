@@ -10,7 +10,9 @@ return {
   {
     "mason-org/mason.nvim",
     cmd = { "Mason", "MasonLog" },
-    build = ":MasonUpdate",
+    init = function ()
+      pcall(vim.cmd, "MsonUpdate")
+    end,
     opts = {},
     keys = {
       { "<leader>.m", "<cmd>Mason<cr>", desc = "Mason" },
