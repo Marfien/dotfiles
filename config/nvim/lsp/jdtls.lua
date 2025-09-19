@@ -77,7 +77,9 @@ local excluded = {
   "jacocoagent.jar",
 }
 
-local bundles = {}
+local bundles = {
+  require("spring_boot").java_extensions(),
+}
 for _, bundle in ipairs(found_bundles) do
   local filename = vim.fn.fnamemodify(bundle, ":t")
   if not vim.tbl_contains(excluded, filename) then
