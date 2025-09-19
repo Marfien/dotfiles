@@ -38,3 +38,18 @@ vim.api.nvim_create_autocmd("BufAdd", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("BufWinLeave", {
+  desc = "Delete buffer from ~/.local after leaving",
+  callback = function(event)
+    local buf = event.buf
+    local buf_name = vim.api.nvim_buf_get_name(buf)
+    local local_dir = vim.fn.expand("~/.local/")
+
+    if buf_name:sub(1, #local_dir) == local_dir then
+      vim.schedule(function()
+        require("util.buffers").delete({ buf = buf })
+      end)
+    end
+  end,
+})
