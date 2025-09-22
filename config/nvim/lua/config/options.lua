@@ -67,6 +67,8 @@ opt.splitright = true
 opt.shiftround = true
 opt.shiftwidth = 2
 opt.tabstop = 2
+opt.smartindent = true
+opt.expandtab = true
 
 -- undo history
 opt.undofile = true

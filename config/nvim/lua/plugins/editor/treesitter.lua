@@ -4,7 +4,6 @@ return {
     lazy = false,
     init = function()
       pcall(vim.cmd, "TSUpdate")
-      vim.opt.autoindent = false
     end,
     opts_extend = {
       "ensure_installed",
@@ -27,11 +26,6 @@ return {
       },
       highlight = {
         enable = true,
-      },
-      indent = {
-        enable = true,
-        -- the default indent works better for java
-        disable = { "java" },
       },
       textobjects = {
         select = true,
