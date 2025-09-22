@@ -32,8 +32,8 @@ return {
         { "lsp_status" },
         { "copilot" },
         {
-          require("noice").api.statusline.mode.get,
-          cond = require("noice").api.statusline.mode.has,
+          require("noice").api.status.mode.get,
+          cond = require("noice").api.status.mode.has,
           color = { fg = "#ff9e64" },
         },
       },
