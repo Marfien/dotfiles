@@ -9,6 +9,10 @@ return {
   },
   opts = {
     globalstatus = true,
+    options = {
+      section_separators = "",
+      component_separators = { left = "│", right = "│" },
+    },
     sections = {
       lualine_a = { "mode" },
       lualine_b = {
