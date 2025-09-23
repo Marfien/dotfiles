@@ -53,7 +53,9 @@ return {
   {
     "retran/meow.yarn.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },
-    opts = {},
+    config = function()
+      require("meow.yarn").setup({})
+    end,
     keys = {
       { "<leader>cS", "<Cmd>MeowYarn call callers<CR>", desc = "Call Stack", mode = { "n", "x" } },
     },
