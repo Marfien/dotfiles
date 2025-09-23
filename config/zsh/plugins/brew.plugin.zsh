@@ -1,6 +1,7 @@
 ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/mnt/c/)
 zsh_plugins=(
   zsh-syntax-highlighting
+  zsh-history-substring-search
   zsh-autosuggestions
 )
 
