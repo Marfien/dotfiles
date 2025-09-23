@@ -10,7 +10,7 @@ return {
   {
     "mason-org/mason.nvim",
     cmd = { "Mason", "MasonLog" },
-    init = function ()
+    init = function()
       pcall(vim.cmd, "MsonUpdate")
     end,
     opts = {},
@@ -21,7 +21,7 @@ return {
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    lazy = false,
+    event = "VeryLazy",
     dependencies = {
       "mason-org/mason.nvim",
     },

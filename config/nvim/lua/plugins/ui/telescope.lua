@@ -20,7 +20,7 @@ local function on_close()
     resume_timeout:close()
   end
 
-  resume_timeout = vim.loop.new_timer()
+  resume_timeout = vim.uv.new_timer()
 
   if resume_timeout == nil then
     vim.notify("Could not retrieve new timer")
