@@ -1,11 +1,11 @@
 return require("util.lsp").ensure_lang({
-  parsers = { "markdown" },
+  parsers = { "markdown", "markdown_inline", "html" },
   ft = { "md", "markdown" },
   formatters = { "prettier" },
   other = {
     {
       "MeanderingProgrammer/render-markdown.nvim",
-      ft = "md",
+      ft = "markdown",
       dependencies = {
         "nvim-treesitter/nvim-treesitter",
         "nvim-tree/nvim-web-devicons",
