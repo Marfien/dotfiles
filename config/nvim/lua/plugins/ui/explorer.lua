@@ -50,6 +50,22 @@ return {
       keymaps = {
         ["q"] = { "actions.close", mode = "n" },
         ["ESC"] = { "actions.close", mode = "n" },
+        ["<CR>"] = {
+          mode = "n",
+          callback = function()
+            local line = vim.v.count
+            if line > 0 then
+              print("execute")
+              vim.cmd.normal({
+                args = { line .. "G" },
+                bang = true,
+              })
+            end
+
+            require("oil").select({}, nil)
+          end,
+          desc = "Select (Line)",
+        },
       },
     },
     keys = {
