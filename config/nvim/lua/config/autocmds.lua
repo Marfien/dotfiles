@@ -7,6 +7,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = vim.api.nvim_create_augroup("q_quit", {}),
   pattern = "help,term",
   callback = function(event)
     vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = event.buf, desc = "Close bufer" })
@@ -14,6 +15,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = vim.api.nvim_create_augroup("ts_dynamic_features", {}),
   callback = function()
     local ok, ts_parsers = pcall(require, "nvim-treesitter.parsers")
     -- check if treesitter has parser
@@ -30,6 +32,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- delete empty buffers when new one is added
 vim.api.nvim_create_autocmd("BufAdd", {
+  group = vim.api.nvim_create_augroup("empty_buf_delete", {}),
   callback = function()
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
       if vim.bo[buf].filetype == "Empty" then
@@ -40,7 +43,7 @@ vim.api.nvim_create_autocmd("BufAdd", {
 })
 
 vim.api.nvim_create_autocmd("BufWinLeave", {
-  desc = "Delete buffer from ~/.local after leaving",
+  group = vim.api.nvim_create_augroup("local_quickview", {}),
   callback = function(event)
     local buf = event.buf
     local buf_name = vim.api.nvim_buf_get_name(buf)
@@ -51,5 +54,13 @@ vim.api.nvim_create_autocmd("BufWinLeave", {
         require("util.buffers").delete({ buf = buf })
       end)
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("ft_wrap", {}),
+  pattern = { "markdown", "latex", "ascidoc" },
+  callback = function()
+    vim.wo.wrap = true
   end,
 })
