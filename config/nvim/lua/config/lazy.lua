@@ -37,7 +37,6 @@ require("lazy").setup({
     enabled = true,
     notify = true,
   },
-  browser = vim.env.WSL_DISTRO_NAME and "/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" or nil,
   performance = {
     rtp = {
       -- disable some rtp plugins

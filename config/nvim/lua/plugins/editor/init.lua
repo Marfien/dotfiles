@@ -48,7 +48,16 @@ return {
       "nvim-lua/plenary.nvim",
     },
     submodules = false,
-    opts = {},
+    opts = function(opts)
+      opts = opts or {}
+
+      if vim.env.WSL_DISTRO_NAME then
+        opts.open_browser_app = vim.env.WSL_DISTRO_NAME and "powershell.exe" or "os_specific"
+        opts.open_browser_args = { "start", "explorer.exe" }
+      end
+
+      return opts
+    end,
   },
   {
     "retran/meow.yarn.nvim",
