@@ -62,6 +62,111 @@ return {
         lookahead = false,
       },
     },
-    -- TODO: keymap
+    keys = {
+      {
+        "af",
+        function()
+          require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
+        end,
+        desc = "Outer function",
+        mode = { "x", "o" },
+      },
+      {
+        "if",
+        function()
+          require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
+        end,
+        desc = "Inner function",
+        mode = { "x", "o" },
+      },
+      {
+        "ac",
+        function()
+          require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
+        end,
+        desc = "Outer class",
+        mode = { "x", "o" },
+      },
+      {
+        "ic",
+        function()
+          require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
+        end,
+        desc = "Inner class",
+        mode = { "x", "o" },
+      },
+      {
+        "as",
+        function()
+          require("nvim-treesitter-textobjects.select").select_textobject("@local.scope", "textobjects")
+        end,
+        desc = "Local Scope",
+        mode = { "x", "o" },
+      },
+      {
+        "]f",
+        function()
+          require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Next Function Start",
+      },
+      {
+        "]F",
+        function()
+          require("nvim-treesitter-textobjects.move").goto_next_end("@function.outer", "textobjects")
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Next Function End",
+      },
+      {
+        "[f",
+        function()
+          require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Prev. Function Start",
+      },
+      {
+        "[F",
+        function()
+          require("nvim-treesitter-textobjects.move").goto_previous_end("@function.outer", "textobjects")
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Prev. Function End",
+      },
+      {
+        "]k",
+        function()
+          require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects")
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Next Class Start",
+      },
+      {
+        "]K",
+        function()
+          require("nvim-treesitter-textobjects.move").goto_next_end("@class.outer", "textobjects")
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Next Class End",
+      },
+      {
+        "[k",
+        function()
+          require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects")
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Prev. Class Start",
+      },
+      {
+        "[K",
+        function()
+          require("nvim-treesitter-textobjects.move").goto_previous_end("@class.outer", "textobjects")
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Prev. Class End",
+      },
+    },
   },
 }
