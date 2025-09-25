@@ -43,7 +43,6 @@ end
 return {
   {
     "nvim-telescope/telescope.nvim",
-    event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -51,6 +50,13 @@ return {
       "folke/noice.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
     },
+    init = function()
+      -- Workaround to lazy load telescope ui select
+      vim.ui.select = function(...)
+        require("telescope").load_extension("ui-select")
+        vim.ui.select(...)
+      end
+    end,
     opts = {
       pickers = {
         lsp_definitions = {
@@ -99,14 +105,13 @@ return {
       telescope.setup(vim.tbl_deep_extend("force", opts, {
         extensions = {
           ["ui-select"] = {
-            require("telescope.themes").get_dropdown({}),
+            require("telescope.themes").get_cursor({}),
           },
         },
       }))
 
       telescope.load_extension("fzf")
       telescope.load_extension("noice")
-      telescope.load_extension("ui-select")
 
       vim.api.nvim_create_autocmd({ "BufLeave", "BufWinLeave" }, {
         callback = function(event)

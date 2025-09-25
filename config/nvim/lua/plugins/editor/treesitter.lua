@@ -2,8 +2,9 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
-    init = function()
-      pcall(vim.cmd, "TSUpdate")
+    branch = "main",
+    build = function()
+      require("nvim-treesitter").update()
     end,
     opts_extend = {
       "ensure_installed",
@@ -24,25 +25,28 @@ return {
         "sql",
         "json",
       },
-      highlight = {
-        enable = true,
-      },
-      textobjects = {
-        select = true,
-        keymaps = {
-          ["af"] = { query = "@function.outer", desc = "Function" },
-          ["if"] = { query = "@function.inner", desc = "Function" },
-          ["ac"] = { query = "@class.outer", desc = "Class" },
-          ["ic"] = { query = "@class.inner", desc = "Class" },
-          ["as"] = { query = "@local.scope", query_group = "locals", desc = "Lang Scope" },
-        },
-        selection_modes = {
-          ["@function.outer"] = "V",
-        },
-      },
     },
     config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+      local wanted_parsers = opts.ensure_installed
+      opts.ensure_installed = nil
+
+      local treesitter = require("nvim-treesitter")
+      require("nvim-treesitter.install").install()
+      treesitter.setup()
+      treesitter.install(wanted_parsers, { summary = true })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "*",
+        group = vim.api.nvim_create_augroup("ts_features", {}),
+        callback = function()
+          local successful = pcall(vim.treesitter.start)
+          if successful then
+            vim.wo.foldmethod = "expr"
+            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
     end,
   },
   {
@@ -51,6 +55,13 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {
+      select = {
+        lookahead = false,
+      },
+    },
+    -- TODO: keymap
   },
 }

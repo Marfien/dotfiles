@@ -1,7 +1,7 @@
 return {
   {
     "rachartier/tiny-inline-diagnostic.nvim",
-    event = "VeryLazy",
+    event = "BufReadPost",
     priority = 1000,
     opts = {
       preset = "classic",

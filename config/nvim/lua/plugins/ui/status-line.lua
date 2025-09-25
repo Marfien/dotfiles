@@ -2,9 +2,10 @@ local paths = require("util.paths")
 
 return {
   "nvim-lualine/lualine.nvim",
+  lazy = false,
   dependencies = {
-    { "AndreM222/copilot-lualine" },
-    { "nvim-tree/nvim-web-devicons", opts = {} },
+    --{ "AndreM222/copilot-lualine" },
+    { "nvim-tree/nvim-web-devicons" },
     { "folke/noice.nvim" },
   },
   opts = {
@@ -30,7 +31,7 @@ return {
       },
       lualine_x = {
         { "lsp_status" },
-        { "copilot" },
+        --{ "copilot" },
         {
           require("noice").api.status.mode.get,
           cond = require("noice").api.status.mode.has,

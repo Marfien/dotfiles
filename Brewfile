@@ -54,8 +54,7 @@ brew "luarocks"
 brew "texlive"
 brew "catimg"
 brew "fd"
-tap "alesbrelih/gitlab-ci-ls"
-brew "alesbrelih/gitlab-ci-ls/gitlab-ci-ls"
+brew "tree-sitter-cli"
 
 brew "mas" if OS.mac?
 

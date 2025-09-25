@@ -14,22 +14,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = vim.api.nvim_create_augroup("ts_dynamic_features", {}),
-  callback = function()
-    local ok, ts_parsers = pcall(require, "nvim-treesitter.parsers")
-    -- check if treesitter has parser
-    if ok and ts_parsers.has_parser() then
-      -- use treesitter folding
-      vim.opt.foldmethod = "expr"
-      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-    else
-      -- use alternative foldmethod
-      vim.opt.foldmethod = "indent"
-    end
-  end,
-})
-
 -- delete empty buffers when new one is added
 vim.api.nvim_create_autocmd("BufAdd", {
   group = vim.api.nvim_create_augroup("empty_buf_delete", {}),

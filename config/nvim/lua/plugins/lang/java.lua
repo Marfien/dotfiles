@@ -5,7 +5,8 @@ return require("util.lsp").ensure_lang({
     {
       "mfussenegger/nvim-jdtls",
       dependencies = {
-        "mfussenegger/nvim-dap",
+        -- dap will be enabled automatically when required
+        --"mfussenegger/nvim-dap",
       },
     },
     {
@@ -26,7 +27,7 @@ return require("util.lsp").ensure_lang({
         "rcarriga/nvim-dap-ui", -- recommended
         "theHamsta/nvim-dap-virtual-text", -- recommended
       },
-      build = function()
+      config = function()
         vim.cmd("NeotestJava setup")
       end,
     },

@@ -59,41 +59,45 @@ vim.lsp.config("jdtls", {
 })
 
 ------- Bundles -------
-local bundle_globs = {
-  global:package("java-debug-adapter") .. "/extension/server/com.microsoft.java.debug.plugin-*.jar",
-  global:package("java-test") .. "/extension/server/*.jar",
-}
+local function get_bundles()
+  local bundle_globs = {
+    global:package("java-debug-adapter") .. "/extension/server/com.microsoft.java.debug.plugin-*.jar",
+    global:package("java-test") .. "/extension/server/*.jar",
+  }
 
-local found_bundles = {}
-for _, glob in ipairs(bundle_globs) do
-  for _, file in ipairs(vim.split(vim.fn.glob(glob, true), "\n")) do
-    table.insert(found_bundles, file)
+  local found_bundles = {}
+  for _, glob in ipairs(bundle_globs) do
+    for _, file in ipairs(vim.split(vim.fn.glob(glob, true), "\n")) do
+      table.insert(found_bundles, file)
+    end
   end
-end
 
-local excluded = {
-  "", -- empty lines are possible
-  "com.microsoft.java.test.runner-jar-with-dependencies.jar",
-  "jacocoagent.jar",
-}
+  local excluded = {
+    "", -- empty lines are possible
+    "com.microsoft.java.test.runner-jar-with-dependencies.jar",
+    "jacocoagent.jar",
+  }
 
-local bundles = require("spring_boot").get_jars()
+  local bundles = require("spring_boot").get_jars()
 
-for _, bundle in ipairs(found_bundles) do
-  local filename = vim.fn.fnamemodify(bundle, ":t")
-  if not vim.tbl_contains(excluded, filename) then
-    table.insert(bundles, bundle)
+  for _, bundle in ipairs(found_bundles) do
+    local filename = vim.fn.fnamemodify(bundle, ":t")
+    if not vim.tbl_contains(excluded, filename) then
+      table.insert(bundles, bundle)
+    end
   end
+  return bundles
 end
-
 ------- Actual Config -------
 
 ---@type vim.lsp.Config
 return {
-  init_options = {
-    extendedClientCapabilities = jdtls.extendedClientCapabilities,
-    bundles = bundles,
-  },
+  before_init = function(init_params, _)
+    init_params.initializationOptions = {
+      extendedClientCapabilities = jdtls.extendedClientCapabilities,
+      bundles = get_bundles(),
+    }
+  end,
   on_attach = function(_, buf)
     jdtls.setup_dap()
 

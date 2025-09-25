@@ -29,6 +29,29 @@ return {
           winbar_info = true,
         },
       },
+      keymaps = {
+        view = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close View" } },
+        },
+        diff1 = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close View" } },
+        },
+        diff2 = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close View" } },
+        },
+        diff3 = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close View" } },
+        },
+        diff4 = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close View" } },
+        },
+        file_panel = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close View" } },
+        },
+        file_history_panel = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close View" } },
+        },
+      },
     },
     keys = {
       {
