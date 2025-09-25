@@ -55,7 +55,6 @@ return {
           callback = function()
             local line = vim.v.count
             if line > 0 then
-              print("execute")
               vim.cmd.normal({
                 args = { line .. "G" },
                 bang = true,
