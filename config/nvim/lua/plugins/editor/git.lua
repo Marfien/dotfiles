@@ -1,7 +1,3 @@
-local function get_default_branch_name()
-  local res = vim.system({ "git", "rev-parse", "--verify", "main" }, { capture_output = true }):wait()
-  return res.code == 0 and "main" or "master"
-end
 return {
   {
     "lewis6991/gitsigns.nvim",
@@ -15,6 +11,7 @@ return {
       { "<leader>gR", "<cmd>lua require('gitsigns').reset_buffer()<cr>", desc = "Reset Buffer" },
       --{ "<leader>gd", "<cmd>lua require('gitsigns').diffthis()<cr>", desc = "Diff this" },
       { "ih", "<cmd>lua require('gitsigns').select_hunk()<cr>", desc = "Select Hunk", mode = { "o", "x" } },
+      { "<leader>gx", require("util.git").open, desc = "Open in Browser" },
     },
   },
   {
@@ -66,7 +63,7 @@ return {
       {
         "<leader>gD",
         function()
-          vim.cmd("DiffviewOpen " .. get_default_branch_name())
+          vim.cmd("DiffviewOpen " .. require("util.git").get_default_branch())
         end,
         desc = "Repo Diff (Default Branch)",
       },
