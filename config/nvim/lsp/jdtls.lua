@@ -45,7 +45,7 @@ end
 local global = InstallLocation.global()
 local lombok_jar = global:package("jdtls") .. "/lombok.jar"
 
--- Using vim.lsp.config as it has higher priority as files inside lsp/
+-- Using vim.lsp.config as it has higher priority than files inside lsp/
 vim.lsp.config("jdtls", {
   cmd = {
     "jdtls",

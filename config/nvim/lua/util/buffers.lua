@@ -18,10 +18,6 @@ local function safe_switch_buf(buf_to_delete)
       if has_previous and buf_to_delete ~= vim.api.nvim_win_get_buf(win) then
         return
       end
-
-      -- Create new listed buffer
-      local new_buf = vim.api.nvim_create_buf(true, false)
-      vim.api.nvim_win_set_buf(win, new_buf)
     end)
   end
 end
