@@ -78,8 +78,7 @@ local function get_bundles()
     "jacocoagent.jar",
   }
 
-  local bundles = require("spring_boot").get_jars()
-
+  local bundles = {} -- require("spring_boot").get_jars()
   for _, bundle in ipairs(found_bundles) do
     local filename = vim.fn.fnamemodify(bundle, ":t")
     if not vim.tbl_contains(excluded, filename) then

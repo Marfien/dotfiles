@@ -69,4 +69,21 @@ return {
       { "<leader>cS", "<Cmd>MeowYarn call callers<CR>", desc = "Call Stack", mode = { "n", "x" } },
     },
   },
+  {
+    "samiulsami/fFtT-highlights.nvim",
+    opts = {
+      max_highlighted_lines_around_cursor = 50,
+      match_highlight = {
+        highlight_radius = 50,
+      },
+      multi_line = {
+        enable = true,
+        max_lines = 50,
+      },
+    },
+    config = function(_, opts)
+      require("fFtT-highlights"):setup(opts)
+    end,
+    keys = { "f", "F", "t", "T" },
+  },
 }

@@ -5,19 +5,19 @@ return require("util.lsp").ensure_lang({
     {
       "mfussenegger/nvim-jdtls",
       dependencies = {
-        -- dap will be enabled automatically when required
+        -- dap will be enabled automatically when required - ig
         --"mfussenegger/nvim-dap",
       },
     },
-    {
-      "JavaHello/spring-boot.nvim",
-      ft = { "java", "yaml", "jproperties" },
-      dependencies = {
-        "mfussenegger/nvim-jdtls",
-        "nvim-telescope/telescope.nvim",
-      },
-      opts = {},
-    },
+    -- {
+    --   "JavaHello/spring-boot.nvim",
+    --   ft = { "java", "yaml", "jproperties" },
+    --   dependencies = {
+    --     "mfussenegger/nvim-jdtls",
+    --     "nvim-telescope/telescope.nvim",
+    --   },
+    --   opts = {},
+    -- },
     {
       "rcasia/neotest-java",
       ft = "java",

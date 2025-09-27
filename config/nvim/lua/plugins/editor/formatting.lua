@@ -1,7 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
-    event = { "VeryLazy" },
+    event = { "BufWritePre" },
     opts = {
       log_level = vim.log.levels.WARN,
       notify_on_error = true,
