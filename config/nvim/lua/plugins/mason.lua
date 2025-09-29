@@ -1,16 +1,9 @@
-local mason_to_x = {
-  ["lua-language-server"] = "lua_ls",
-  ["java-debug-adapter"] = "java-adapter",
-  ["terraform-ls"] = "terraformls",
-  ["yaml-language-server"] = "yamlls",
-  ["bash-language-server"] = "bashls",
-}
-
 return {
   {
     "mason-org/mason.nvim",
     cmd = { "Mason", "MasonLog" },
-    init = function()
+    config = function(_, opts)
+      require("mason").setup(opts)
       pcall(vim.cmd, "MsonUpdate")
     end,
     opts = {},
@@ -21,7 +14,6 @@ return {
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    event = "VeryLazy",
     dependencies = {
       "mason-org/mason.nvim",
     },

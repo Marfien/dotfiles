@@ -1,12 +1,17 @@
 return {
   {
     "windwp/nvim-autopairs",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
     event = "InsertEnter",
-    opts = {},
+    opts = {
+      check_ts = true,
+    },
   },
   {
     "windwp/nvim-ts-autotag",
-    event = "BufEnter",
+    event = "InsertEnter",
     opts = {},
   },
   {
@@ -19,10 +24,9 @@ return {
         char = "▏",
       },
       scope = {
-        char = "▍",
         show_start = false,
         show_end = false,
-        highlight = "IblIndent",
+        highlight = "CursorLine",
       },
     },
   },

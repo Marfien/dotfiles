@@ -73,3 +73,9 @@ opt.expandtab = true
 -- undo history
 opt.undofile = true
 opt.undolevels = 10000
+
+vim.filetype.add({
+  pattern = {
+    ["%.gitlab%-ci%.ya?ml"] = "yaml.gitlab",
+  },
+})

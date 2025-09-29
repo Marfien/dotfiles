@@ -39,6 +39,7 @@ brew "uv"
 brew "node"
 brew "nvm"
 brew "go"
+brew "rust"
 
 # zsh plugins
 brew "zsh"

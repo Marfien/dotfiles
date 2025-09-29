@@ -124,10 +124,19 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader><space>", "<cmd>lua telescope_resume_or_files()<cr>", desc = "Resume or find files" },
+
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
       { "<leader>fl", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
       { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Grep string" },
       { "<leader>fn", "<cmd>Telescope noice<cr>", desc = "Telescope notifications" },
+
+      { "<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
+      { "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
+      { "<leader>cr", "<cmd>Telescope lsp_references<cr>", desc = "Find References" },
+      { "<leader>cd", "<cmd>Telescope lsp_definitions<cr>",  desc = "Goto Definition" },
+
+      { "<leader>gb", "<cmd>Telescope git_branches<cr>",  desc = "Branches" },
+      { "<leader>gs", "<cmd>Telescope git_stash<cr>",  desc = "Stashed Files" },
     },
   },
 }
