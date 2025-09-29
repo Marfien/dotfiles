@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = vim.api.nvim_create_augroup("q_quit", {}),
-  pattern = "help,term",
+  pattern = "help,term,neotest-output-panel,vim",
   callback = function(event)
     vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = event.buf, desc = "Close bufer" })
   end,
