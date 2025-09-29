@@ -91,12 +91,9 @@ function M.get_url(repo, fields)
   for remote, patterns in pairs(url_patterns) do
     if repo:find(remote) then
       local pattern = patterns[link_ref]
-      return repo
-        .. pattern:gsub("(%b{})", function(key)
-          local val = fields[key:sub(2, -2)] or key
-          print("Replace " .. key .. " with " .. val)
-          return val
-        end)
+      return repo .. pattern:gsub("(%b{})", function(key)
+        return fields[key:sub(2, -2)] or key
+      end)
     end
   end
   return repo
