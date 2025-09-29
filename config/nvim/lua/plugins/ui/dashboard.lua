@@ -1,6 +1,8 @@
 vim.api.nvim_create_autocmd("User", {
-  pattern = "Btw",
-  callback = function() end,
+  pattern = "BtwOpened",
+  callback = function()
+    vim.bo.modifiable = false
+  end,
 })
 
 return {
@@ -16,9 +18,9 @@ return {
                        - o -        (_.'             '    --o--     *          
                .         |                .                 |                  
               +                                                                
-                         o '        |                   '        .           o  
-          +    .-.       .        --o--      / )   .     .          .           
-     o        (   )         (\__/)  |   *   ( (      +              .          .
+                         o '        |                   '        .           o 
+          +    .-.       .        --o--      / )   .     .          .          
+     o        (   )         (\__/)  |   *   ( (      +              .         .
                `-'     +    )    (     .    ) ).                           .   
            +              ={      }=       / /      +                    *.    
                             )     `--,____/ /     ' .        +                o
