@@ -23,7 +23,6 @@ return {
         "jq",
         "pug",
         "sql",
-        "json",
       },
     },
     config = function(_, opts)
