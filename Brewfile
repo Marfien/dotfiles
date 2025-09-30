@@ -56,11 +56,13 @@ brew "texlive"
 brew "catimg"
 brew "fd"
 brew "tree-sitter-cli"
+brew "colima" if OS.mac?
+brew "docker"
+brew "docker-compose"
+brew "docker-buildx"
 
 brew "mas" if OS.mac?
 
-# cask "docker-desktop"
-cask "alt-tab" if OS.mac?
 cask "font-meslo-lg-nerd-font"
 cask "headlamp"
 cask "wezterm"
@@ -74,7 +76,6 @@ cask "gimp"
 cask "curseforge" if OS.mac?
 
 mas "Command X", id: 6448461551
-mas "Goodnotes", id: 1444383602
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
