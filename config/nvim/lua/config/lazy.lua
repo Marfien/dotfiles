@@ -20,6 +20,9 @@ require("config.usercmds")
 require("config.keymaps")
 
 require("lazy").setup({
+  ui = {
+    border = "rounded",
+  },
   spec = {
     -- Spell files for German and English
     "AlxHnr/vim-spell-files",
