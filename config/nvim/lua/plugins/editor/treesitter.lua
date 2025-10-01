@@ -1,7 +1,8 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    lazy = false,
+    lazy = vim.fn.argc(-1) == 0,
+    event = { "BufReadPost", "BufNewFile", "VeryLazy" },
     branch = "main",
     build = function()
       require("nvim-treesitter").update()

@@ -71,7 +71,7 @@ return {
       {
         "-",
         function()
-          require("oil").open(nil, { preview = { vertical = true, split = "botright" } })
+          require("oil").open_float(nil, { preview = { vertical = true, split = "botright" } })
         end,
         desc = "Oil",
       },

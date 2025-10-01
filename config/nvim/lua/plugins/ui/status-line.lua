@@ -2,7 +2,7 @@ local paths = require("util.paths")
 
 return {
   "nvim-lualine/lualine.nvim",
-  lazy = false,
+  event = "VeryLazy",
   dependencies = {
     --{ "AndreM222/copilot-lualine" },
     { "nvim-tree/nvim-web-devicons" },
