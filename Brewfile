@@ -74,6 +74,8 @@ cask "anki"
 cask "spotify"
 cask "gimp"
 cask "curseforge" if OS.mac?
+cask "android-studio"
+cask "linearmouse"
 
 mas "Command X", id: 6448461551
 mas "Keynote", id: 409183694
