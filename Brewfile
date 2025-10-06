@@ -7,16 +7,13 @@ brew "oras"
 brew "ansible"
 brew "k9s"
 brew "fluxcd/tap/flux"
-brew "podman"
 brew "terraform"
 
 # data management
 brew "jq"
 brew "tree"
-brew "wget"
 brew "curl"
 brew "bat"
-brew "repomix"
 
 # cli
 brew "git"
@@ -26,7 +23,6 @@ brew "tmux"
 brew "awscli"
 
 # development
-brew "jenv"
 brew "maven"
 brew "gradle"
 brew "openjdk@8" if not OS.mac? # There is no ARM binary for JDK-8
@@ -34,9 +30,14 @@ brew "openjdk@21"
 brew "openjdk@17"
 brew "uv"
 brew "node"
-brew "nvm"
 brew "go"
 brew "rust"
+
+# containers
+brew "colima"
+brew "docker"
+brew "docker-compose"
+brew "docker-buildx"
 
 # zsh plugins
 brew "zsh"
@@ -53,10 +54,6 @@ brew "texlive"
 brew "catimg"
 brew "fd"
 brew "tree-sitter-cli"
-brew "colima" if OS.mac?
-brew "docker"
-brew "docker-compose"
-brew "docker-buildx"
 
 brew "mas" if OS.mac?
 
