@@ -19,14 +19,11 @@ brew "bat"
 brew "repomix"
 
 # cli
-brew "gh"
 brew "git"
 brew "git-lfs"
-brew "glow"
 brew "neovim"
-brew "so"
 brew "tmux"
-brew "spotify_player"
+brew "awscli"
 
 # development
 brew "jenv"
