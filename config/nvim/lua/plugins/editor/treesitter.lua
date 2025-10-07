@@ -1,8 +1,6 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    lazy = vim.fn.argc(-1) == 0,
-    event = { "BufReadPost", "BufNewFile", "VeryLazy" },
     branch = "main",
     build = function()
       require("nvim-treesitter").update()
@@ -30,10 +28,7 @@ return {
       local wanted_parsers = opts.ensure_installed
       opts.ensure_installed = nil
 
-      local treesitter = require("nvim-treesitter")
-      require("nvim-treesitter.install").install()
-      treesitter.setup()
-      treesitter.install(wanted_parsers, { summary = true })
+      require("nvim-treesitter").install(wanted_parsers, { summary = true })
 
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "*",
