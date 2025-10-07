@@ -47,6 +47,12 @@ return {
         relativenumber = false,
         colorcolumn = "",
       },
+      float = {
+        padding = 1,
+        max_height = 0,
+        max_width = 0,
+        border = "none",
+      },
       keymaps = {
         ["q"] = { "actions.close", mode = "n" },
         ["ESC"] = { "actions.close", mode = "n" },
