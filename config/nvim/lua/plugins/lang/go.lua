@@ -2,7 +2,7 @@ return require("util.lsp").ensure_lang({
   parsers = { "go", "gomod", "gowork", "gosum" },
   ft = { "go", "go.sum", "go.mod", "go.work" },
   tools = { "delve", "gopls" },
-  formatters = { "goimports", "gofumpt" },
+  formatters = { "goimports", "gofumpt", "golangci-lint", "golangci-lint-langserver" },
   other = {
     {
       "leoluz/nvim-dap-go",
