@@ -33,8 +33,8 @@ brew "node"
 brew "go"
 brew "rust"
 
-cask "android-commandlinetools"
-cask "android-platform-tools"
+cask "android-commandlinetools" if OS.mac?
+cask "android-platform-tools" if OS.mac?
 
 # containers
 brew "colima"
