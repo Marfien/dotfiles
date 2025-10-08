@@ -33,6 +33,9 @@ brew "node"
 brew "go"
 brew "rust"
 
+cask "android-commandlinetools"
+cask "android-platform-tools"
+
 # containers
 brew "colima"
 brew "docker"

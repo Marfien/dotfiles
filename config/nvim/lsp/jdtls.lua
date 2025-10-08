@@ -4,25 +4,10 @@ local jdtls = require("jdtls")
 InstallLocation.global():initialize()
 
 ------- JDK Discovery -------
-
-local brew_handle = io.popen("brew --prefix")
-if not brew_handle then
-  error("Brew Path could not be determined")
-end
-
-local brew_path = brew_handle:read("*a"):gsub("\n", "")
-brew_handle:close()
-
--- throw error when brewPath nil
-if not brew_path then
-  vim.notify("Brew Path cannot be found. Disabling nvim-jdtls...")
-  return false
-end
-
 local function get_openjdk_runtime(version)
   return {
     name = "JavaSE-" .. (version <= 8 and "1." .. version or version),
-    path = brew_path .. "/opt/openjdk@" .. version .. "/",
+    path = require("util.brew").get_brew_path() .. "/opt/openjdk@" .. version .. "/",
   }
 end
 
