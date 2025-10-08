@@ -1,8 +1,3 @@
-ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/mnt/c/)
-
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
-ZSH_AUTOSUGGEST_USE_ASYNC=1
-
 zsh_plugins=(
   zsh-history-substring-search
   zsh-autosuggestions
