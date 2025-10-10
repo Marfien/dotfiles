@@ -12,6 +12,13 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
+vim.api.nvim_create_autocmd("User", {
+  pattern = "OilEnter",
+  callback = function()
+    require("oil").open_preview()
+  end,
+})
+
 function _G.get_oil_winbar()
   local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
   local dir = require("oil").get_current_dir(bufnr)
@@ -47,12 +54,6 @@ return {
         relativenumber = false,
         colorcolumn = "",
       },
-      float = {
-        padding = 1,
-        max_height = 0,
-        max_width = 0,
-        border = "none",
-      },
       keymaps = {
         ["q"] = { "actions.close", mode = "n" },
         ["ESC"] = { "actions.close", mode = "n" },
@@ -76,9 +77,7 @@ return {
     keys = {
       {
         "-",
-        function()
-          require("oil").open_float(nil, { preview = { vertical = true, split = "botright" } })
-        end,
+        "<cmd>Oil<cr>",
         desc = "Oil",
       },
     },
