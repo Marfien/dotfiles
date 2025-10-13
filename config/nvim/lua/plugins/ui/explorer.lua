@@ -14,13 +14,16 @@ vim.api.nvim_create_autocmd("User", {
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "OilEnter",
-  callback = function()
-    require("oil").open_preview()
+  callback = function(event)
+    if not require("oil.util").get_preview_win({ include_not_owned = true }) then
+      require("oil").open_preview()
+    end
   end,
 })
 
-function _G.get_oil_winbar()
-  local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+function _G.get_oil_winbar(buf)
+  buf = buf or vim.g.statusline_winid
+  local bufnr = vim.api.nvim_win_get_buf(buf)
   local dir = require("oil").get_current_dir(bufnr)
   if dir then
     return vim.fn.fnamemodify(dir, ":~")
