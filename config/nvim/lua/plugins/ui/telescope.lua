@@ -58,28 +58,11 @@ return {
       end
     end,
     opts = {
-      pickers = {
-        lsp_definitions = {
-          theme = "dropdown",
-        },
-        lsp_references = {
-          theme = "dropdown",
-        },
-        lsp_implementations = {
-          theme = "dropdown",
-        },
-        live_grep = {
-          file_ignore_patterns = file_ignore_patterns,
-          additional_args = function(_)
-            return { "--hidden" }
-          end,
-        },
-        find_files = {
-          hidden = true,
-          file_ignore_patterns = file_ignore_patterns,
-        },
-      },
       defaults = {
+        wrap_results = true,
+        path_display = {
+          "filename_first",
+        },
         mappings = {
           n = {
             ["q"] = "close",
@@ -98,10 +81,33 @@ return {
           },
         },
       },
+      pickers = {
+        lsp_definitions = {
+          theme = "dropdown",
+        },
+        lsp_references = {
+          theme = "dropdown",
+        },
+        lsp_implementations = {
+          theme = "dropdown",
+        },
+        live_grep = {
+          file_ignore_patterns = file_ignore_patterns,
+          path_display = {
+            shorten = { len = 1, exclude = { 1, -1 } },
+          },
+          additional_args = function(_)
+            return { "--trim", "--hidden" }
+          end,
+        },
+        find_files = {
+          hidden = true,
+          file_ignore_patterns = file_ignore_patterns,
+        },
+      },
     },
     config = function(_, opts)
       local telescope = require("telescope")
-
       telescope.setup(vim.tbl_deep_extend("force", opts, {
         extensions = {
           ["ui-select"] = {
