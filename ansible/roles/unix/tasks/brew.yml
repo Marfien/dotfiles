@@ -15,7 +15,7 @@
   when: ansible_os_family == "RedHat"
   dnf:
     name:
-      - '@development-tools'
+      - "@development-tools"
       - procps-ng
       - file
       - git
@@ -37,7 +37,8 @@
 
 - name: Install brew
   become: false
-  become_user: '{{ ansible_user_id }}'
+  when: 0 > 1
+  become_user: "{{ ansible_user_id }}"
   block:
     - tempfile: {}
       register: tempfile

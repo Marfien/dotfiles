@@ -33,6 +33,7 @@ brew "uv"
 brew "node"
 brew "go"
 brew "rust"
+brew "kotlin"
 
 brew "gcc"
 brew "cmake"
