@@ -11,6 +11,7 @@ output="$(mktemp -d)/result.jar"
 
 if ! kotlinc "$target" -include-runtime -d "$output"; then
   exit_code=$?
+  echo ""
   echo "Failed to compile '$target'"
   exit $exit_code
 fi
@@ -19,5 +20,6 @@ java -jar "$output"
 exit_code=$?
 rm -f "$output"
 
+echo ""
 echo "Program exited with exit code $exit_code"
 exit $exit_code
