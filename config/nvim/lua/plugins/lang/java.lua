@@ -1,6 +1,6 @@
 return require("util.lsp").ensure_lang({
   ft = { "java" },
-  tools = { "java-test", "java-debug-adapter", "jdtls", "vscode-spring-boot-tools" },
+  tools = { "java-test", "java-debug-adapter", "jdtls" },
   other = {
     {
       "mfussenegger/nvim-jdtls",

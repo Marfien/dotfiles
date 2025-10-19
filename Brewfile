@@ -28,6 +28,7 @@ brew "gradle"
 brew "openjdk@8" if not OS.mac? # There is no ARM binary for JDK-8
 brew "openjdk@21"
 brew "openjdk@17"
+brew "openjdk"
 
 brew "uv"
 brew "node"

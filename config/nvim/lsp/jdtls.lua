@@ -11,6 +11,17 @@ local function get_openjdk_runtime(version)
   }
 end
 
+local function create_runtimes(versions)
+  local runtimes = {}
+  for _, version in ipairs(versions) do
+    local runtime = get_openjdk_runtime(version)
+
+    if vim.fn.isdirectory(runtime.path) then
+      table.insert(runtimes, runtime)
+    end
+  end
+end
+
 ------- CMD and Args -------
 
 local function get_cache_dir()
@@ -63,7 +74,7 @@ local function get_bundles()
     "jacocoagent.jar",
   }
 
-  local bundles = {} -- require("spring_boot").get_jars()
+  local bundles = {}
   for _, bundle in ipairs(found_bundles) do
     local filename = vim.fn.fnamemodify(bundle, ":t")
     if not vim.tbl_contains(excluded, filename) then
@@ -79,9 +90,11 @@ return {
   before_init = function(init_params, _)
     init_params.initializationOptions = {
       extendedClientCapabilities = jdtls.extendedClientCapabilities,
-      bundles = get_bundles(),
     }
   end,
+  init_options = {
+    bundles = get_bundles(),
+  },
   on_attach = function(_, buf)
     jdtls.setup_dap()
 
@@ -132,11 +145,7 @@ return {
         useBlocks = true,
       },
       configuration = {
-        runtimes = {
-          get_openjdk_runtime(8),
-          get_openjdk_runtime(17),
-          get_openjdk_runtime(21),
-        },
+        runtimes = create_runtimes({ 8, 17, 21 }),
         updateBuildConfiguration = "automatic",
       },
       contentProvider = { preferred = "fernflower" },
