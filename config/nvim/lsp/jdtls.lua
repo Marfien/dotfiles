@@ -16,10 +16,12 @@ local function create_runtimes(versions)
   for _, version in ipairs(versions) do
     local runtime = get_openjdk_runtime(version)
 
-    if vim.fn.isdirectory(runtime.path) then
+    if vim.fn.isdirectory(runtime.path) ~= 0 then
       table.insert(runtimes, runtime)
     end
   end
+
+  return runtimes
 end
 
 ------- CMD and Args -------

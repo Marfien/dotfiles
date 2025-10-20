@@ -74,8 +74,8 @@ for _, bind in ipairs({ "grt", "grn", "gra", "gri", "grr" }) do
 end
 
 -- lsp
-map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
-map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
-map("n", "<leader>ck", vim.lsp.buf.signature_help, { desc = "Code Signature" })
-map("n", "<leader>cD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
-map("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" }) -- See `:help K` for why this keymap
+map({ "n", "x" }, "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
+map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+map({ "n", "x" }, "<leader>ck", vim.lsp.buf.signature_help, { desc = "Code Signature" })
+map({ "n", "x" }, "<leader>cD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
+map({ "n", "x" }, "K", vim.lsp.buf.hover, { desc = "Hover Documentation" }) -- See `:help K` for why this keymap

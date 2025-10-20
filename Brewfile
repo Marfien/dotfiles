@@ -7,7 +7,7 @@ brew "oras"
 brew "ansible"
 brew "k9s"
 brew "fluxcd/tap/flux"
-brew "terraform"
+brew "opentofu"
 
 # data management
 brew "jq"
@@ -63,6 +63,7 @@ brew "texlive"
 brew "catimg"
 brew "fd"
 brew "tree-sitter-cli"
+brew "xclip" if OS.linux?
 
 brew "mas" if OS.mac?
 
