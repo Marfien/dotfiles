@@ -8,6 +8,10 @@ return {
   end,
   opts = {
     preset = "helix",
+    show_help = false,
+    win = {
+      border = vim.g.borderstyle.name,
+    },
     spec = {
       { "<leader>a", group = "AI" },
       { "<leader>g", group = "Git" },

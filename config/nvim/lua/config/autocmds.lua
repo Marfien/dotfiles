@@ -48,3 +48,14 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.wo.wrap = true
   end,
 })
+
+vim.api.nvim_create_autocmd("WinNew", {
+  group = vim.api.nvim_create_augroup("editor_winboarder", {}),
+  callback = function()
+    local config = vim.api.nvim_win_get_config(0)
+    -- Disable border for full screen windows
+    if config.relative == "editor" and config.width == vim.o.columns and config.height == vim.o.lines then
+      vim.api.nvim_win_set_config(0, { border = "none" })
+    end
+  end,
+})

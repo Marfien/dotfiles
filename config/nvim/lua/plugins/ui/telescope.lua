@@ -40,6 +40,18 @@ function _G.telescope_resume_or_files()
   end
 end
 
+local no_preview = {
+  width = 0.8,
+  previewer = false,
+  theme = "dropdown",
+  borderchars = {
+    vim.g.borderstyle.chars,
+    prompt = vim.tbl_deep_extend("force", vim.deepcopy(vim.g.borderstyle.chars), { [3] = " " }),
+    results = vim.tbl_deep_extend("force", vim.deepcopy(vim.g.borderstyle.chars), { [5] = "├", [6] = "┤" }),
+    preview = vim.g.borderstyle.chars,
+  },
+}
+
 return {
   {
     "nvim-telescope/telescope.nvim",
@@ -62,6 +74,23 @@ return {
         wrap_results = true,
         path_display = {
           "filename_first",
+        },
+        --border = {},
+        layout_strategy = "horizontal",
+        borderchars = {
+          vim.g.borderstyle.chars,
+          prompt = vim.g.borderstyle.chars,
+          results = vim.g.borderstyle.chars,
+          preview = vim.g.borderstyle.chars,
+        },
+        layout_config = {
+          prompt_position = "top",
+          horizontal = {
+            mirror = false,
+          },
+          vertical = {
+            mirror = false,
+          },
         },
         mappings = {
           n = {
@@ -100,10 +129,14 @@ return {
             return { "--trim", "--hidden" }
           end,
         },
-        find_files = {
+        find_files = vim.tbl_extend("keep", {
           hidden = true,
           file_ignore_patterns = file_ignore_patterns,
-        },
+          additional_args = { "--strip-cwd-prefix" },
+        }, no_preview),
+        buffers = vim.tbl_extend("keep", {
+          sort_mru = true,
+        }, no_preview),
       },
     },
     config = function(_, opts)
@@ -134,7 +167,8 @@ return {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
       { "<leader>fl", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
       { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Grep string" },
-      { "<leader>fn", "<cmd>Telescope noice<cr>", desc = "Telescope notifications" },
+      { "<leader>fn", "<cmd>Telescope noice<cr>", desc = "Notifications" },
+      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
 
       { "<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
       { "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },

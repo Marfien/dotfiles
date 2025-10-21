@@ -4,6 +4,9 @@ return {
     lazy = false,
     opts = {
       timeout = 10000,
+      on_open = function(win)
+        vim.api.nvim_win_set_config(win, { border = vim.g.borderstyle.name })
+      end,
     },
     init = function()
       vim.notify = require("notify")
@@ -37,6 +40,18 @@ return {
       },
       cmdline = {
         view = "cmdline",
+      },
+      views = {
+        confirm = {
+          border = {
+            style = vim.g.borderstyle.name,
+          },
+        },
+        popup = {
+          border = {
+            style = vim.g.borderstyle.name,
+          },
+        },
       },
     },
     dependencies = {

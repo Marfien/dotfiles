@@ -1,5 +1,10 @@
 local opt = vim.opt
 
+vim.g.borderstyle = {
+  name = "single",
+  chars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+}
+
 opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 
 -- fully disable mouse
@@ -33,6 +38,8 @@ opt.timeoutlen = 300
 opt.updatetime = 200 -- write swap after this many ms
 opt.wildmode = "longest:full,full"
 opt.wrap = false
+
+opt.winborder = vim.g.borderstyle.name
 
 -- folding
 opt.fillchars = {

@@ -31,7 +31,7 @@ return {
         layout = "float",
         width = 0.6,
         height = 0.6,
-        border = "rounded",
+        border = vim.g.borderstyle.name,
       },
       headers = {
         user = " 👤 You: ",
