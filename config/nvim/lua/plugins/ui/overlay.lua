@@ -47,6 +47,11 @@ return {
             style = vim.g.borderstyle.name,
           },
         },
+        cmdline_input = {
+          border = {
+            style = vim.g.borderstyle.name,
+          },
+        },
         popup = {
           border = {
             style = vim.g.borderstyle.name,

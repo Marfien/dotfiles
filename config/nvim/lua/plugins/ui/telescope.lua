@@ -46,8 +46,8 @@ local no_preview = {
   theme = "dropdown",
   borderchars = {
     vim.g.borderstyle.chars,
-    prompt = vim.tbl_deep_extend("force", vim.deepcopy(vim.g.borderstyle.chars), { [3] = " " }),
-    results = vim.tbl_deep_extend("force", vim.deepcopy(vim.g.borderstyle.chars), { [5] = "├", [6] = "┤" }),
+    prompt = vim.tbl_extend("force", vim.deepcopy(vim.g.borderstyle.chars), { [3] = " " }),
+    results = vim.tbl_extend("force", vim.deepcopy(vim.g.borderstyle.chars), { [5] = "├", [6] = "┤" }),
     preview = vim.g.borderstyle.chars,
   },
 }
@@ -72,19 +72,22 @@ return {
     opts = {
       defaults = {
         wrap_results = true,
+        results_title = false,
         path_display = {
           "filename_first",
         },
         --border = {},
-        layout_strategy = "horizontal",
         borderchars = {
           vim.g.borderstyle.chars,
           prompt = vim.g.borderstyle.chars,
           results = vim.g.borderstyle.chars,
           preview = vim.g.borderstyle.chars,
         },
+        sorting_strategy = "ascending",
+        layout_strategy = "horizontal",
         layout_config = {
           prompt_position = "top",
+
           horizontal = {
             mirror = false,
           },
@@ -137,6 +140,7 @@ return {
         buffers = vim.tbl_extend("keep", {
           sort_mru = true,
         }, no_preview),
+        git_branches = vim.tbl_extend("keep", {}, no_preview),
       },
     },
     config = function(_, opts)
