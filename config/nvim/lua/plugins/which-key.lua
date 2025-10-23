@@ -24,6 +24,7 @@ return {
       { "<leader>r", group = "Refactor" },
       { "<leader>d", group = "Debug" },
       { "<leader>t", group = "Test" },
+      { "<leader>s", group = "Session" },
     },
     plugins = {
       spelling = {
