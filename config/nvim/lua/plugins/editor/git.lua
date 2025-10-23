@@ -1,3 +1,7 @@
+local function diff_against(branch)
+  vim.cmd("DiffviewOpen " .. branch .. "...HEAD")
+end
+
 return {
   {
     "lewis6991/gitsigns.nvim",
@@ -55,7 +59,11 @@ return {
         "<leader>gc",
         function()
           local user_input = vim.fn.input("Compare to: ")
-          vim.cmd("DiffviewOpen " .. user_input)
+          if user_input ~= "" then
+            diff_against(user_input)
+          else
+            vim.notify("Aboarding", vim.log.levels.ERROR)
+          end
         end,
         desc = "Compare to Revision",
       },
@@ -63,7 +71,7 @@ return {
       {
         "<leader>gD",
         function()
-          vim.cmd("DiffviewOpen " .. require("util.git").get_default_branch())
+          diff_against(require("util.git").get_default_branch())
         end,
         desc = "Repo Diff (Default Branch)",
       },
