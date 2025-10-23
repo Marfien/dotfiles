@@ -41,7 +41,6 @@ function _G.telescope_resume_or_files()
 end
 
 local no_preview = {
-  width = 0.8,
   previewer = false,
   theme = "dropdown",
   borderchars = {
@@ -134,10 +133,16 @@ return {
         },
         find_files = vim.tbl_extend("keep", {
           hidden = true,
+          layout_config = {
+            height = 0.8,
+          },
           file_ignore_patterns = file_ignore_patterns,
           additional_args = { "--strip-cwd-prefix" },
         }, no_preview),
         buffers = vim.tbl_extend("keep", {
+          layout_config = {
+            height = 0.8,
+          },
           sort_mru = true,
         }, no_preview),
         git_branches = vim.tbl_extend("keep", {}, no_preview),
@@ -148,7 +153,7 @@ return {
       telescope.setup(vim.tbl_deep_extend("force", opts, {
         extensions = {
           ["ui-select"] = {
-            require("telescope.themes").get_cursor({}),
+            require("telescope.themes").get_cursor(no_preview),
           },
         },
       }))

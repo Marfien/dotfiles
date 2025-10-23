@@ -13,7 +13,19 @@ return require("util.lsp").ensure_lang({
         vim.g.vimtex_view_method = "sioyek"
         if vim.env.WSL_DISTRO_NAME then
           -- Windows path is appended so we will use the windows version
-          vim.g.vimtex_view_sioyek_exe = "sioyek.exe"
+          vim.system(
+            {
+              "powershell.exe",
+              "-nologo",
+              "-noprofile",
+              "-command",
+              "wsl wslpath (get-command sioyek).Source.Replace('\\', '\\\\')",
+            },
+            nil,
+            function(data)
+              vim.g.vimtex_view_sioyek_exe = data.stdout:gsub("\n", "")
+            end
+          )
         end
 
         vim.g.vimtex_fold_enabled = 1

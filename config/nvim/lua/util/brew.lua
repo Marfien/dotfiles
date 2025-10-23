@@ -3,21 +3,12 @@ local M = {}
 M._brew_path = nil
 
 local function calc_brew_path()
-  local brew_handle = io.popen("brew --prefix")
-  if not brew_handle then
-    error("Brew Path could not be determined")
+  local syscall = vim.system({ "brew", "--prefix" }):wait()
+  if syscall.code ~= 0 then
+    error("Failed to get brew path: " .. syscall.stderr)
   end
 
-  local brew_path = brew_handle:read("*a"):gsub("\n", "")
-  brew_handle:close()
-
-  -- throw error when brewPath nil
-  if not brew_path then
-    vim.notify("Brew Path cannot be found. Disabling nvim-jdtls...")
-    return false
-  end
-
-  return brew_path
+  return syscall.stdout:gsub("\n", "")
 end
 
 function M.get_brew_path()
