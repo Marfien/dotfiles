@@ -6,14 +6,14 @@ vim.fn.mkdir(cache_path, "p")
 
 local function calc_path(callback)
   vim.system(
-    { "md5" },
+    { "md5sum" },
     { stdin = vim.fn.getcwd() },
     vim.schedule_wrap(function(data)
       if data.code ~= 0 then
         vim.notify("Error hashing cwd: " .. data.stderr)
         return
       end
-      local hash = vim.fn.trim(data.stdout)
+      local hash = vim.fn.split(data.stdout, "", true)[1]
       callback(hash)
     end)
   )
