@@ -47,10 +47,9 @@ local lombok_jar = global:package("jdtls") .. "/lombok.jar"
 vim.lsp.config("jdtls", {
   cmd = {
     "jdtls",
-    "-configuration",
-    get_cache_dir() .. "/config",
-    "-data",
-    get_cache_dir() .. "/workspace",
+    "--java-executable=" .. require("util.brew").get_brew_path() .. "/bin/java",
+    "-configuration=" .. get_cache_dir() .. "/config",
+    "-data=" .. get_cache_dir() .. "/workspace",
     "--jvm-arg=-javaagent:" .. lombok_jar,
     get_jdtls_jvm_args(),
   },
