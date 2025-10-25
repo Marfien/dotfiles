@@ -6,16 +6,47 @@ local function exec_task(self, task, callback)
     executable = executable .. ".bat"
   end
 
-  vim.system({
-    executable,
-    self.module_id .. ":" .. task,
-  }, {}, callback)
+  require("util.android.util").exec_out(
+    {
+      executable,
+      self.module_id .. ":" .. task,
+    },
+    "Build Log",
+    { cwd = self.project_root },
+    function(data)
+      if data.code ~= 0 then
+        vim.notify("Gradle Task (" .. task .. ") unsuccessfull")
+        return
+      else
+        callback(data)
+      end
+    end
+  )
+end
+
+local function application_id(self)
+  if self._application_id then
+    return self._application_id
+  end
+
+  local build_script = self.module_root .. "/build.gradle.kts"
+
+  for line in io.lines(build_script, "*a") do
+    if line:find("applicationId") then
+      local app_id = line:match(".*[\"']([^\"']+)[\"']")
+      return app_id
+    end
+  end
+
+  return nil
 end
 
 ---@class util.android.GradleContext
 ---@field project_root string
+---@field module_root string
 ---@field module_id string
----@field exec_task fun(task: string, callback: fun(out: vim.SystemCompleted))
+---@field exec_task fun(self, task: string, callback: fun(out: vim.SystemCompleted))
+---@field application_id fun(self): string
 
 ---@return util.android.GradleContext
 function M.find()
@@ -27,7 +58,13 @@ function M.find()
 
   local module_id = module_root:sub(#project_root + 1, #module_root):gsub("/", ":")
 
-  return { project_root = project_root, module_id = module_id, exec_task = exec_task }
+  return {
+    project_root = project_root,
+    module_root = module_root,
+    module_id = module_id,
+    exec_task = exec_task,
+    application_id = application_id,
+  }
 end
 
 return M

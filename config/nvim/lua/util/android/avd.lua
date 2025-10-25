@@ -3,62 +3,56 @@ local M = {}
 local emulator = vim.env.ANDROID_HOME .. "/emulator/emulator"
 
 ---@param name string
----@return boolean success
-function M.launch(name)
-  local data = vim
-    .system({
-      emulator,
-      "-avd",
-      name,
-    })
-    :wait()
-
-  return data.code == 0
+---@param callback fun(out: vim.SystemCompleted)
+function M.launch(name, callback)
+  vim.system({
+    emulator,
+    "-avd",
+    name,
+  }, {}, callback)
 end
 
----@return string[] | boolean
-function M.list()
-  local data = vim
-    .system({
+---@param callback fun(data: vim.SystemCompleted, avds: string[]|nil)
+function M.list(callback)
+  vim.system(
+    {
       emulator,
       "-list-avds",
-    })
-    :wait()
-
-  return data.code == 0 and vim.fn.split(data.stdout, "\n", false) or false
+    },
+    {},
+    vim.schedule_wrap(function(data)
+      callback(data, data.code == 0 and vim.fn.split(data.stdout, "\n", false) or nil)
+    end)
+  )
 end
 
 ---@param name string
----@return boolean success
-function M.delete(name)
-  local data = vim
-    .system({
-      "avdmanager",
-      "delete",
-      "avd",
-      "--name",
-      "name",
-    })
-    :wait()
-
-  return data.code == 0
+---@param callback fun(out: vim.SystemCompleted)
+function M.delete(name, callback)
+  vim.system({
+    "avdmanager",
+    "delete",
+    "avd",
+    "--name",
+    name,
+  }, {}, callback)
 end
 
-function M.create(name, image, device)
-  local data = vim
-    .system({
-      "sdkmanager",
-      image,
-    })
-    :wait()
+---Creates a new AVD
+---@param name string
+---@param image string
+---@param device string
+---@param callback fun(out: vim.SystemCompleted)
+function M.create(name, image, device, callback)
+  vim.system({
+    "sdkmanager",
+    image,
+  }, {}, function(data)
+    if data.code ~= 0 then
+      callback(data)
+    end
 
-  if data.code ~= 0 then
-    -- TODO: error messages
-    return false
-  end
-
-  data = vim
-    .system({
+    vim.system({
       "avdmanager",
       "create",
       "avd",
@@ -68,37 +62,52 @@ function M.create(name, image, device)
       image,
       "--device",
       device,
-    })
-    :wait()
-
-  -- TODO: error messages
-
-  return data.code == 0
+    }, {}, callback)
+  end)
 end
 
-function M.list_images()
-  local data = vim
-    .system({
+---Lists all system images avaiable
+---@param callback fun(out: vim.SystemCompleted, packages: string[]|nil)
+function M.list_images(callback)
+  vim.system(
+    {
       "sdkmanager",
       "--list",
-    })
-    :wait()
+    },
+    {},
+    vim.schedule_wrap(function(data)
+      if data.code ~= 0 then
+        callback(data, nil)
+      end
 
-  if data.code ~= 0 then
-    return false
-  end
+      local packages = {}
+      for image in data.stdout:gmatch("(system%-images;.-)%s") do
+        if not require("util.android.util").table_contains(packages, image) then
+          table.insert(packages, image)
+        end
+      end
 
-  local lines = vim.fn.split(data.stdout, "\n")
-  local packages = {}
-  for _, line in pairs(lines) do
-    local parts = vim.fn.split(line, nil, false)
-    local possible_pkg = parts[1]
-    if vim.startswith(possible_pkg, "system-images") then
-      table.insert(packages, possible_pkg)
+      ---@diagnostic disable-next-line: param-type-mismatch
+      callback(data, packages)
+    end)
+  )
+end
+
+---Lists all avaiable avd devices
+---@param callback fun(out: vim.SystemCompleted, devices: string[]|nil)
+function M.list_devices(callback)
+  vim.system({ "avdmanager", "list", "device" }, {}, function(data)
+    if data.code ~= 0 then
+      callback(data, nil)
     end
-  end
 
-  return vim.fn.uniq(packages)
+    local devices = {}
+    for id, name in data.stdout:gmatch('id: %d+ or "(.-)"%s+Name: (.-)\n') do
+      table.insert(devices, { name = name, id = id })
+    end
+
+    callback(data, devices)
+  end)
 end
 
 return M
