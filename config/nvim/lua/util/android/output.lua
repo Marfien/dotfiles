@@ -9,6 +9,8 @@ local function create_buf()
   vim.api.nvim_set_option_value("buftype", "nofile", { buf = buf })
   vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
 
+  vim.api.nvim_buf_set_keymap(buf, "n", "q", "<cmd><cr>", { callback = M.close })
+
   return buf
 end
 
@@ -46,7 +48,7 @@ function M.new_buf(title)
 
   M.buf = create_buf()
   vim.api.nvim_win_set_buf(M.win_id, M.buf)
-  vim.api.nvim_win_set_config(M.win_id, { title = " " .. title .. " ", title_pos = "center" })
+  vim.api.nvim_win_set_config(M.win_id, { title = " " .. title .. " " })
   return M.buf
 end
 
@@ -58,6 +60,15 @@ function M.focus()
   if M.is_visible() then
     vim.api.nvim_set_current_win(M.win_id)
   end
+end
+
+function M.close()
+  if M.is_visible() then
+    vim.api.nvim_win_close(M.win_id, true)
+    M.win_id = nil
+  end
+
+  pcall(vim.api.nvim_buf_delete, M.buf, { force = true })
 end
 
 return M

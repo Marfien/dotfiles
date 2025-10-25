@@ -53,15 +53,22 @@ function M.logcat(device, debug_tags)
     "-s",
     device.id,
     "logcat",
+  }
+
+  local filter = {
     "ActivityManager:I",
     "*:S",
   }
 
   for _, tag in ipairs(debug_tags or {}) do
-    table.insert(cmd, tag .. ":D")
+    table.insert(filter, tag .. ":D")
   end
 
-  require("util.android.util").exec_out(cmd, "Logcat: " .. device.name)
+  for _, x in ipairs(filter) do
+    table.insert(cmd, x)
+  end
+
+  require("util.android.util").exec_out(cmd, "Logcat: " .. device.name .. " (" .. vim.fn.join(filter) .. ")")
 end
 
 ---Resolved the main activity from the application_id
