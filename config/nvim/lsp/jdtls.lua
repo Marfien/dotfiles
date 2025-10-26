@@ -7,7 +7,7 @@ InstallLocation.global():initialize()
 local function get_openjdk_runtime(version)
   return {
     name = "JavaSE-" .. (version <= 8 and "1." .. version or version),
-    path = require("util.brew").get_brew_path() .. "/opt/openjdk@" .. version .. "/",
+    path = require("util.brew").get_brew_path() .. "/opt/openjdk@" .. version .. "/libexec/openjdk.jdk/Contents/Home/",
   }
 end
 
@@ -47,7 +47,7 @@ local lombok_jar = global:package("jdtls") .. "/lombok.jar"
 vim.lsp.config("jdtls", {
   cmd = {
     "jdtls",
-    "--java-executable=" .. require("util.brew").get_brew_path() .. "/bin/java",
+    "--java-executable=" .. require("util.brew").get_brew_path() .. "/opt/openjdk@21/bin/java",
     "-configuration=" .. get_cache_dir() .. "/config",
     "-data=" .. get_cache_dir() .. "/workspace",
     "--jvm-arg=-javaagent:" .. lombok_jar,
