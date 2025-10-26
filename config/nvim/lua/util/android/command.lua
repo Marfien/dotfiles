@@ -98,7 +98,7 @@ local function install_cmd()
       --
       -- local main = adb.resolve_main(dev.id, gradlew_ctx:application_id())
       -- if main == nil then
-      --   vim.notify("Could not determine main activity") --, vim.log.levels.ERROR)
+      --   vim.notify("Could not determine main activity"), vim.log.levels.ERROR)
       --   return
       -- end
 

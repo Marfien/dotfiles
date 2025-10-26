@@ -73,20 +73,10 @@ return {
     },
   },
   {
-    "samiulsami/fFtT-highlights.nvim",
+    "nvim-mini/mini.jump",
+    version = "*",
     opts = {
-      max_highlighted_lines_around_cursor = 50,
-      match_highlight = {
-        highlight_radius = 50,
-      },
-      multi_line = {
-        enable = true,
-        max_lines = 50,
-      },
+      silent = true,
     },
-    config = function(_, opts)
-      require("fFtT-highlights"):setup(opts)
-    end,
-    keys = { "f", "F", "t", "T" },
   },
 }

@@ -5,6 +5,8 @@ zsh_plugins=(
   zsh-vi-mode
 )
 
+export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+
 for plugin in "${zsh_plugins[@]}"; do
   plugin_path="$(brew --prefix)/share/${plugin}/${plugin}.zsh"
   if [ -r "$plugin_path" ]; then
