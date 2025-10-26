@@ -55,6 +55,7 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 brew "fzf"
 brew "starship"
+brew "zsh-vi-mode"
 
 # lazy.nvim dependencies
 brew "rg"

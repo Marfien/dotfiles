@@ -2,6 +2,7 @@ zsh_plugins=(
   zsh-history-substring-search
   zsh-autosuggestions
   zsh-syntax-highlighting
+  zsh-vi-mode
 )
 
 for plugin in "${zsh_plugins[@]}"; do
