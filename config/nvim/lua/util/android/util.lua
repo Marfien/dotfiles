@@ -47,6 +47,10 @@ function M.exec_out(cmd, title, opts, callback)
       end),
     }),
     vim.schedule_wrap(function(data)
+      if data.code == 0 and output.is_visible(buf) then
+        output.close()
+      end
+
       if callback then
         callback(data)
       end

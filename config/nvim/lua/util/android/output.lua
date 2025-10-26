@@ -9,7 +9,7 @@ local function create_buf()
   vim.api.nvim_set_option_value("buftype", "nofile", { buf = buf })
   vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
 
-  vim.api.nvim_buf_set_keymap(buf, "n", "q", "<cmd><cr>", { callback = M.close })
+  vim.api.nvim_buf_set_keymap(buf, "n", "q", "<cmd><cr>", { callback = M.close, desc = "Close Output" })
 
   return buf
 end
@@ -52,8 +52,13 @@ function M.new_buf(title)
   return M.buf
 end
 
-function M.is_visible()
-  return M.win_id ~= nil and vim.api.nvim_win_is_valid(M.win_id)
+---Check if output window is visible and optionally displays the given buffer
+---@param buf? integer
+---@return boolean
+function M.is_visible(buf)
+  return M.win_id ~= nil
+    and vim.api.nvim_win_is_valid(M.win_id)
+    and (buf == nil or vim.api.nvim_win_get_buf(M.win_id) == buf)
 end
 
 function M.focus()
