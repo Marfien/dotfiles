@@ -156,6 +156,9 @@ return {
       eclipse = {
         downloadSources = true,
       },
+      edit = {
+        smartSemicolonDetection = true,
+      },
       format = {
         enabled = true,
       },

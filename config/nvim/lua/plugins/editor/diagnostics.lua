@@ -1,7 +1,7 @@
 return {
   {
     "rachartier/tiny-inline-diagnostic.nvim",
-    event = "BufReadPost",
+    event = "LspAttach",
     priority = 1000,
     opts = {
       preset = "classic",
@@ -15,8 +15,7 @@ return {
         },
       },
     },
-    config = function(_, opts)
-      require("tiny-inline-diagnostic").setup(opts)
+    init = function()
       vim.diagnostic.config({
         virtual_text = false,
         signs = false,
@@ -29,7 +28,6 @@ return {
     event = { "BufReadPost" },
     opts = {
       signs = false,
-      pattern = "\b(KEYWORDS)\b",
     },
     keys = {
       { "<leader>ft", "<cmd>:TodoTelescope<cr>", desc = "Find TODOs" },

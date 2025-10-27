@@ -1,5 +1,20 @@
 return {
   {
+    "nvim-mini/mini.pairs",
+    event = "InsertEnter",
+    version = false,
+    opts = {
+      mappings = {
+        -- Do not add quote after quote
+        ['"'] = { action = "closeopen", pair = '""', neigh_pattern = '[^\\"].', register = { cr = false } },
+        ["'"] = { action = "closeopen", pair = "''", neigh_pattern = "[^\\'].", register = { cr = false } },
+        ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^\\`].", register = { cr = false } },
+
+        [">"] = { action = "close", pair = "<>" },
+      },
+    },
+  },
+  {
     "windwp/nvim-ts-autotag",
     event = "InsertEnter",
     opts = {},
