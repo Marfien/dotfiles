@@ -20,7 +20,7 @@ local function calc_path(callback)
 end
 
 local function _store(id)
-  vim.cmd.mksession({ cache_path .. "/" .. id })
+  vim.cmd.mksession({ cache_path .. "/" .. id, bang = true })
   vim.notify("Stored session with id: " .. id)
 end
 
