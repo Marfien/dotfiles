@@ -63,6 +63,7 @@ return {
     },
     init = function()
       -- Workaround to lazy load telescope ui select
+      ---@diagnostic disable-next-line: duplicate-set-field
       vim.ui.select = function(...)
         require("telescope").load_extension("ui-select")
         vim.ui.select(...)
@@ -123,6 +124,7 @@ return {
           theme = "dropdown",
         },
         live_grep = {
+          preview_title = "",
           file_ignore_patterns = file_ignore_patterns,
           path_display = {
             shorten = { len = 1, exclude = { 1, -1 } },
@@ -146,6 +148,9 @@ return {
           sort_mru = true,
         }, no_preview),
         git_branches = vim.tbl_extend("keep", {}, no_preview),
+        grep_string = {
+          preview_title = "",
+        },
       },
     },
     config = function(_, opts)
