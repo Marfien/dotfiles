@@ -14,11 +14,11 @@ vim.api.nvim_create_autocmd("User", {
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "OilEnter",
-  callback = function(event)
+  callback = vim.schedule_wrap(function()
     if not require("oil.util").get_preview_win({ include_not_owned = true }) then
       require("oil").open_preview()
     end
-  end,
+  end),
 })
 
 function _G.get_oil_winbar(buf)
