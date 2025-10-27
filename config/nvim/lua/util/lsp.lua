@@ -37,7 +37,6 @@ end
 ---@field parsers? table<string>
 ---@field ft table
 ---@field formatters? table
----@field on_attach? function
 ---@field other? table<string>
 
 ---Definition
@@ -59,22 +58,6 @@ function M.ensure_lang(opts)
 
   if opts.tools then
     table.insert(plugins, M.ensure_tools(opts.tools))
-  end
-
-  if opts.on_attach then
-    vim.api.nvim_create_autocmd("LspAttach", {
-      pattern = "*",
-      callback = function(event)
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if not client or client.name ~= "lua_ls" then
-          return
-        end
-
-        if opts.on_attach then
-          opts.on_attach(event.buf, client)
-        end
-      end,
-    })
   end
 
   return plugins

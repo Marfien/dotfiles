@@ -59,3 +59,31 @@ vim.api.nvim_create_autocmd("WinNew", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("lsp_word_highlight", {}),
+  callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if client ~= nil and client.server_capabilities.documentHighlightProvider then
+      local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", {})
+
+      vim.opt.updatetime = 2000
+
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        buffer = event.buf,
+        group = group,
+        callback = function()
+          vim.lsp.buf.document_highlight()
+        end,
+      })
+
+      vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+        buffer = event.buf,
+        group = group,
+        callback = function()
+          vim.lsp.buf.clear_references()
+        end,
+      })
+    end
+  end,
+})
