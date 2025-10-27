@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+VERSION="$1"
+
+if [ -z "$VERSION" ]; then
+  echo "JAVA_HOME=$JAVA_HOME"
+  exit 0
+fi
+
+new_home="$(brew --prefix)/opt/openjdk@${VERSION}"
+
+if [ "$(uname)" = "Darwin" ]; then
+  new_home="$new_home/libexec/openjdk.jdk/Contents/Home/"
+fi
+
+if [ -d "$new_home" ]; then
+  echo "JAVA_HOME=$new_home"
+else
+  echo "echo 'Invalid java_home: $new_home'" >&2
+  exit 1
+fi

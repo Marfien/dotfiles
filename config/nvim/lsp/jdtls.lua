@@ -7,7 +7,10 @@ InstallLocation.global():initialize()
 local function get_openjdk_runtime(version)
   return {
     name = "JavaSE-" .. (version <= 8 and "1." .. version or version),
-    path = require("util.brew").get_brew_path() .. "/opt/openjdk@" .. version .. "/libexec/openjdk.jdk/Contents/Home/",
+    path = require("util.brew").get_brew_path()
+      .. "/opt/openjdk@"
+      .. version
+      .. (jit.os == "OSX" and "/libexec/openjdk.jdk/Contents/Home/" or "/"),
   }
 end
 
