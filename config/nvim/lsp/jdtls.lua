@@ -10,7 +10,7 @@ local function get_openjdk_runtime(version)
     path = require("util.brew").get_brew_path()
       .. "/opt/openjdk@"
       .. version
-      .. (jit.os == "OSX" and "/libexec/openjdk.jdk/Contents/Home/" or "/"),
+      .. (jit.os == "OSX" and "/libexec/openjdk.jdk/Contents/Home/" or "/libexec/"),
   }
 end
 
