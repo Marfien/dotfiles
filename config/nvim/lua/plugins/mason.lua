@@ -4,6 +4,8 @@ return {
     cmd = { "Mason", "MasonLog" },
     config = function(_, opts)
       require("mason").setup(opts)
+
+      ---@diagnostic disable-next-line: param-type-mismatch
       pcall(vim.cmd, "MsonUpdate")
     end,
     opts = {},

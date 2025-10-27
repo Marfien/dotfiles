@@ -1,49 +1,35 @@
 return {
   {
-    "windwp/nvim-autopairs",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    event = "InsertEnter",
-    opts = {
-      check_ts = true,
-    },
-  },
-  {
     "windwp/nvim-ts-autotag",
     event = "InsertEnter",
     opts = {},
   },
   {
-    "lukas-reineke/indent-blankline.nvim",
+    "nvim-mini/mini.indentscope",
     version = "*",
     event = "BufEnter",
-    main = "ibl",
     opts = {
-      indent = {
-        char = "▏",
+      -- disable mappings as they are handled by nvim-various-textobjs
+      mappings = {
+        object_scope = "",
+        object_scope_with_border = "",
+        goto_top = "",
+        goto_bottom = "",
       },
-      scope = {
-        show_start = false,
-        show_end = false,
+      draw = {
+        animation = function()
+          return 0
+        end,
       },
-    },
-  },
-  {
-    "chrisgrieser/nvim-various-textobjs",
-    event = "VeryLazy",
-    opts = {
-      keymaps = {
-        useDefaults = true,
-      },
+      symbol = "▏",
     },
   },
   {
     "chrishrb/gx.nvim",
+    cmd = "Browse",
     keys = {
       { "gx", "<cmd>Browse<cr>", mode = { "n", "x" }, desc = "Open in Browser" },
     },
-    cmd = "Browse",
     init = function()
       vim.g.netrw_nogx = 1
     end,
@@ -70,13 +56,6 @@ return {
     end,
     keys = {
       { "<leader>cS", "<Cmd>MeowYarn call callers<CR>", desc = "Call Stack", mode = { "n", "x" } },
-    },
-  },
-  {
-    "nvim-mini/mini.jump",
-    version = "*",
-    opts = {
-      silent = true,
     },
   },
 }

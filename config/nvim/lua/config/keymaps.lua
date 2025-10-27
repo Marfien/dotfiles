@@ -20,12 +20,6 @@ map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
 map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
 map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
--- Resize windows
-map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
-
 -- buffers
 local buffers = require("util.buffers")
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
@@ -38,7 +32,7 @@ map("n", "<leader>bo", function()
 end, { desc = "Delete other buffers" })
 map("n", "<leader>bD", function()
   buffers.delete({ filter = buffers.all })
-end, { desc = "Delete current buffer and window" })
+end, { desc = "Delete all buffers" })
 
 -- unified search behavior
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
@@ -57,13 +51,9 @@ map("v", ">", ">gv")
 map("n", "<leader>.l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- Window management
-map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
-map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
-map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-
--- TODO:
--- locations
--- quickfixes
+map("n", "<leader>wh", "<C-W>s", { desc = "Split Below", remap = true })
+map("n", "<leader>wv", "<C-W>v", { desc = "Split Right", remap = true })
+map("n", "<leader>wd", "<C-W>c", { desc = "Delete", remap = true })
 
 -- disable default lsp keymaps
 for _, bind in ipairs({ "grt", "grn", "gra", "gri", "grr" }) do
