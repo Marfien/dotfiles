@@ -143,9 +143,10 @@ return {
         }, no_preview),
         buffers = vim.tbl_extend("keep", {
           layout_config = {
-            height = 0.8,
+            height = 0.5,
           },
           sort_mru = true,
+          ignore_current_buffer = true,
         }, no_preview),
         git_branches = vim.tbl_extend("keep", {}, no_preview),
         grep_string = {
