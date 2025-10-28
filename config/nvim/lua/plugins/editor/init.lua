@@ -1,7 +1,7 @@
 return {
   {
     "nvim-mini/mini.pairs",
-    event = "InsertEnter",
+    event = "VeryLazy",
     version = false,
     opts = {
       mappings = {
