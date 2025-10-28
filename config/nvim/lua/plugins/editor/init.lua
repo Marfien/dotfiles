@@ -1,14 +1,54 @@
 return {
   {
+    "nvim-mini/mini.bufremove",
+    version = false,
+    opts = {
+      silent = true,
+    },
+    keys = {
+      {
+        "<leader>bd",
+        function()
+          require("mini.bufremove").delete()
+        end,
+        desc = "Delete",
+      },
+      {
+        "<leader>bo",
+        function()
+          local delete = require("mini.bufremove").delete
+
+          for _, buf in vim.api.nvim_list_bufs() do
+            if vim.bo[buf].buflisted and not buf == vim.api.nvim_get_current_buf() then
+              delete(buf)
+            end
+          end
+        end,
+        desc = "Delete Other",
+      },
+      {
+        "<leader>bD",
+        function()
+          local delete = require("mini.bufremove").delete
+
+          for _, buf in vim.api.nvim_list_bufs() do
+            delete(buf)
+          end
+        end,
+        desc = "Delete All",
+      },
+    },
+  },
+  {
     "nvim-mini/mini.pairs",
     event = "VeryLazy",
     version = false,
     opts = {
       mappings = {
         -- Do not add quote after quote
-        ['"'] = { action = "closeopen", pair = '""', neigh_pattern = '[^\\"].', register = { cr = false } },
-        ["'"] = { action = "closeopen", pair = "''", neigh_pattern = "[^\\'].", register = { cr = false } },
-        ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^\\`].", register = { cr = false } },
+        ['"'] = { neigh_pattern = '[^\\"].' },
+        ["'"] = { neigh_pattern = "[^\\']." },
+        ["`"] = { neigh_pattern = "[^\\`]." },
 
         [">"] = { action = "close", pair = "<>" },
       },
