@@ -1,16 +1,23 @@
 return {
   {
     "nvim-neotest/neotest",
+    version = "*",
     lazy = true,
     dependencies = {
       "nvim-neotest/nvim-nio",
       "nvim-lua/plenary.nvim",
-      "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
     opts = {
       adapters = {},
       lazy_adapters = {},
+      icons = {
+        final_child_prefix = " " .. vim.g.borderstyle.chars[8],
+        expanded = "",
+        child_prefix = " ├",
+        child_indent = " │",
+        final_child_indent = "  ",
+      },
     },
     opts_extend = {
       "adapters",
