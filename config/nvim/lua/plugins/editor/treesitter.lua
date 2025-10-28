@@ -83,6 +83,22 @@ return {
         mode = { "x", "o" },
       },
       {
+        "ip",
+        function()
+          require("nvim-treesitter-textobjects.select").select_textobject("@variable.parameter.inner", "textobjects")
+        end,
+        desc = "Inner class",
+        mode = { "x", "o" },
+      },
+      {
+        "ap",
+        function()
+          require("nvim-treesitter-textobjects.select").select_textobject("@variable.parameter.outer", "textobjects")
+        end,
+        desc = "Inner class",
+        mode = { "x", "o" },
+      },
+      {
         "ic",
         function()
           require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")

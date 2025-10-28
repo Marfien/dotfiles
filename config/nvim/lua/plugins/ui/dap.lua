@@ -3,6 +3,7 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       "theHamsta/nvim-dap-virtual-text",
+      "mfussenegger/nvim-dap",
     },
     opts_extend = {
       "dap.adapters",

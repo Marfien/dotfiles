@@ -91,13 +91,9 @@ end
 
 ---@type vim.lsp.Config
 return {
-  before_init = function(init_params, _)
-    init_params.initializationOptions = {
-      extendedClientCapabilities = jdtls.extendedClientCapabilities,
-    }
-  end,
   init_options = {
     bundles = get_bundles(),
+    extendedClientCapabilities = jdtls.extendedClientCapabilities,
   },
   on_attach = function(_, buf)
     jdtls.setup_dap()

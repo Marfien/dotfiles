@@ -13,11 +13,12 @@ return {
       lazy_adapters = {},
     },
     opts_extend = {
+      "adapters",
       "lazy_adapters",
     },
     config = function(_, opts)
       for _, provider in ipairs(opts.lazy_adapters) do
-        table.insert(opts, provider())
+        table.insert(opts.adapters, provider())
       end
 
       require("neotest").setup(opts)

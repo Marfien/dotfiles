@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
       if vim.startswith(line, "import") then
         local pos = vim.api.nvim_win_get_cursor(0)
         vim.api.nvim_win_set_cursor(0, { line_num, 0 })
-        vim.cmd.normal({ "zc", bang = true })
+        pcall(vim.cmd.normal, { "zc", bang = true })
         vim.api.nvim_win_set_cursor(0, pos)
         return
       end
@@ -26,13 +26,24 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 return require("util.lsp").ensure_lang({
   ft = { "java" },
   tools = { "java-test", "java-debug-adapter", "jdtls" },
+  build = function()
+    ---@diagnostic disable-next-line: param-type-mismatch
+    pcall(vim.cmd, "NeotestJava setup")
+  end,
   other = {
     {
       "mfussenegger/nvim-jdtls",
-      dependencies = {
-        -- dap will be enabled automatically when required - ig
-        --"mfussenegger/nvim-dap",
-      },
+      config = function()
+        vim.api.nvim_create_autocmd("LspAttach", {
+          group = vim.api.nvim_create_augroup("java_setup_dap", {}),
+          callback = function(event)
+            local client = vim.lsp.get_client_by_id(event.data.client_id)
+            if client and client.name == "jdtls" then
+              require("jdtls.dap").setup_dap_main_class_configs()
+            end
+          end,
+        })
+      end,
     },
     {
       "rcasia/neotest-java",
@@ -43,9 +54,6 @@ return require("util.lsp").ensure_lang({
         "rcarriga/nvim-dap-ui", -- recommended
         "theHamsta/nvim-dap-virtual-text", -- recommended
       },
-      config = function()
-        vim.cmd("NeotestJava setup")
-      end,
     },
     {
       "nvim-neotest/neotest",
