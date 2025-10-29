@@ -47,6 +47,7 @@ return require("util.lsp").ensure_lang({
     },
     {
       "rcasia/neotest-java",
+      lazy = true,
       dependencies = {
         "mfussenegger/nvim-jdtls",
         "mfussenegger/nvim-dap", -- for the debugger

@@ -27,6 +27,14 @@ return {
           function()
             return paths.pretty_path(paths.project_root())
           end,
+          color = function()
+            local bufname = vim.api.nvim_buf_get_name(0)
+            local new = vim.fn.filereadable(bufname) == 0 and vim.api.nvim_get_hl(0, { name = "DiagnosticInfo" }).fg
+              or nil
+            local modified = vim.bo.modified and vim.api.nvim_get_hl(0, { name = "DiagnosticWarn" }).fg or nil
+            local fg = modified or new or vim.api.nvim_get_hl(0, { name = "Normal" }).fg
+            return { fg = string.format("#%06X", fg) }
+          end,
         },
       },
       lualine_x = {

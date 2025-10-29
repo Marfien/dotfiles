@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = vim.api.nvim_create_augroup("q_quit", {}),
-  pattern = "help,term,neotest-output-panel,vim,touble",
+  pattern = "help,term,neotest-output-panel,vim,touble,qf",
   callback = function(event)
     vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = event.buf, desc = "Close bufer" })
   end,
@@ -70,5 +70,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end,
       })
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf,trouble",
+  group = vim.api.nvim_create_augroup("unlist_bufs", {}),
+  callback = function()
+    vim.bo.buflisted = false
   end,
 })
