@@ -3,11 +3,13 @@ local augroup = vim.api.nvim_create_augroup("dashboard", {})
 vim.api.nvim_create_autocmd("BufNew", {
   group = augroup,
   callback = function(event)
-    vim.schedule(function()
-      if vim.api.nvim_buf_get_name(event.buf) == "" and vim.bo.filetype == "" and vim.bo.modifiable then
-        require("btw").open(event.buf)
-      end
-    end)
+    if vim.api.nvim_buf_get_name(event.buf) == "" then
+      vim.schedule(function()
+        if vim.bo.filetype == "" and vim.bo.modifiable then
+          require("btw").open(event.buf)
+        end
+      end)
+    end
   end,
 })
 
