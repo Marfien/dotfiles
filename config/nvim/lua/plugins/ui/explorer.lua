@@ -81,7 +81,14 @@ return {
       {
         "-",
         "<cmd>Oil<cr>",
-        desc = "Oil",
+        desc = "Oil (parent)",
+      },
+      {
+        "_",
+        function()
+          vim.cmd({ "Oil", vim.fn.getcwd() })
+        end,
+        desc = "Oil (cwd)",
       },
     },
   },

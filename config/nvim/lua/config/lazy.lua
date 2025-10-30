@@ -44,7 +44,6 @@ require("lazy").setup({
         "2html_plugin",
         "bugreport",
         "compiler",
-        "editorconfig",
         "ftplugin",
         "getscript",
         "getscriptPlugin",
