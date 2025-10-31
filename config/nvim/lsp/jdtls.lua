@@ -158,7 +158,7 @@ return {
       format = {
         enabled = true,
         settings = {
-          url = vim.fn.stdpath("config") .. "/assets/jdtls/intellij-codestyle.xml",
+          --url = vim.fn.stdpath("config") .. "/assets/jdtls/intellij-codestyle.xml",
         },
       },
       inlayHints = {

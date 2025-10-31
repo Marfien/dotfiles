@@ -1,7 +1,7 @@
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = vim.api.nvim_create_augroup("java_close_imports", {}),
-  callback = function(event)
-    if vim.bo.filetype ~= "java" then
+  callback = vim.schedule_wrap(function(event)
+    if vim.bo[event.buf].filetype ~= "java" then
       return
     end
 
@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
         return
       end
     end
-  end,
+  end),
 })
 
 return require("util.lsp").ensure_lang({
