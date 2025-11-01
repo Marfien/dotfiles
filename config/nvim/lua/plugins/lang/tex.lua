@@ -2,7 +2,7 @@ return require("util.lsp").ensure_lang({
   parsers = { "bibtex", "latex" }, -- latex parser needs tree-sitter cli
   ft = { "tex", "bib" },
   formatters = { "tex-fmt" },
-  tools = { "tex-fmt", "bibtex-tidy" },
+  tools = { "tex-fmt" },
   other = {
     {
       "lervag/vimtex",
