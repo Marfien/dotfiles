@@ -86,7 +86,7 @@ return {
       {
         "_",
         function()
-          vim.cmd({ "Oil", vim.fn.getcwd() })
+          vim.cmd({ cmd = "Oil", args = { vim.fn.getcwd() } })
         end,
         desc = "Oil (cwd)",
       },

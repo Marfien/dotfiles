@@ -1,7 +1,7 @@
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = vim.api.nvim_create_augroup("java_close_imports", {}),
   callback = vim.schedule_wrap(function(event)
-    if vim.bo[event.buf].filetype ~= "java" then
+    if vim.api.nvim_buf_is_valid(event.buf) and vim.bo[event.buf].filetype ~= "java" then
       return
     end
 
