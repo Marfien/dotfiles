@@ -60,26 +60,6 @@ return {
     opts = {},
   },
   {
-    "nvim-mini/mini.indentscope",
-    version = "*",
-    event = "BufEnter",
-    opts = {
-      -- disable mappings as they are handled by nvim-various-textobjs
-      mappings = {
-        object_scope = "",
-        object_scope_with_border = "",
-        goto_top = "",
-        goto_bottom = "",
-      },
-      draw = {
-        animation = function()
-          return 0
-        end,
-      },
-      symbol = "▏",
-    },
-  },
-  {
     "chrishrb/gx.nvim",
     cmd = "Browse",
     keys = {
