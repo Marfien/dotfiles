@@ -5,6 +5,17 @@ vim.g.borderstyle = {
   chars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
 }
 
+vim.g.quicktypes = {
+  "starer",
+  "help",
+  "term",
+  "neotest-output-panel",
+  "neotest-output",
+  "vim",
+  "touble",
+  "qf",
+}
+
 opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 
 -- fully disable mouse

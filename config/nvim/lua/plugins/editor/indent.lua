@@ -1,13 +1,3 @@
-local ignored_filetypes = {
-  "starer",
-  "help",
-  "term",
-  "neotest-output-panel",
-  "vim",
-  "touble",
-  "qf",
-}
-
 return {
   {
     "nvim-mini/mini.indentscope",
@@ -26,7 +16,7 @@ return {
           return 0
         end,
         predicate = function(scope)
-          return not scope.body.is_incomplete and not vim.tbl_contains(ignored_filetypes, vim.bo[scope.buf_id].filetype)
+          return not scope.body.is_incomplete and not vim.tbl_contains(vim.g.quicktypes, vim.bo[scope.buf_id].filetype)
         end,
       },
       symbol = "▏",
