@@ -5,7 +5,10 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
       return
     end
 
-    local first_lines = vim.api.nvim_buf_get_lines(event.buf, 0, 100, false)
+    local success, first_lines = pcall(vim.api.nvim_buf_get_lines, event.buf, 0, 100, false)
+    if not success then
+      return
+    end
 
     for line_num, line in ipairs(first_lines) do
       if line:find("class", 0, true) then
@@ -46,13 +49,11 @@ return require("util.lsp").ensure_lang({
       end,
     },
     {
-      "rcasia/neotest-java",
+      "atm1020/neotest-jdtls",
       ft = "java",
       dependencies = {
         "mfussenegger/nvim-jdtls",
-        "mfussenegger/nvim-dap", -- for the debugger
-        "rcarriga/nvim-dap-ui", -- recommended
-        "theHamsta/nvim-dap-virtual-text", -- recommended
+        "mfussenegger/nvim-dap",
       },
     },
     {
@@ -60,7 +61,7 @@ return require("util.lsp").ensure_lang({
       opts = {
         lazy_adapters = {
           function()
-            return require("neotest-java")
+            return require("neotest-jdtls")
           end,
         },
       },
