@@ -50,7 +50,7 @@ return require("util.lsp").ensure_lang({
     },
     {
       "atm1020/neotest-jdtls",
-      ft = "java",
+      lazy = true,
       dependencies = {
         "mfussenegger/nvim-jdtls",
         "mfussenegger/nvim-dap",
