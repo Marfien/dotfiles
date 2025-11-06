@@ -29,9 +29,6 @@ opt.smartcase = true
 
 -- ui stuff
 opt.termguicolors = true
-opt.pumblend = 10
-opt.pumheight = 10
-opt.ruler = false
 
 -- editor
 opt.confirm = true
@@ -58,8 +55,7 @@ opt.fillchars = {
   foldclose = "",
   fold = " ",
   foldsep = " ",
-  diff = "╱",
-  eob = " ",
+  eob = "~",
 }
 opt.foldlevel = 99
 opt.foldmethod = "expr"
