@@ -21,7 +21,6 @@ map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
 map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
 -- buffers
-local buffers = require("util.buffers")
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
@@ -56,6 +55,7 @@ end
 map({ "n", "x" }, "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
 map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 map({ "n", "x" }, "<leader>ck", vim.lsp.buf.signature_help, { desc = "Code Signature" })
+map("i", "C-K", vim.lsp.buf.signature_help, { desc = "Code Signature" })
 map({ "n", "x" }, "<leader>cD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
 map({ "n", "x" }, "K", vim.lsp.buf.hover, { desc = "Hover Documentation" }) -- See `:help K` for why this keymap
 

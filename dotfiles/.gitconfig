@@ -32,6 +32,7 @@
 
 [merge]
   tool = nvimdiff
+  renormalize = true
 
 [mergetool]
   prompt = false
