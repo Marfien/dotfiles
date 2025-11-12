@@ -22,6 +22,9 @@ brew "neovim"
 brew "tmux"
 brew "awscli"
 
+brew "gnupg"
+brew "sops"
+
 # development
 brew "maven"
 brew "gradle"

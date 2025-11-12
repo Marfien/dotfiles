@@ -13,4 +13,11 @@ return require("util.lsp").ensure_lang({
   parsers = { "kotlin" },
   formatters = { "ktfmt" },
   tools = { "ktfmt", "kotlin-lsp" },
+  other = {
+    {
+      "Marfien/astudio.nvim",
+      cmd = "Android",
+      opts = {},
+    },
+  },
 })
