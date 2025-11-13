@@ -2,6 +2,10 @@ local M = {}
 
 -- Default configuration
 M.config = {
+  ts_ignored_nodes = {
+    "string",
+    "comment",
+  },
   pairs = {
     ["("] = ")",
     ["["] = "]",
@@ -15,7 +19,7 @@ M.config = {
 -- Allow user configuration
 function M.setup(opts)
   M.config = vim.tbl_deep_extend("force", M.config, opts or {})
-  M._setup_autocmds()
+  M._setup_mappings()
 end
 
 -- Helpers
@@ -31,8 +35,16 @@ local function get_char_before_cursor()
   return line:sub(col, col)
 end
 
-local function in_string_node()
-  return vim.list_contains(vim.treesitter.get_captures_at_cursor(), "string")
+local function in_ignored_node()
+  local captures_at_cursor = vim.treesitter.get_captures_at_cursor()
+
+  for _, capture in ipairs(M.config.ts_ignored_nodes) do
+    if vim.list_contains(captures_at_cursor, capture) then
+      return true
+    end
+  end
+
+  return false
 end
 
 -- Insert or skip pairs
@@ -43,17 +55,30 @@ function M.handle_open(open)
   end
 
   -- Skip inside string or if next char same as close
-  if in_string_node() or get_char_after_cursor() == open then
+  if in_ignored_node() or get_char_after_cursor() == open then
     return open
   end
 
   return open .. close .. "<Left>"
 end
 
+function M.handle_open_close(char)
+  -- Skip inside string or if next char same as close
+  if in_ignored_node() then
+    return char
+  end
+
+  if get_char_after_cursor() == char then
+    return "<Right>"
+  end
+
+  return char .. char .. "<Left>"
+end
+
 -- When typing a closing character
 function M.handle_close(close)
   local next_char = get_char_after_cursor()
-  if next_char ~= close or in_string_node() then
+  if next_char ~= close or in_ignored_node() then
     return close
   else
     -- Just jump over it instead of inserting another
@@ -65,9 +90,11 @@ end
 function M.handle_backspace()
   local before = get_char_before_cursor()
   local after = get_char_after_cursor()
+
   if M.config.pairs[before] == after then
-    return "<Del><BS>"
+    return "<Right><BS><BS>"
   end
+
   return "<BS>"
 end
 
@@ -81,24 +108,28 @@ function M.handle_cr()
   return "<CR>"
 end
 
+local function inoremap(func, key)
+  vim.keymap.set("i", key, function()
+    return func(key)
+  end, { expr = true, noremap = true })
+end
+
 -- Setup all keymaps
 function M._setup_mappings()
   -- opening pairs
   for open, close in pairs(M.config.pairs) do
     if close then
-      vim.keymap.set("i", open, function()
-        return M.handle_open(open)
-      end, { expr = true, noremap = true })
-
-      -- closing pairs
-      vim.keymap.set("i", close, function()
-        return M.handle_close(close)
-      end, { expr = true, noremap = true })
+      if open == close then
+        inoremap(M.handle_open_close, open)
+      else
+        inoremap(M.handle_open, open)
+        inoremap(M.handle_close, close)
+      end
     end
   end
 
-  vim.keymap.set("i", "<BS>", M.handle_backspace, { expr = true, noremap = true })
-  vim.keymap.set("i", "<CR>", M.handle_cr, { expr = true, noremap = true })
+  inoremap(M.handle_backspace, "<BS>")
+  inoremap(M.handle_cr, "<CR>")
 end
 
 return M

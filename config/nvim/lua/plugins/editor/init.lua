@@ -1,3 +1,5 @@
+require("util.pairs").setup({})
+
 return {
   {
     "nvim-mini/mini.bufremove",
@@ -36,21 +38,6 @@ return {
           end
         end,
         desc = "Delete All",
-      },
-    },
-  },
-  {
-    "nvim-mini/mini.pairs",
-    event = "VeryLazy",
-    version = false,
-    opts = {
-      mappings = {
-        -- Do not add quote after quote
-        ['"'] = { neigh_pattern = '[^\\"].' },
-        ["'"] = { neigh_pattern = "[^\\']." },
-        ["`"] = { neigh_pattern = "[^\\`]." },
-
-        [">"] = { action = "close", pair = "<>" },
       },
     },
   },
