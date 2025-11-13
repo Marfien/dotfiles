@@ -1,6 +1,9 @@
-require("util.pairs").setup({})
-
 return {
+  {
+    "Marfien/simple-pairs.nvim",
+    event = "InsertEnter",
+    opts = {},
+  },
   {
     "nvim-mini/mini.bufremove",
     version = false,
