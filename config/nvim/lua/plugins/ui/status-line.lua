@@ -8,6 +8,9 @@ return {
     { "nvim-tree/nvim-web-devicons" },
     { "folke/noice.nvim" },
   },
+  init = function()
+    vim.opt.laststatus = 3
+  end,
   opts = {
     globalstatus = true,
     options = {
