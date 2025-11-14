@@ -1,17 +1,11 @@
 local wezterm = require("wezterm")
 local default_distro = "Fedora"
 
-local function scheme_for_appearance(appearance)
-	if appearance:find("Dark") then
-		return "Catppuccin Frappe"
-	else
-		return "Catppuccin Latte"
-	end
-end
+local dark_mode = wezterm.gui.get_appearance():find("Dark")
 
 local config = {
 	font = wezterm.font("MesloLGL Nerd Font Mono"),
-	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
+	color_scheme = dark_mode and "Tokyo Night" or "Tokyo Night Day",
 	hide_tab_bar_if_only_one_tab = true,
 	max_fps = 30,
 	quote_dropped_files = "Posix",

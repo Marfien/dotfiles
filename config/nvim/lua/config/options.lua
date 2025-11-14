@@ -34,8 +34,6 @@ opt.termguicolors = true
 opt.confirm = true
 opt.cursorline = true
 opt.expandtab = true
-opt.scrolloff = 20
-opt.sidescrolloff = 10
 opt.list = true
 opt.number = true -- show line number
 opt.relativenumber = true
@@ -55,7 +53,6 @@ opt.fillchars = {
   foldclose = "",
   fold = " ",
   foldsep = " ",
-  eob = "~",
 }
 opt.foldlevel = 99
 opt.foldmethod = "expr"

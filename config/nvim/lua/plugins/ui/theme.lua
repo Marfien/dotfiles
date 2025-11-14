@@ -1,25 +1,11 @@
 return {
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "folke/tokyonight.nvim",
+    lazy = false,
     priority = 1000,
-    opts = {
-      flavour = "frappe",
-      auto_integrations = true,
-    },
-    config = function(_, opts)
-      require("catppuccin").setup(opts)
-
-      vim.cmd.colorscheme("catppuccin")
+    config = function()
+      require("tokyonight").setup({})
+      vim.cmd.colorscheme("tokyonight")
     end,
-    specs = {
-      {
-        "akinsho/bufferline.nvim",
-        optional = true,
-        opts = function(_, opts)
-          opts.highlights = require("catppuccin.special.bufferline").get_theme()
-        end,
-      },
-    },
   },
 }

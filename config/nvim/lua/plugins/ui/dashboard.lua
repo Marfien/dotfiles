@@ -18,7 +18,6 @@ vim.api.nvim_create_autocmd("User", {
   group = augroup,
   pattern = "BtwOpened",
   callback = function(event)
-    vim.api.nvim_buf_set_lines(0, 0, 1, false, { "█" })
     vim.bo.modifiable = false
     vim.api.nvim_buf_set_keymap(event.buf, "n", "q", "<cmd>qa<cr>", { desc = "Quit" })
   end,
