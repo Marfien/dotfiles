@@ -1,7 +1,7 @@
 return {
   {
     "chrisgrieser/nvim-various-textobjs",
-    event = "VeryLazy",
+    event = "BufEnter",
     opts = {
       keymaps = {
         useDefaults = true,
@@ -10,8 +10,8 @@ return {
   },
   {
     "nvim-mini/mini.jump",
-    keys = { "t", "T", "f", "F" },
     version = "*",
+    keys = { "t", "T", "f", "F" },
     opts = {
       silent = true,
       delay = {

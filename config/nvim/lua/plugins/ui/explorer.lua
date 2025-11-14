@@ -36,7 +36,7 @@ end
 return {
   {
     "stevearc/oil.nvim",
-    lazy = false,
+    lazy = vim.fn.argc(-1) == 0,
     dependencies = {
       { "nvim-tree/nvim-web-devicons", opts = {} },
     },
@@ -94,6 +94,7 @@ return {
   },
   {
     "benomahony/oil-git.nvim",
+    ft = "oil",
     dependencies = { "stevearc/oil.nvim" },
     opts = {},
   },
