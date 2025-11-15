@@ -45,11 +45,6 @@ return {
     },
   },
   {
-    "windwp/nvim-ts-autotag",
-    event = "InsertEnter",
-    opts = {},
-  },
-  {
     "chrishrb/gx.nvim",
     cmd = "Browse",
     keys = {

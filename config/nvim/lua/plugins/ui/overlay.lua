@@ -13,22 +13,6 @@ return {
     end,
   },
   {
-    "akinsho/bufferline.nvim",
-    enabled = false,
-    lazy = false,
-    opts = {
-      options = {
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = true,
-        show_buffer_close_icons = false,
-        separator_style = { "█", "█" },
-        indicator = {
-          style = "none",
-        },
-      },
-    },
-  },
-  {
     "folke/noice.nvim",
     lazy = false,
     opts = {
@@ -64,11 +48,6 @@ return {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
     },
-  },
-  {
-    "petertriho/nvim-scrollbar",
-    event = "BufEnter",
-    opts = {},
   },
   {
     "folke/trouble.nvim",
