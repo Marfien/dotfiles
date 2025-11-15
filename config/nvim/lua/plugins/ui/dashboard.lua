@@ -6,8 +6,8 @@ vim.api.nvim_create_autocmd("BufNew", {
     if
       vim.api.nvim_buf_is_valid(event.buf)
       and vim.api.nvim_buf_get_name(event.buf) == ""
-      and vim.bo.filetype == ""
-      and vim.bo.modifiable
+      and vim.bo[event.buf].filetype == ""
+      and vim.bo[event.buf].modifiable
     then
       require("btw").open(event.buf)
     end
