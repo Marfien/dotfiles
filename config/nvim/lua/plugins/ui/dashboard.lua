@@ -5,11 +5,16 @@ vim.api.nvim_create_autocmd("BufNew", {
   callback = vim.schedule_wrap(function(event)
     if
       vim.api.nvim_buf_is_valid(event.buf)
-      and vim.api.nvim_buf_get_name(event.buf) == ""
+      and vim.bo[event.buf].buflisted
       and vim.bo[event.buf].filetype == ""
       and vim.bo[event.buf].modifiable
+      and vim.api.nvim_buf_get_name(event.buf) == ""
     then
-      require("btw").open(event.buf)
+      -- Check if buffer is actually empty
+      local first_lines = vim.api.nvim_buf_get_lines(event.buf, 0, 2, false)
+      if #first_lines == 1 and first_lines[1] == "" then
+        require("btw").open(event.buf)
+      end
     end
   end),
 })
