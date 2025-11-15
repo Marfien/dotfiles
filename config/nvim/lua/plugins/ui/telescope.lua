@@ -14,25 +14,31 @@ local file_ignore_patterns = {
 
 local resume_timeout = nil
 
-local function on_close()
-  if resume_timeout ~= nil then
-    resume_timeout:stop()
-    resume_timeout:close()
-  end
+vim.api.nvim_create_autocmd({ "BufLeave", "BufWinLeave" }, {
+  callback = function(event)
+    if vim.bo[event.buf].filetype ~= "TelescopePrompt" then
+      return
+    end
 
-  resume_timeout = vim.uv.new_timer()
+    if resume_timeout ~= nil then
+      resume_timeout:stop()
+      resume_timeout:close()
+    end
 
-  if resume_timeout == nil then
-    vim.notify("Could not retrieve new timer")
-    return
-  end
+    resume_timeout = vim.uv.new_timer()
 
-  resume_timeout:start(1000 * timeout_seconds, 0, function()
-    resume_timeout = nil
-  end)
-end
+    if resume_timeout == nil then
+      vim.notify("Could not retrieve new timer")
+      return
+    end
 
-function _G.telescope_resume_or_files()
+    resume_timeout:start(1000 * timeout_seconds, 0, function()
+      resume_timeout = nil
+    end)
+  end,
+})
+
+local function resume_or_find()
   if resume_timeout then
     require("telescope.builtin").resume()
   else
@@ -57,9 +63,10 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      { "nvim-tree/nvim-web-devicons" },
+      "nvim-tree/nvim-web-devicons",
       "folke/noice.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
+      "jmacadie/telescope-hierarchy.nvim",
     },
     init = function()
       -- Workaround to lazy load telescope ui select
@@ -166,18 +173,11 @@ return {
 
       telescope.load_extension("fzf")
       telescope.load_extension("noice")
-
-      vim.api.nvim_create_autocmd({ "BufLeave", "BufWinLeave" }, {
-        callback = function(event)
-          if vim.bo[event.buf].filetype == "TelescopePrompt" then
-            on_close()
-          end
-        end,
-      })
+      telescope.load_extension("hierarchy")
     end,
     -- stylua: ignore
     keys = {
-      { "<leader><space>", "<cmd>lua telescope_resume_or_files()<cr>", desc = "Resume or find files" },
+      { "<leader><space>", resume_or_find, desc = "Resume or find files" },
 
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
       { "<leader>fl", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
@@ -189,6 +189,7 @@ return {
       { "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
       { "<leader>cr", "<cmd>Telescope lsp_references<cr>", desc = "Find References" },
       { "<leader>cd", "<cmd>Telescope lsp_definitions<cr>",  desc = "Goto Definition" },
+      { "<leader>cS", "<cmd>Telescope hierarchy incoming_calls<cr>", desc = "Call Stack" },
 
       { "<leader>gb", "<cmd>Telescope git_branches<cr>",  desc = "Branches" },
       { "<leader>gs", "<cmd>Telescope git_stash<cr>",  desc = "Stashed Files" },

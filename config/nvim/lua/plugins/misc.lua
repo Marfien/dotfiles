@@ -74,13 +74,23 @@ return {
     end,
   },
   {
-    "retran/meow.yarn.nvim",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    config = function()
-      require("meow.yarn").setup({})
-    end,
-    keys = {
-      { "<leader>cS", "<Cmd>MeowYarn call callers<CR>", desc = "Call Stack", mode = { "n", "x" } },
+    "chrisgrieser/nvim-various-textobjs",
+    event = "BufEnter",
+    opts = {
+      keymaps = {
+        useDefaults = true,
+      },
+    },
+  },
+  {
+    "nvim-mini/mini.jump",
+    version = "*",
+    event = "BufEnter",
+    opts = {
+      silent = true,
+      delay = {
+        highlight = math.pow(2, 16),
+      },
     },
   },
 }

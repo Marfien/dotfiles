@@ -22,7 +22,7 @@ require("lazy").setup({
     -- Spell files for German and English
     "AlxHnr/vim-spell-files",
     { import = "plugins" },
-    { import = "plugins.editor" },
+    { import = "plugins.lang-support" },
     { import = "plugins.ui" },
     { import = "plugins.lang" },
   },
