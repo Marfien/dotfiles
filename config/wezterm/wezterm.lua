@@ -16,6 +16,7 @@ local config = {
 		bottom = "0px",
 	},
 	use_resize_increments = true,
+	send_composed_key_when_left_alt_is_pressed = true,
 }
 
 -- windows specific config
