@@ -44,5 +44,15 @@ return require("util.lsp").ensure_lang({
         }
       end,
     },
+    {
+      "stevearc/conform.nvim",
+      opts = {
+        formatters = {
+          ["tex-fmt"] = {
+            args = { "--wraplen", "120", "--stdin" },
+          },
+        },
+      },
+    },
   },
 })
