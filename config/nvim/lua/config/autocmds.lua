@@ -89,3 +89,28 @@ vim.api.nvim_create_autocmd({ "VimEnter", "VimResized" }, {
     vim.opt.sidescrolloff = math.floor(vim.o.lines * 0.1)
   end,
 })
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "LazyUpdate",
+  group = vim.api.nvim_create_augroup("update_lock", {}),
+  callback = function()
+    local config_path = vim.fn.stdpath("config")
+    vim.system(
+      { "git", "commit", "--message", "chore(nvim/deps): Update Lockfile", "--", "lazy-lock.json" },
+      { cwd = config_path },
+      function(cdata)
+        if cdata.code ~= 0 then
+          vim.notify("Error committing updated lockfile: \n" .. cdata.stderr, vim.log.levels.ERROR)
+          return
+        end
+
+        vim.system({ "git", "push" }, { cwd = config_path }, function(pdata)
+          if pdata.code ~= 0 then
+            vim.notify("Error pushing updated lockfile: \n" .. pdata.stderr, vim.log.levels.ERROR)
+            return
+          end
+        end)
+      end
+    )
+  end,
+})
