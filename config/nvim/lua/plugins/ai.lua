@@ -4,6 +4,7 @@ return {
     branch = "main",
     cmd = "CopilotChat",
     opts = {
+      model = "claude-sonnet-4",
       window = {
         layout = "float",
         width = 0.6,
@@ -16,7 +17,7 @@ return {
         tool = " 🔧 Tool: ",
       },
       show_folds = true,
-      auto_insert_mode = true,
+      auto_insert_mode = false,
     },
     keys = {
       { "<c-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt", remap = true },
