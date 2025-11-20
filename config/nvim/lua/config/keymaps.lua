@@ -21,8 +21,21 @@ map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
 map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
 -- buffers
-map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+map("n", "<S-h>", function()
+  if vim.bo.buflisted then
+    vim.cmd.bprevious()
+  else
+    vim.notify("Buf not listed.", vim.log.levels.WARN)
+  end
+end, { desc = "Prev Buffer" })
+
+map("n", "<S-l>", function()
+  if vim.bo.buflisted then
+    vim.cmd.bnext()
+  else
+    vim.notify("Buf not listed.", vim.log.levels.WARN)
+  end
+end, { desc = "Next Buffer" })
 
 -- unified search behavior
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
