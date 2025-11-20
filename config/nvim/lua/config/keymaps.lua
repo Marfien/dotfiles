@@ -5,14 +5,15 @@ local keymap = vim.keymap
 local map = keymap.set
 
 -- disable arrow keys
-pcall(keymap.del, { "n", "v" }, "<Up>")
-pcall(keymap.del, { "n", "v" }, "<Down>")
-pcall(keymap.del, { "n", "v" }, "<Left>")
-pcall(keymap.del, { "n", "v" }, "<Right>")
+for _, mapping in ipairs({ "<Up>", "<Down>", "<Left>", "<Right>" }) do
+  pcall(keymap.del, { "n", "v" }, mapping)
+end
 
+-- Movement
 -- better up/down movement for wrapped lines
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+map("n", "<C-a>", "GA", { remap = true })
 
 -- move between windows/panes
 map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
@@ -68,7 +69,7 @@ end
 map({ "n", "x" }, "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
 map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 map({ "n", "x" }, "<leader>ck", vim.lsp.buf.signature_help, { desc = "Code Signature" })
-map("i", "C-K", vim.lsp.buf.signature_help, { desc = "Code Signature" })
+map("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Code Signature" })
 map({ "n", "x" }, "<leader>cD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
 map({ "n", "x" }, "K", vim.lsp.buf.hover, { desc = "Hover Documentation" }) -- See `:help K` for why this keymap
 
