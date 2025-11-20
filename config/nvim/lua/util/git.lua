@@ -44,7 +44,8 @@ local url_patterns = {
     commit = "/commit/{commit}",
   },
 }
-url_patterns[""] = url_patterns["gitlab%.com"]
+
+local fallback_patterns = url_patterns["gitlab%.com"]
 
 function M.get_remotes(cwd)
   local proc = vim.fn.system({ "git", "-C", cwd, "remote", "-v" })
@@ -88,15 +89,18 @@ function M.get_repo(remote)
 end
 
 function M.get_url(repo, fields)
+  local matching_patterns = nil
   for remote, patterns in pairs(url_patterns) do
     if repo:find(remote) then
-      local pattern = patterns[link_ref]
-      return repo .. pattern:gsub("(%b{})", function(key)
-        return fields[key:sub(2, -2)] or key
-      end)
+      matching_patterns = patterns
+      break
     end
   end
-  return repo
+
+  local pattern = (matching_patterns or fallback_patterns)[link_ref]
+  return repo .. pattern:gsub("(%b{})", function(key)
+    return fields[key:sub(2, -2)] or key
+  end)
 end
 
 function M.get_default_branch()
