@@ -1,6 +1,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    event = "BufReadPre",
     branch = "main",
     build = function()
       require("nvim-treesitter").update()

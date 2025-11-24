@@ -21,12 +21,6 @@ opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 -- fully disable mouse
 opt.mouse = ""
 
--- Spell Checking
-opt.spell = true
-opt.spelllang = { "en", "de" }
-opt.spelloptions = { "camel" }
-opt.smartcase = true
-
 -- ui stuff
 opt.termguicolors = true
 
@@ -84,3 +78,15 @@ opt.expandtab = true
 -- undo history
 opt.undofile = true
 opt.undolevels = 10000
+
+local autocmd
+autocmd = vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function()
+    -- Spell Checking
+    opt.spell = true
+    opt.spelllang = { "en", "de" }
+    opt.spelloptions = { "camel" }
+    opt.smartcase = true
+    vim.api.nvim_del_autocmd(autocmd)
+  end,
+})
