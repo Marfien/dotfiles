@@ -5,7 +5,7 @@ end
 return {
   {
     "lewis6991/gitsigns.nvim",
-    event = "BufEnter",
+    event = "BufReadPost",
     opts = {
       current_line_blame = true,
     },
