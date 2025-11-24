@@ -2,7 +2,7 @@ return require("util.lsp").ensure_lang({
   parsers = { "bibtex", "latex" }, -- latex parser needs tree-sitter cli
   ft = { "tex", "bib" },
   formatters = { "tex-fmt" },
-  tools = { "tex-fmt" },
+  tools = { "tex-fmt", "texlab" },
   other = {
     {
       "lervag/vimtex",
@@ -28,6 +28,8 @@ return require("util.lsp").ensure_lang({
           )
         end
 
+        -- disable completion as it will be handled by the lsp server
+        vim.g.vimtex_complete_enabled = 0
         vim.g.vimtex_fold_enabled = 1
         vim.g.vimtex_quickfix_open_on_warning = 0
 
