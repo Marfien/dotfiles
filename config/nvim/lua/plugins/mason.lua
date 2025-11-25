@@ -21,6 +21,7 @@ return {
     },
     opts = {
       ensure_installed = {},
+      auto_update = true,
     },
     opts_extend = {
       "ensure_installed",

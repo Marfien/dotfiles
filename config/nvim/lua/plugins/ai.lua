@@ -1,3 +1,10 @@
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "copilot-*",
+  callback = function()
+    vim.bo.conceallevel = 0
+  end,
+})
+
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
