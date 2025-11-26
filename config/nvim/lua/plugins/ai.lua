@@ -1,7 +1,7 @@
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "copilot-*",
   callback = function()
-    vim.bo.conceallevel = 0
+    vim.wo.conceallevel = 0
   end,
 })
 
