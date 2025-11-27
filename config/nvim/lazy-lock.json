@@ -45,7 +45,7 @@
   "telescope-hierarchy.nvim": { "branch": "main", "commit": "b277da38d55663e3a260b581a193df3f36aa06b3" },
   "telescope-ui-select.nvim": { "branch": "master", "commit": "6e51d7da30bd139a6950adf2a47fda6df9fa06d2" },
   "telescope.nvim": { "branch": "master", "commit": "1f8a534a320dca8d73f6de58c2e8eea4dd4ced89" },
-  "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "44b61d4cb9dd6c423793e6cb21dcc313d223e690" },
+  "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "3255aaf9089c06db1732b25762b2eaa889034603" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
   "toggleterm.nvim": { "branch": "main", "commit": "9a88eae817ef395952e08650b3283726786fb5fb" },
   "tokyonight.nvim": { "branch": "main", "commit": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd" },
