@@ -21,6 +21,7 @@ brew "git-lfs"
 brew "neovim"
 brew "tmux"
 brew "awscli"
+brew "supabase"
 
 brew "gnupg"
 brew "sops"
