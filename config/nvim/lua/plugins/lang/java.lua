@@ -49,7 +49,8 @@ return require("util.lsp").ensure_lang({
       end,
     },
     {
-      "atm1020/neotest-jdtls",
+      "Marfien/neotest-jdtls",
+      branch = "patch-1",
       ft = "java",
       dependencies = {
         "mfussenegger/nvim-jdtls",

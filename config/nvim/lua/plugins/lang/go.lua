@@ -21,7 +21,11 @@ return require("util.lsp").ensure_lang({
       opts = {
         lazy_adapters = {
           function()
-            return require("neotest-go")
+            return require("neotest-go")({
+              experimental = {
+                test_table = true,
+              },
+            })
           end,
         },
       },
