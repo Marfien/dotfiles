@@ -47,7 +47,7 @@ cask "android-commandlinetools" if OS.mac?
 cask "android-platform-tools" if OS.mac?
 
 # containers
-brew "colima"
+brew "colima" if not OS.mac?
 brew "docker"
 brew "docker-compose"
 brew "docker-buildx"
@@ -77,6 +77,7 @@ cask "headlamp"
 cask "wezterm"
 cask "raycast" if OS.mac?
 cask "arc" if OS.mac?
+cask "orbstack" if OS.mac?
 cask "sioyek"
 cask "discord"
 cask "anki"
@@ -92,3 +93,4 @@ mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Plash", id: 1494023538
 mas "Shareful", id: 1522267256
+mas "Tailscale", id: 1475387142
