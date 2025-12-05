@@ -1,11 +1,10 @@
 vim.api.nvim_create_autocmd("User", {
   pattern = "ConformFormatPost",
   callback = function(event)
-    print("CFP")
     for _, win in ipairs(vim.api.nvim_list_wins()) do
       if vim.api.nvim_win_get_buf(win) == event.buf then
         vim.api.nvim_win_call(win, function()
-          vim.api.nvim_feedkeys("zH", "n", false)
+          vim.api.nvim_feedkeys("2zH", "n", false)
         end)
       end
     end

@@ -60,8 +60,8 @@ return {
     opts = function(opts)
       opts = opts or {}
 
-      if vim.env.WSL_DISTRO_NAME then
-        opts.open_browser_app = vim.env.WSL_DISTRO_NAME and "powershell.exe" or "os_specific"
+      if vim.env.WSL_DISTRO_NAME ~= nil then
+        opts.open_browser_app = "powershell.exe"
         opts.open_browser_args = { "start", "explorer.exe" }
       end
 

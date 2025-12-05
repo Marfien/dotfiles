@@ -11,6 +11,7 @@ return {
     branch = "main",
     cmd = "CopilotChat",
     opts = {
+      selection = nil,
       model = "claude-sonnet-4",
       window = {
         layout = "float",
