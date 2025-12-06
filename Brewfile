@@ -77,6 +77,7 @@ cask "headlamp"
 cask "wezterm"
 cask "raycast" if OS.mac?
 cask "arc" if OS.mac?
+cask "zen" if OS.mac?
 cask "orbstack" if OS.mac?
 cask "sioyek"
 cask "discord"
