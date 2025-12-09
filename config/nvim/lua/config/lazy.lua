@@ -73,5 +73,3 @@ require("lazy").setup({
     },
   },
 })
-
-vim.schedule(require("util.lsp").setup)

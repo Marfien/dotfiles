@@ -25,7 +25,7 @@ end
 
 function M.ensure_tools(pkg)
   return {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = pkg,
     },
@@ -69,6 +69,16 @@ function M.setup()
     local id = vim.fs.basename(config):gsub("%.lua$", "")
     vim.lsp.enable(id)
   end
+end
+
+---@param client string the name of the client to restart
+---@param delay? integer the delay
+function M.restart(client, delay)
+  vim.lsp.enable(client, false)
+  local timer = assert(vim.uv.new_timer())
+  timer:start(delay or 500, 0, function()
+    vim.schedule_wrap(vim.lsp.enable)(client)
+  end)
 end
 
 return M

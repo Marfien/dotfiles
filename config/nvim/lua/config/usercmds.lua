@@ -7,25 +7,12 @@ end, {
 })
 
 vim.api.nvim_create_user_command("LspRestart", function()
-  local clients = vim
+  vim
     .iter(vim.lsp.get_clients())
     :map(function(client)
       return client.name
     end)
-    :totable()
-
-  for _, client in ipairs(clients) do
-    vim.lsp.enable(client, false)
-  end
-
-  local timer = assert(vim.uv.new_timer())
-  timer:start(500, 0, function()
-    for _, name in ipairs(clients) do
-      vim.schedule_wrap(function(x)
-        vim.lsp.enable(x)
-      end)(name)
-    end
-  end)
+    :each(require("util.lsp").restart)
 end, {
   desc = "Restarts all currently attached LSP clients",
 })

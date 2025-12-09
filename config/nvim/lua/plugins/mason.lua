@@ -2,29 +2,19 @@ return {
   {
     "mason-org/mason.nvim",
     cmd = { "Mason", "MasonLog" },
+    opts = {
+      ensure_installed = {},
+    },
     config = function(_, opts)
-      require("mason").setup(opts)
-
-      ---@diagnostic disable-next-line: param-type-mismatch
-      pcall(vim.cmd, "MsonUpdate")
+      require("mason").setup({})
+      require("util.mason").setup(opts.ensure_installed)
     end,
-    opts = {},
+    opts_extend = {
+      "ensure_installed",
+    },
     keys = {
       { "<leader>.m", "<cmd>Mason<cr>", desc = "Mason" },
       { "<leader>.p", "<cmd>LspInfo<cr>", desc = "LspInfo" },
-    },
-  },
-  {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    dependencies = {
-      "mason-org/mason.nvim",
-    },
-    opts = {
-      ensure_installed = {},
-      auto_update = true,
-    },
-    opts_extend = {
-      "ensure_installed",
     },
   },
 }
