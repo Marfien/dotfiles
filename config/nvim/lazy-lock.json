@@ -50,6 +50,6 @@
   "tokyonight.nvim": { "branch": "main", "commit": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "vim-spell-files": { "branch": "master", "commit": "a1482f4c3f7a985c1f3a958c2f7a532249618793" },
-  "wezterm-types": { "branch": "main", "commit": "d95400ff85110fbfd57f1715652a413929da9c61" },
+  "wezterm-types": { "branch": "main", "commit": "911f2fee3f688cc5d60eb2eac72671dbe0bfdb4f" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
 }
