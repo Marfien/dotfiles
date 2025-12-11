@@ -29,7 +29,14 @@ return {
       rootDirectory = nil,
       build = {
         executable = "latexmk",
-        args = { "-pdf", "-auxdir=" .. auxdir, "-outdir=" .. outdir, "-interaction=nonstopmode", "-synctex=1", "%f" },
+        args = {
+          "-pdf",
+          "-auxdir=" .. auxdir,
+          "-outdir=" .. outdir,
+          "-interaction=nonstopmode",
+          "-synctex=1",
+          "%f",
+        },
         onSave = true,
         forwardSearchAfter = false,
         pdfDirectory = outdir,

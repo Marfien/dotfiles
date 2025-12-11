@@ -70,6 +70,11 @@ local function command_factory(cmd)
   end
 end
 
+local function clean_all()
+  command_factory("Artifacts")()
+  command_factory("Auxiliary")()
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("texlab_cmds", {}),
   callback = function(event)
@@ -83,6 +88,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
       { name = "TexlabCancelBuild", fn = buf_cancel_build, desc = "Cancel the current build", keymap = "B" },
       { name = "TexlabDependencyGraph", fn = dependency_graph, desc = "Show the dependency graph", keymap = "d" },
       { name = "TexlabCleanArtifacts", fn = command_factory("Artifacts"), desc = "Clean the artifacts", keymap = "ca" },
+      {
+        name = "TexlabCleanAll",
+        fn = clean_all,
+        desc = "Clean all files",
+        keymap = "cc",
+      },
       {
         name = "TexlabCleanAuxiliary",
         fn = command_factory("Auxiliary"),
