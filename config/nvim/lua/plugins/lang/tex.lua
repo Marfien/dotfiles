@@ -1,5 +1,13 @@
 vim.g.tex_flavor = "latex"
 
+_G.wsl_texlab_executable = vim.system({
+  "powershell.exe",
+  "-nologo",
+  "-noprofile",
+  "-command",
+  "wsl wslpath (get-command sioyek).Source.Replace('\\', '\\\\')",
+})
+
 local function buf_build(client, bufnr)
   local win = vim.api.nvim_get_current_win()
   local params = vim.lsp.util.make_position_params(win, client.offset_encoding)
