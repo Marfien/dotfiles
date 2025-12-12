@@ -1,4 +1,4 @@
 return require("util.lsp").ensure_lang({
   ft = {},
-  tools = { "lemminx" },
+  tools = { "lemminx", "ltex-ls-plus" },
 })

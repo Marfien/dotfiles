@@ -16,3 +16,15 @@ vim.api.nvim_create_user_command("LspRestart", function()
 end, {
   desc = "Restarts all currently attached LSP clients",
 })
+
+vim.api.nvim_create_user_command("SpellStop", function()
+  vim.opt_local.spell = false
+end, { desc = "Enables spell checking for the current buffer" })
+
+vim.api.nvim_create_user_command("SpellStart", function()
+  local opt = vim.opt_local
+  opt.spell = true
+  opt.spelllang = { "en", "de" }
+  opt.spelloptions = { "camel" }
+  opt.smartcase = true
+end, { desc = "Enables spell checking for the current buffer" })
