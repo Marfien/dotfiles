@@ -1,6 +1,6 @@
 -- Lazy init siojek path
 local forawrdSearchExecutable = "sioyek"
-if vim.env.WSL_DISTRO_NAME then
+if _G.wsl_texlab_executable then
   local sioyekPathData = _G.wsl_texlab_executable:wait()
   if sioyekPathData.code ~= 0 then
     error("Determinaning forwardSearch executable path was unsuccessfull: \n" .. sioyekPathData.stderr)
