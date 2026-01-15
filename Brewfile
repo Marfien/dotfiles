@@ -22,6 +22,7 @@ brew "neovim"
 brew "tmux"
 brew "awscli"
 brew "supabase"
+brew "pgcli"
 
 brew "gnupg"
 brew "sops"
@@ -87,6 +88,7 @@ cask "gimp"
 cask "curseforge" if OS.mac?
 cask "android-studio"
 cask "linearmouse"
+cask "visual-studio-code" if OS.mac?
 
 mas "Command X", id: 6448461551
 mas "Keynote", id: 409183694
