@@ -1,6 +1,6 @@
 {
   "CopilotChat.nvim": { "branch": "main", "commit": "21bdecb25aa72119d11d7fc08c7e0ce323f1b540" },
-  "SchemaStore.nvim": { "branch": "main", "commit": "2a8afcddb67a14dc80001f074f1eecedac2f27a7" },
+  "SchemaStore.nvim": { "branch": "main", "commit": "fb7b9034285a5658c746faa12eff8c1c9d9b11b1" },
   "astudio.nvim": { "branch": "main", "commit": "1729a871380ba642486248b7acd29b7ae27dcc57" },
   "blink.cmp": { "branch": "main", "commit": "b19413d214068f316c78978b08264ed1c41830ec" },
   "btw.nvim": { "branch": "master", "commit": "47f6419e90d3383987fd06e8f3e06a4bc032ac83" },
@@ -50,6 +50,6 @@
   "tokyonight.nvim": { "branch": "main", "commit": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "vim-spell-files": { "branch": "master", "commit": "a1482f4c3f7a985c1f3a958c2f7a532249618793" },
-  "wezterm-types": { "branch": "main", "commit": "1c3bb4d5460ab84c265499ee2463f184da65705a" },
+  "wezterm-types": { "branch": "main", "commit": "4e55f18722aaeff964b5965293fbb72a31a19b40" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
 }
