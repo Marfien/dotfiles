@@ -1,5 +1,18 @@
 local paths = require("util.paths")
 
+local cached_count = 0
+
+vim.api.nvim_create_autocmd({ "BufNew", "BufAdd", "BufDelete", "VimEnter" }, {
+  callback = vim.schedule_wrap(function()
+    cached_count = 0
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.bo[buf].buflisted then
+        cached_count = cached_count + 1
+      end
+    end
+  end),
+})
+
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
@@ -28,7 +41,11 @@ return {
       lualine_c = {
         {
           function()
-            return paths.pretty_path(paths.project_root())
+            local res = paths.pretty_path(paths.project_root())
+            if #res > 0 and cached_count > 1 then
+              res = res .. " / " .. cached_count
+            end
+            return res
           end,
           color = function()
             local bufname = vim.api.nvim_buf_get_name(0)
