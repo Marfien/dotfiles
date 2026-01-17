@@ -1,6 +1,7 @@
 return {
   {
     "Marfien/simple-pairs.nvim",
+    branch = "feat/advanced-config",
     event = "InsertEnter",
     opts = {},
   },
