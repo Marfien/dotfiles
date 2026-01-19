@@ -1,3 +1,9 @@
+vim.filetype.add({
+  pattern = {
+    [".*%.gitlab%-ci%.ya?ml"] = "yaml.gitlab",
+  },
+})
+
 return require("util.lsp").ensure_lang({
   parsers = { "yaml" },
   ft = { "yaml", "yml" },

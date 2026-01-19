@@ -1,7 +1,7 @@
 return {
   {
     "mason-org/mason.nvim",
-    cmd = { "Mason", "MasonLog" },
+    lazy = false,
     opts = {
       ensure_installed = {},
     },
