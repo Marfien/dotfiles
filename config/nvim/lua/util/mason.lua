@@ -71,6 +71,8 @@ end
 
 -- Function to update all installed packages
 local function update_packages()
+  vim.notify("Updating mason packages", vim.log.levels.INFO)
+
   local installed_packages = mason_registry.get_installed_packages()
   if #installed_packages == 0 then
     return
@@ -79,8 +81,9 @@ local function update_packages()
   local updated = 0
 
   for _, package in ipairs(installed_packages) do
-    if package:check_new_version() then
-      package:install()
+    local latest_version = package:get_latest_version()
+    if latest_version ~= package:get_installed_version() then
+      package:install({ version = latest_version })
       updated = updated + 1
     end
   end
@@ -95,11 +98,12 @@ end
 function M.setup(packages)
   install_packages(packages)
 
-  require("plenary.async").void(function()
+  local co = coroutine.create(function()
     if should_update() then
       update_packages()
     end
   end)
+  coroutine.resume(co)
 end
 
 return M

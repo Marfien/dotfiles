@@ -12,7 +12,7 @@ return {
     cmd = "CopilotChat",
     opts = {
       selection = nil,
-      model = "claude-sonnet-4",
+      model = "claude-sonnet-4.5",
       window = {
         layout = "float",
         width = 0.6,
