@@ -100,7 +100,7 @@ function M.setup(packages)
 
   local co = coroutine.create(function()
     if should_update() then
-      update_packages()
+      mason_registry.update(update_packages)
     end
   end)
   coroutine.resume(co)
