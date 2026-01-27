@@ -10,6 +10,9 @@ return require("util.lsp").ensure_lang({
         "justinsgithub/wezterm-types",
       },
       opts = {
+        integrations = {
+          lspconfig = false,
+        },
         library = {
           { path = "${3rd}/luv/library", words = { "vim%.uv" } },
           -- Load the wezterm types when the `wezterm` module is required

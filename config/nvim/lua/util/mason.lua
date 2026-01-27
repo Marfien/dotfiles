@@ -96,14 +96,12 @@ end
 
 -- Main setup function
 function M.setup(packages)
-  install_packages(packages)
-
-  local co = coroutine.create(function()
-    if should_update() then
-      mason_registry.update(update_packages)
-    end
-  end)
-  coroutine.resume(co)
+  if should_update() then
+    mason_registry.update(function()
+      install_packages(packages)
+      update_packages()
+    end)
+  end
 end
 
 return M

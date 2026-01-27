@@ -12,14 +12,19 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
-vim.api.nvim_create_autocmd("User", {
-  pattern = "OilEnter",
-  callback = vim.schedule_wrap(function()
-    if not require("oil.util").get_preview_win() then
-      require("oil").open_preview()
-    end
-  end),
-})
+if vim.fn.argc(-1) > 0 then
+  vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+      vim.defer_fn(function()
+        local util = require("oil.util")
+        if util.is_oil_bufnr(vim.api.nvim_get_current_buf()) and util.get_preview_win() == nil then
+          require("oil").open_preview()
+        end
+      end, 1000)
+      return true
+    end,
+  })
+end
 
 function _G.get_oil_winbar(buf)
   buf = buf or vim.g.statusline_winid
@@ -37,6 +42,7 @@ return {
   {
     "stevearc/oil.nvim",
     lazy = vim.fn.argc(-1) == 0,
+    cmd = "Oil",
     dependencies = {
       { "nvim-tree/nvim-web-devicons", opts = {} },
     },
@@ -80,14 +86,12 @@ return {
     keys = {
       {
         "-",
-        "<cmd>Oil<cr>",
+        "<cmd>Oil --preview<cr>",
         desc = "Oil (parent)",
       },
       {
         "_",
-        function()
-          vim.cmd({ cmd = "Oil", args = { vim.fn.getcwd() } })
-        end,
+        "<cmd>Oil --preview " .. vim.fn.getcwd() .. "<cr>",
         desc = "Oil (cwd)",
       },
     },

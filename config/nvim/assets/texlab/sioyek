@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -n "$WSL_DISTRO_NAME" ]; then
+  COMMAND="powershell.exe -nologo -noprofile -command sioyek.exe"
+else
+  COMMAND="sioyek"
+fi
+
+$COMMAND "$@"

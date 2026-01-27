@@ -1,13 +1,4 @@
 -- Lazy init siojek path
-local forawrdSearchExecutable = "sioyek"
-if _G.wsl_texlab_executable then
-  local sioyekPathData = _G.wsl_texlab_executable:wait()
-  if sioyekPathData.code ~= 0 then
-    error("Determinaning forwardSearch executable path was unsuccessfull: \n" .. sioyekPathData.stderr)
-  end
-  forawrdSearchExecutable = sioyekPathData.stdout:gsub("\n", "")
-end
-
 local outdir = "build/out/"
 local auxdir = "build/aux/"
 
@@ -34,7 +25,7 @@ return {
         pdfDirectory = outdir,
       },
       forwardSearch = {
-        executable = forawrdSearchExecutable,
+        executable = vim.fn.stdpath("config") .. "/assets/texlab/sioyek",
         args = {
           "--reuse-window",
           "--execute-command",
