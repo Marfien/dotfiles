@@ -1,6 +1,6 @@
 right_format = '$cmd_duration$status'
 format = '$directory$git_branch$character'
-continuation_prompt = '> '
+continuation_prompt = '    '
 
 [status]
 disabled = false

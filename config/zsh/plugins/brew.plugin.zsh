@@ -1,8 +1,6 @@
 zsh_plugins=(
-  zsh-history-substring-search
-  zsh-autosuggestions
-  zsh-syntax-highlighting
   zsh-vi-mode
+  zsh-syntax-highlighting
 )
 
 export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
