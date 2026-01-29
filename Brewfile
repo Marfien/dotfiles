@@ -76,8 +76,7 @@ brew "mas" if OS.mac?
 cask "font-meslo-lg-nerd-font"
 cask "headlamp"
 cask "wezterm"
-cask "raycast" if OS.mac?
-cask "arc" if OS.mac?
+cask "raycast"
 cask "zen" if OS.mac?
 cask "orbstack" if OS.mac?
 cask "sioyek"
@@ -86,9 +85,7 @@ cask "anki"
 cask "spotify"
 cask "gimp"
 cask "curseforge" if OS.mac?
-cask "android-studio"
 cask "linearmouse"
-cask "visual-studio-code" if OS.mac?
 
 mas "Command X", id: 6448461551
 mas "Keynote", id: 409183694
