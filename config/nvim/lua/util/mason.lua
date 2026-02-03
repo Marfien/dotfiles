@@ -34,63 +34,46 @@ local function should_update()
 end
 
 -- Function to install a package if not already installed
---- @return boolean install
-local function ensure_installed(package_name)
-  local package = mason_registry.get_package(package_name)
-  if not package:is_installed() and not package:is_installing() then
-    package:install()
-    return true
+--- @return table? version_info
+local function ensure_installed(package_name, version)
+  local success, package = pcall(mason_registry.get_package, package_name)
+  if not success then
+    vim.notify("Package not found: " .. package_name, vim.log.levels.ERROR)
+    return nil
   end
 
-  return false
+  local requested_version = version or package:get_latest_version()
+  local current_version = package:get_installed_version()
+
+  if not package:is_installing() and current_version ~= requested_version then
+    package:install({ version = requested_version })
+
+    return { current = current_version, requested = requested_version }
+  else
+    return nil
+  end
 end
 
-local function install_packages(packages)
-  local installed = 0
-  for _, package_name in ipairs(packages) do
-    if type(package_name) ~= "string" then
-      vim.notify("mason-declarative: package name must be a string, got " .. type(package_name), vim.log.levels.WARN)
+local function check_packages(packages)
+  local upgrade = {}
+  for _, package_handle in ipairs(packages) do
+    if type(package_handle) == "string" then
+      local split, _ = package_handle:find("@")
+      local name = split and package_handle:sub(0, split - 1) or package_handle
+      local version = split and package_handle:sub(split + 1, #package_handle)
+      upgrade[name] = ensure_installed(name, version)
     else
-      if mason_registry.has_package(package_name) then
-        if ensure_installed(package_name) then
-          installed = installed + 1
-        end
-      else
-        vim.notify("mason-declarative: package '" .. package_name .. "' not found in registry", vim.log.levels.WARN)
-      end
+      vim.notify("mason-declarative: package name must be a string, got " .. type(package_handle), vim.log.levels.WARN)
     end
   end
 
-  if installed > 0 then
-    vim.notify(
-      "Successfully installed " .. installed .. (installed == 1 and " package" or " packages"),
-      vim.log.levels.INFO
-    )
-  end
-end
-
--- Function to update all installed packages
-local function update_packages()
-  vim.notify("Updating mason packages", vim.log.levels.INFO)
-
-  local installed_packages = mason_registry.get_installed_packages()
-  if #installed_packages == 0 then
-    return
+  local upgrade_str = ""
+  for name, version_info in pairs(upgrade) do
+    upgrade_str = upgrade_str .. "\n  " .. name .. ": " .. version_info.current .. " -> " .. version_info.requested
   end
 
-  local updated = 0
-
-  for _, package in ipairs(installed_packages) do
-    local latest_version = package:get_latest_version()
-    if latest_version ~= package:get_installed_version() then
-      package:install({ version = latest_version })
-      updated = updated + 1
-    end
-  end
-
-  write_update_time()
-  if updated > 0 then
-    vim.notify("Successfully updated " .. updated .. (updated == 1 and " package" or " packages"), vim.log.levels.INFO)
+  if #upgrade_str > 0 then
+    vim.notify("Requested Upgrades:" .. upgrade_str, vim.log.levels.INFO)
   end
 end
 
@@ -98,8 +81,8 @@ end
 function M.setup(packages)
   if should_update() then
     mason_registry.update(function()
-      install_packages(packages)
-      update_packages()
+      vim.notify("Checking Mason for updates...")
+      check_packages(packages)
     end)
   end
 end
