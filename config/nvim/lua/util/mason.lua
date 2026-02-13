@@ -80,6 +80,7 @@ end
 -- Main setup function
 function M.setup(packages)
   if should_update() then
+    write_update_time()
     mason_registry.update(function()
       vim.notify("Checking Mason for updates...")
       check_packages(packages)

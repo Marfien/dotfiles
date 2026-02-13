@@ -1,9 +1,6 @@
 #!/bin/sh
 
 alias zshconfig='vim ~/.zshrc'
-alias ccat='pygmentize -g -O style="material,lineos=1"'
-alias dckr='docker run --rm -it --entrypoint /bin/sh'
-alias dckrmnt'dckr -v .:/mnt -w /mnt'
 alias vim='nvim'
 alias g='git'
 alias so='so --no-lucky'
@@ -28,4 +25,10 @@ wopen() {
     cd "$(dirname $1)" || return 1
     explorer.exe "$(basename $1)"
   )
+}
+
+dckr() {
+  local image="${@:$#}"
+  local args=${@:1:(( $# - 1 ))}
+  docker run --rm -it -v "$(pwd):/mnt" -w /mnt --entrypoint '/bin/sh' ${args[@]} "$image" -c '(command -v zsh && zsh) || (command -v bash && bash) || (command -v ash && ash) || sh'
 }
