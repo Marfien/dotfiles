@@ -14,6 +14,10 @@ end
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 map("n", "<C-a>", "GA", { remap = true })
+map({ "n", "v" }, "0", function()
+  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col == 0 and "^" or "0"
+end, { expr = true, remap = true })
 
 -- move between windows/panes
 map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
