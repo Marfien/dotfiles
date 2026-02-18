@@ -8,6 +8,9 @@ return {
     config = function(_, opts)
       require("mason").setup({})
       require("util.mason").setup(opts.ensure_installed)
+      vim.keymap.set("n", "<localleader>mu", function()
+        require("util.mason").performUpdate(opts.ensure_installed)
+      end, {})
     end,
     opts_extend = {
       "ensure_installed",

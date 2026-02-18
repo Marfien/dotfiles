@@ -186,10 +186,10 @@ return {
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
 
       { "<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
-      { "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
-      { "<leader>cr", "<cmd>Telescope lsp_references<cr>", desc = "Find References" },
-      { "<leader>cd", "<cmd>Telescope lsp_definitions<cr>",  desc = "Goto Definition" },
-      { "<leader>cS", "<cmd>Telescope hierarchy incoming_calls<cr>", desc = "Call Stack" },
+      { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
+      { "gr", "<cmd>Telescope lsp_references<cr>", desc = "Find References" },
+      { "gd", "<cmd>Telescope lsp_definitions<cr>",  desc = "Goto Definition" },
+      { "gC", "<cmd>Telescope hierarchy incoming_calls<cr>", desc = "Call Stack" },
 
       { "<leader>gb", "<cmd>Telescope git_branches<cr>",  desc = "Branches" },
       { "<leader>gs", "<cmd>Telescope git_stash<cr>",  desc = "Stashed Files" },

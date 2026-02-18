@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 return require("util.lsp").ensure_lang({
   ft = { "java" },
-  tools = { "java-test", "java-debug-adapter", "jdtls" },
+  tools = { "java-test", "java-debug-adapter", "jdtls@v1.55.0" },
   build = function()
     ---@diagnostic disable-next-line: param-type-mismatch
     pcall(vim.cmd, "NeotestJava setup")

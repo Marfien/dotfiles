@@ -88,4 +88,11 @@ function M.setup(packages)
   end
 end
 
+function M.performUpdate(packages)
+  mason_registry.update(function()
+    vim.notify("Checking Mason for updates...")
+    check_packages(packages)
+  end)
+end
+
 return M

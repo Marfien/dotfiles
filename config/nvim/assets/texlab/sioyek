@@ -1,9 +1,14 @@
 #!/bin/sh
 
 if [ -n "$WSL_DISTRO_NAME" ]; then
-  COMMAND="powershell.exe -nologo -noprofile -command sioyek.exe"
+  args=""
+  for arg in "$@"; do
+    if [ -f "$arg" ]; then
+      arg=$(wslpath -w "$arg")
+    fi
+    args="$args '$arg'"
+  done
+  eval powershell.exe -nologo -noprofile -command "sioyek.exe $args"
 else
-  COMMAND="sioyek"
+  exec sioyek "$@"
 fi
-
-$COMMAND "$@"
