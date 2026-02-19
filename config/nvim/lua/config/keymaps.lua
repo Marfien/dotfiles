@@ -23,10 +23,10 @@ map({ "n", "v" }, "0", function()
 end)
 
 -- move between windows/panes
-map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
-map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
-map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
-map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
+map({ "n", "i" }, "<C-h>", "<cmd>wincmd h<cr><esc>", { desc = "Go to Left Window", remap = true })
+map({ "n", "i" }, "<C-j>", "<cmd>wincmd j<cr><esc>", { desc = "Go to Lower Window", remap = true })
+map({ "n", "i" }, "<C-k>", "<cmd>wincmd k<cr><esc>", { desc = "Go to Upper Window", remap = true })
+map({ "n", "i" }, "<C-l>", "<cmd>wincmd l<cr><esc>", { desc = "Go to Right Window", remap = true })
 
 -- buffers
 map("n", "<S-h>", function()
