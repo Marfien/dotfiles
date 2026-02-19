@@ -63,6 +63,16 @@ return {
         relativenumber = false,
         colorcolumn = "",
       },
+      float = {
+        border = "none",
+        override = function(config)
+          ---@type vim.api.keyset.win_config
+          return vim.tbl_deep_extend("force", config, {
+            width = vim.o.columns,
+            height = vim.o.lines,
+          })
+        end,
+      },
       keymaps = {
         ["q"] = { "actions.close", mode = "n" },
         ["ESC"] = { "actions.close", mode = "n" },
@@ -86,12 +96,12 @@ return {
     keys = {
       {
         "-",
-        "<cmd>Oil --preview<cr>",
+        "<cmd>Oil --preview --float<cr>",
         desc = "Oil (parent)",
       },
       {
         "_",
-        "<cmd>Oil --preview " .. vim.fn.getcwd() .. "<cr>",
+        "<cmd>Oil --preview --float " .. vim.fn.getcwd() .. "<cr>",
         desc = "Oil (cwd)",
       },
     },
