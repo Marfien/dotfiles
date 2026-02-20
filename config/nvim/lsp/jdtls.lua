@@ -33,28 +33,52 @@ local function get_cache_dir()
   return (os.getenv("XDG_CACHE_HOME") or vim.uv.os_homedir() .. "/.cache") .. "/jdtls"
 end
 
-local function get_jdtls_jvm_args()
-  -- add lombok
-  local args = {}
-  for a in string.gmatch((os.getenv("JDTLS_JVM_ARGS") or ""), "%S+") do
-    local arg = string.format("--jvm-arg=%s", a)
-    table.insert(args, arg)
+local function get_shared_config_dir()
+  local ext = ({
+    Windows = "win",
+    Linux = "linux",
+    OSX = "mac",
+  })[jit.os]
+
+  if ext == nil then
+    error("Unknown OS: " .. jit.os)
   end
-  return unpack(args)
+
+  return "config_" .. ext
 end
 
 local global = InstallLocation.global()
-local lombok_jar = global:package("jdtls") .. "/lombok.jar"
+local jdtls_path = global:package("jdtls")
+local lombok_jar = jdtls_path .. "/lombok.jar"
 
 -- Using vim.lsp.config as it has higher priority than files inside lsp/
 vim.lsp.config("jdtls", {
   cmd = {
-    "jdtls",
-    "--java-executable=" .. require("util.brew").get_brew_path() .. "/opt/openjdk@21/bin/java",
-    "-configuration=" .. get_cache_dir() .. "/config",
-    "-data=" .. get_cache_dir() .. "/workspace",
-    "--jvm-arg=-javaagent:" .. lombok_jar,
-    get_jdtls_jvm_args(),
+    get_openjdk_runtime(24).path .. "/bin/java",
+    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+    "-Dlog.protocol=true",
+    "-Dlog.level=ALL",
+    "-Dosgi.bundles.defaultStartLevel=4",
+    "-XX:+AlwaysPreTouch",
+    "-XX:+UseStringDeduplication",
+    "-XX:+UseParallelGC",
+    "-XX:GCTimeRatio=4",
+    "-XX:AdaptiveSizePolicyWeight=90",
+    "-Dsun.zip.disableMemoryMapping=true",
+    "-Xmx3G",
+    "--add-modules=ALL-SYSTEM",
+    "--add-opens",
+    "java.base/java.util=ALL-UNNAMED",
+    "--add-opens",
+    "java.base/java.lang=ALL-UNNAMED",
+    "-javaagent:" .. lombok_jar,
+    "-jar",
+    vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
+    "-data",
+    get_cache_dir() .. "/workspace",
+    "-configuration",
+    jdtls_path .. "/" .. get_shared_config_dir(),
   },
 })
 
