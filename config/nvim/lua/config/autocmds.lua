@@ -74,6 +74,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "VimEnter", "VimResized" }, {
+  group = vim.api.nvim_create_augroup("resize_offset", {}),
+  callback = function()
+    vim.opt.scrolloff = math.floor(vim.o.lines * 0.2)
+    vim.opt.sidescrolloff = math.floor(vim.o.lines * 0.1)
+  end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf,trouble",
   group = vim.api.nvim_create_augroup("unlist_bufs", {}),
@@ -82,10 +90,25 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "VimEnter", "VimResized" }, {
-  group = vim.api.nvim_create_augroup("resize_offset", {}),
-  callback = function()
-    vim.opt.scrolloff = math.floor(vim.o.lines * 0.2)
-    vim.opt.sidescrolloff = math.floor(vim.o.lines * 0.1)
+-- Folds
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("lsp_folds", {}),
+  callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if client and client:supports_method("textDocument/foldingRange") then
+      local win = vim.api.nvim_get_current_win()
+      vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+      vim.wo[win][0].foldtext = "v:lua.vim.lsp.foldtext()"
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("LspNotify", {
+  group = vim.api.nvim_create_augroup("lsp_folds", {}),
+  callback = function(event)
+    if event.data.method == "textDocument/didOpen" then
+      pcall(vim.lsp.foldclose, "imports", vim.fn.bufwinid(event.buf))
+    end
   end,
 })
