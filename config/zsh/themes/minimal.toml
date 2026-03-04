@@ -1,5 +1,5 @@
-right_format = '$cmd_duration$status'
-format = '$directory$git_branch$character'
+format = '$fill$line_break$directory$git_branch$character'
+add_newline = false
 continuation_prompt = '    '
 
 [status]
@@ -7,8 +7,8 @@ disabled = false
 format = '[$status]($style)'
 
 [fill]
-symbol = "-"
-style = 'black strikethrough'
+symbol = " "
+style = 'white underline'
 
 [git_branch]
 format = '[$symbol$branch(:$remote_branch)]($style) '
