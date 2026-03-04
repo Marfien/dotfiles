@@ -23,10 +23,18 @@ map({ "n", "v" }, "0", function()
 end)
 
 -- move between windows/panes
-map({ "n", "i" }, "<C-h>", "<cmd>wincmd h<cr><esc>", { desc = "Go to Left Window", remap = true })
-map({ "n", "i" }, "<C-j>", "<cmd>wincmd j<cr><esc>", { desc = "Go to Lower Window", remap = true })
-map({ "n", "i" }, "<C-k>", "<cmd>wincmd k<cr><esc>", { desc = "Go to Upper Window", remap = true })
-map({ "n", "i" }, "<C-l>", "<cmd>wincmd l<cr><esc>", { desc = "Go to Right Window", remap = true })
+local function map_windowmove(key, direction)
+  local cmd = "<cmd>wincmd " .. key .. "<cr>"
+  local lhs = "<C-" .. key .. ">"
+  local opts = { desc = "Go to " .. direction .. " Window", remap = true }
+  map("n", lhs, cmd, opts)
+  map("i", lhs, "<esc>" .. cmd, opts)
+end
+
+map_windowmove("h", "Left")
+map_windowmove("j", "Lower")
+map_windowmove("k", "Upper")
+map_windowmove("l", "Right")
 
 -- buffers
 map("n", "<S-h>", function()
