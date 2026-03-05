@@ -1,6 +1,7 @@
 return {
   {
     "nvim-mini/mini.indentscope",
+    enabled = false,
     version = "*",
     event = "BufEnter",
     opts = {
