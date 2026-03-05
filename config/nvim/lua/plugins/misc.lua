@@ -85,7 +85,7 @@ return {
     opts = {
       silent = true,
       delay = {
-        highlight = math.pow(2, 16),
+        highlight = math.huge,
       },
     },
   },
