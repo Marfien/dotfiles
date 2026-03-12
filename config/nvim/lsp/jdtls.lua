@@ -87,6 +87,7 @@ local function get_bundles()
   local bundle_globs = {
     global:package("java-debug-adapter") .. "/extension/server/com.microsoft.java.debug.plugin-*.jar",
     global:package("java-test") .. "/extension/server/*.jar",
+    vim.fn.stdpath("config") .. "/assets/jdtls/bundles/*.jar",
   }
 
   local found_bundles = {}

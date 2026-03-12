@@ -91,12 +91,13 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Folds
+local fold_group = vim.api.nvim_create_augroup("lsp_folds", {})
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("lsp_folds", {}),
+  group = fold_group,
   callback = function(event)
     local client = vim.lsp.get_client_by_id(event.data.client_id)
-    if client and client:supports_method("textDocument/foldingRange") then
+    if client:supports_method("textDocument/foldingRange") then
       local win = vim.api.nvim_get_current_win()
       vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
       vim.wo[win][0].foldtext = "v:lua.vim.lsp.foldtext()"
@@ -105,7 +106,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.api.nvim_create_autocmd("LspNotify", {
-  group = vim.api.nvim_create_augroup("lsp_folds", {}),
+  group = fold_group,
   callback = function(event)
     if event.data.method == "textDocument/didOpen" then
       pcall(vim.lsp.foldclose, "imports", vim.fn.bufwinid(event.buf))
