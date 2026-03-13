@@ -21,15 +21,11 @@ setopt HIST_IGNORE_SPACE
 export EDITOR="${EDITOR:-nvim}"
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 
-# aliases
-source "$ZSH/aliases.zsh"
-
 # libraries
 autoload colors && colors
 for lib in "$ZSH/lib/"*.zsh; do
   source "$lib"
 done
-
 
 # plugins
 for plugin in "$ZSH/plugins"/*.plugin.zsh; do
@@ -42,19 +38,24 @@ autoload -Uz compinit
 FILE="$HOME/.zcompdump"
 NOW=$(date +%s)
 
-if stat --version >/dev/null 2>&1
-then MODIFIED=$(stat -c %Y "$FILE")
-else MODIFIED=$(stat -f %m "$FILE")
+if stat --version >/dev/null 2>&1; then
+  MODIFIED=$(stat -c %Y "$FILE")
+else
+  MODIFIED=$(stat -f %m "$FILE")
 fi
 
-if [ $((NOW - MODIFIED)) -le 86400 ]
-then compinit
-else compinit -C
+if [ $((NOW - MODIFIED)) -le 86400 ]; then
+  compinit
+else
+  compinit -C
 fi
 
 for completion in "$ZSH/completions/"*; do
   source "$completion"
 done
+
+# aliases
+source "$ZSH/aliases.zsh"
 
 # custom configuration
 if [ -r "$ZSH/custom.zsh" ]; then
