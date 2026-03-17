@@ -10,6 +10,8 @@ return {
           hl.LineNr = { fg = c.fg_dark }
           hl.LineNrAbove = hl.LineNr
           hl.LineNrBelow = hl.LineNr
+          hl.VertSplit = hl.LineNr
+          hl.WinSeparator = hl.LineNr
         end,
       })
       vim.cmd.colorscheme("tokyonight")
