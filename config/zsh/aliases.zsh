@@ -17,8 +17,11 @@ alias c='clipcopy'
 alias p='clippaste'
 
 alias mvn17="$(jbh 17) mvn"
-alias mvn8="$(jbh 8) mvn"
 alias mvn21="$(jbh 21) mvn"
+
+if [[ $(uname -p) != "arm" ]]; then
+  alias mvn8="$(jbh 8) mvn"
+fi
 
 wopen() {
   if (( # != 1)); then

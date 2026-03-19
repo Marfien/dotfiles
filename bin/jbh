@@ -16,6 +16,6 @@ fi
 if [ -d "$new_home" ]; then
   echo "JAVA_HOME=$new_home"
 else
-  echo "echo 'Invalid java_home: $new_home'" >&2
+  "echo 'Invalid java_home: $new_home'" >&2
   exit 1
 fi
