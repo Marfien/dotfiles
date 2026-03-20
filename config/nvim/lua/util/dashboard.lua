@@ -87,6 +87,8 @@ local function create_win_buf(win_id)
   vim.bo[buf_id].swapfile = false
   vim.bo[buf_id].buftype = "nofile"
 
+  vim.api.nvim_buf_set_keymap(buf_id, "n", "q", "<cmd>q<cr>", {})
+
   return buf_id
 end
 
@@ -142,11 +144,11 @@ local function setup_autocmd()
 end
 
 function M.setup()
-  setup_autocmd()
   if vim.fn.argc() == 0 then
     vim.bo.bufhidden = "wipe"
     draw_in_window(vim.api.nvim_get_current_win())
   end
+  vim.schedule(setup_autocmd)
 end
 
 return M
