@@ -6,4 +6,5 @@ require("config.keymaps")
 
 require("config.lazy")
 
+require("util.dashboard").setup()
 vim.schedule(require("util.lsp").setup)
