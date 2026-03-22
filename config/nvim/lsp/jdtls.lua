@@ -1,5 +1,6 @@
 local InstallLocation = require("mason-core.installer.InstallLocation")
 local jdtls = require("jdtls")
+local assets_path = vim.fn.stdpath("config") .. "/assets/jdtls"
 
 InstallLocation.global():initialize()
 
@@ -80,6 +81,7 @@ vim.lsp.config("jdtls", {
     "-configuration",
     jdtls_path .. "/" .. get_shared_config_dir(),
   },
+  filetypes = { "jproperties", "java" },
 })
 
 ------- Bundles -------
@@ -87,7 +89,7 @@ local function get_bundles()
   local bundle_globs = {
     global:package("java-debug-adapter") .. "/extension/server/com.microsoft.java.debug.plugin-*.jar",
     global:package("java-test") .. "/extension/server/*.jar",
-    vim.fn.stdpath("config") .. "/assets/jdtls/bundles/*.jar",
+    assets_path .. "/bundles/*.jar",
   }
 
   local found_bundles = {}
@@ -134,6 +136,7 @@ return {
     map("v", "rc", "<ESC><Cmd>lua require'jdtls'.extract_constant(true)<CR>", "Extract Constant")
     map("v", "rm", "<ESC><Cmd>lua require'jdtls'.extract_method(true)<CR>", "Extract Method")
   end,
+  filetype = { "java", "jproperties" },
   settings = {
     java = {
       autobuild = { enabled = false },
@@ -183,7 +186,7 @@ return {
       format = {
         enabled = true,
         settings = {
-          url = vim.fn.stdpath("config") .. "/assets/jdtls/codestyle.xml",
+          url = assets_path .. "jdtls/codestyle.xml",
         },
       },
       inlayHints = {
@@ -199,7 +202,7 @@ return {
         organizeImports = true,
       },
       settings = {
-        url = vim.fn.stdpath("config") .. "/assets/jdtls/settings.pref",
+        url = assets_path .. "jdtls/settings.pref",
       },
       signatureHelp = { enabled = true },
       sources = {
