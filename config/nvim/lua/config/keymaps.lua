@@ -53,6 +53,12 @@ map("n", "<S-l>", function()
   end
 end, { desc = "Next Buffer" })
 
+-- Taps
+map("n", "<tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
+map("n", "<tab><tab>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<tab>\\", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<tab>x", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+
 -- unified search behavior
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
 map({ "x", "o" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })

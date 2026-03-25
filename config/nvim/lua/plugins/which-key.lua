@@ -25,6 +25,7 @@ return {
       { "<leader>d", group = "Debug" },
       { "<leader>t", group = "Test" },
       { "<leader>s", group = "Session" },
+      { "<tab>", group = "Tabs" },
       { "<localleader>l", group = "Latex" },
       { "<localleader>a", group = "Android" },
     },
