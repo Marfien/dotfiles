@@ -12,7 +12,7 @@ return {
     cmd = "CopilotChat",
     opts = {
       selection = nil,
-      model = "gemini-3.1-pro",
+      model = "gpt-5.3-codex",
       window = {
         layout = "float",
         width = 0.6,

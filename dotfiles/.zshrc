@@ -45,9 +45,9 @@ else
 fi
 
 if [ $((NOW - MODIFIED)) -le 86400 ]; then
-  compinit
+  compinit -iC
 else
-  compinit -C
+  compinit
 fi
 
 for completion in "$ZSH/completions/"*; do

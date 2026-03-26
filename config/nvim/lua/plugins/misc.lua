@@ -77,6 +77,14 @@ return {
         useDefaults = true,
       },
     },
+    keys = {
+      {
+        "A",
+        "<cmd>lua require('various-textobjs').entireBuffer()<cr>",
+        mode = { "x", "o" },
+        desc = "entireBuffer textobj",
+      },
+    },
   },
   {
     "nvim-mini/mini.jump",
