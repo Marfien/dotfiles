@@ -78,11 +78,3 @@ opt.expandtab = true
 -- undo history
 opt.undofile = true
 opt.undolevels = 10000
-
-vim.api.nvim_create_autocmd({ "VimEnter", "VimResized" }, {
-  group = vim.api.nvim_create_augroup("resize_offset", {}),
-  callback = function()
-    vim.opt.scrolloff = math.floor(vim.o.lines * 0.2)
-    vim.opt.sidescrolloff = math.floor(vim.o.lines * 0.1)
-  end,
-})
