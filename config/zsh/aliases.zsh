@@ -38,6 +38,7 @@ wopen() {
 
 dckr() {
   local image="${@:$#}"
-  local args=${@:1:(( $# - 1 ))}
-  docker run --rm -it -v "$(pwd):/mnt" -w /mnt --entrypoint '/bin/sh' ${args[@]} "$image" -c '(command -v zsh && zsh) || (command -v bash && bash) || (command -v ash && ash) || sh'
+  local -a args
+  (( $# > 1 )) && args=("${@:1:(( $# - 1 ))}") || args=()
+  docker run --rm -it -v "$(pwd):/mnt" -w /mnt --entrypoint '/bin/sh' "${args[@]}" "$image" -c '(command -v zsh && zsh) || (command -v bash && bash) || (command -v ash && ash) || sh'
 }
