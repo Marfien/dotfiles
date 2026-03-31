@@ -41,11 +41,15 @@ return {
       lualine_c = {
         {
           function()
-            local res = paths.pretty_path(paths.project_root())
-            if #res > 0 and cached_count > 1 then
-              res = res .. " / " .. cached_count
-            end
-            return res
+            return cached_count
+          end,
+          cond = function()
+            return cached_count > 1
+          end,
+        },
+        {
+          function()
+            return paths.pretty_path(paths.project_root())
           end,
           color = function()
             local bufname = vim.api.nvim_buf_get_name(0)
