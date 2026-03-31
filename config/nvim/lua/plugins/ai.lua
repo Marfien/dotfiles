@@ -5,14 +5,36 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
+local function select_model()
+  ---@diagnostic disable-next-line: missing-parameter
+  require("plenary.async").run(function()
+    local perfered_models = { "claude-opus-4.6", "gpt-5.3-codex", "auto" }
+
+    local models = require("CopilotChat.client"):models()
+    for _, perfered_model in ipairs(perfered_models) do
+      local model = models[perfered_model]
+      if model ~= nil then
+        require("CopilotChat").config.model = perfered_model
+        vim.notify("Selected Model: " .. model.name)
+        return
+      end
+    end
+
+    vim.notify("Could not find prefered model. Please select one manually!", vim.log.levels.WARN)
+  end)
+end
+
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "main",
     cmd = "CopilotChat",
+    config = function(_, opts)
+      require("CopilotChat").setup(opts)
+      select_model()
+    end,
     opts = {
       selection = nil,
-      model = "gpt-5.3-codex",
       window = {
         layout = "float",
         width = 0.6,
