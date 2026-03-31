@@ -55,8 +55,8 @@ end, { desc = "Next Buffer" })
 
 -- Taps
 map("n", "<tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
-map("n", "<tab><tab>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-map("n", "<tab>\\", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<tab>l", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<tab>h", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 map("n", "<tab>x", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 
 -- unified search behavior

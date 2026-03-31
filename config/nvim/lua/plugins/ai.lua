@@ -2,6 +2,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "copilot-*",
   callback = function()
     vim.wo.conceallevel = 0
+    vim.wo.number = false
+    vim.wo.relativenumber = false
   end,
 })
 
@@ -34,20 +36,21 @@ return {
       select_model()
     end,
     opts = {
-      selection = nil,
       window = {
-        layout = "float",
-        width = 0.6,
-        height = 0.6,
+        layout = "vertical",
+        width = 0.3,
+        height = 1,
         border = vim.g.borderstyle.name,
       },
       headers = {
-        user = " 👤 You: ",
-        assistant = " 🤖 Copilot: ",
-        tool = " 🔧 Tool: ",
+        user = " 👤 Dummy: ",
+        assistant = " 🤖 Clanker: ",
+        tool = " 🔧 Thingy: ",
       },
       show_folds = true,
-      auto_insert_mode = false,
+      insert_at_end = false,
+      resources = "buffer:visible",
+      chat_autocomplete = false,
     },
     keys = {
       { "<c-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt", remap = true },
@@ -89,6 +92,26 @@ return {
         end,
         desc = "Prompt Actions (CopilotChat)",
         mode = { "n", "v" },
+      },
+    },
+  },
+  {
+    "saghen/blink.cmp",
+    version = "1.*",
+    dependencies = {
+      "pxwg/blink-cmp-copilot-chat",
+    },
+    opts = {
+      sources = {
+        per_filetype = {
+          ["copilot-chat"] = { "copilot_c", "path", "buffer" },
+        },
+        providers = {
+          copilot_c = {
+            name = "CopilotChat",
+            module = "blink-cmp-copilot-chat",
+          },
+        },
       },
     },
   },
