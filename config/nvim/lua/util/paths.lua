@@ -1,3 +1,5 @@
+local devicons = require("nvim-web-devicons")
+
 local M = {}
 
 local root_cache = {}
@@ -32,11 +34,27 @@ function M.pretty_path(relative)
     return ""
   end
 
-  local rel_path = path:sub(#relative + 2)
-  local parts = vim.split(rel_path, "/")
+  -- :// is often used for meta bufs
+  if not vim.bo.buflisted or path:find("://") then
+    return ""
+  end
 
-  if #parts > 3 then
-    parts = { parts[1], "…", parts[#parts - 1], parts[#parts] }
+  local parts
+
+  if path:sub(1, #relative) == relative then
+    local rel_path = path:sub(#relative + 2)
+    parts = vim.split(rel_path, "/")
+
+    if #parts > 3 then
+      parts = { parts[1], "…", parts[#parts - 1], parts[#parts] }
+    end
+  -- Not within root
+  else
+    parts = vim.split(path, "/")
+
+    if #parts > 4 then
+      parts = { parts[1], "…", parts[#parts - 2], parts[#parts - 1], parts[#parts] }
+    end
   end
 
   local dir_string = table.concat(parts, "/")
@@ -45,7 +63,12 @@ function M.pretty_path(relative)
     dir_string = dir_string .. " 󰌾 "
   end
 
-  return require("nvim-web-devicons").get_icon(parts[#parts]) .. " " .. dir_string
+  local icon = devicons.get_icon(parts[#parts]) or devicons.get_icon_by_filetype(vim.bo.filetype)
+  if icon then
+    dir_string = icon .. " " .. dir_string
+  end
+
+  return dir_string
 end
 
 return M
