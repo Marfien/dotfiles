@@ -1,28 +1,41 @@
-local paths = require("util.paths")
-
+---@module 'util.paths'
+local paths = nil
 local cached_count = 0
+local status_message = ""
 
-vim.api.nvim_create_autocmd({ "BufNew", "BufAdd", "BufDelete", "VimEnter" }, {
-  callback = vim.schedule_wrap(function()
-    cached_count = 0
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-      if vim.bo[buf].buflisted then
-        cached_count = cached_count + 1
+local function setup_autocmds()
+  local group = vim.api.nvim_create_augroup("status-line", {})
+  vim.api.nvim_create_autocmd({ "BufNew", "BufAdd", "BufDelete", "VimEnter" }, {
+    group = group,
+    callback = vim.schedule_wrap(function()
+      cached_count = 0
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.bo[buf].buflisted then
+          cached_count = cached_count + 1
+        end
       end
-    end
-  end),
-})
+    end),
+  })
+
+  vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+    group = group,
+    callback = function(ev)
+      status_message = ev.event == "RecordingEnter" and "@" .. vim.fn.reg_recording() or ""
+    end,
+  })
+end
 
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
   dependencies = {
-    --{ "AndreM222/copilot-lualine" },
     { "nvim-tree/nvim-web-devicons" },
-    { "folke/noice.nvim" },
   },
   init = function()
+    paths = require("util.paths")
     vim.opt.laststatus = 3
+
+    setup_autocmds()
   end,
   opts = {
     globalstatus = true,
@@ -63,10 +76,10 @@ return {
       },
       lualine_x = {
         { "lsp_status" },
-        --{ "copilot" },
+        -- stylua: ignore
         {
-          require("noice").api.status.mode.get,
-          cond = require("noice").api.status.mode.has,
+          function() return status_message end,
+          cond = function() return #status_message > 0 end,
           color = { fg = "#ff9e64" },
         },
       },

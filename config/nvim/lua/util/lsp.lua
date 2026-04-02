@@ -1,6 +1,6 @@
 local M = {}
 
-function M.ensure_treesitter(ft)
+local function ensure_treesitter(ft)
   return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -9,9 +9,18 @@ function M.ensure_treesitter(ft)
   }
 end
 
-function M.ensure_formatters(ft, pkgs)
+local function ensure_tools(pkg)
   return {
-    M.ensure_tools(pkgs),
+    "mason-org/mason.nvim",
+    opts = {
+      ensure_installed = pkg,
+    },
+  }
+end
+
+local function ensure_formatters(ft, pkgs)
+  return {
+    ensure_tools(pkgs),
     {
       "stevearc/conform.nvim",
       opts = {
@@ -19,15 +28,6 @@ function M.ensure_formatters(ft, pkgs)
           [ft] = pkgs,
         },
       },
-    },
-  }
-end
-
-function M.ensure_tools(pkg)
-  return {
-    "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = pkg,
     },
   }
 end
@@ -46,18 +46,18 @@ function M.ensure_lang(opts)
   opts = opts or {}
   local plugins = opts.other or {}
 
-  table.insert(plugins, M.ensure_treesitter(opts.parsers or opts.ft))
+  table.insert(plugins, ensure_treesitter(opts.parsers or opts.ft))
 
   if opts.formatters then
     for _, ft in ipairs(opts.ft) do
-      for _, pl in ipairs(M.ensure_formatters(ft, opts.formatters)) do
+      for _, pl in ipairs(ensure_formatters(ft, opts.formatters)) do
         table.insert(plugins, pl)
       end
     end
   end
 
   if opts.tools then
-    table.insert(plugins, M.ensure_tools(opts.tools))
+    table.insert(plugins, ensure_tools(opts.tools))
   end
 
   return plugins

@@ -47,7 +47,6 @@ return {
   },
   {
     "chrishrb/gx.nvim",
-    cmd = "Browse",
     keys = {
       { "gx", "<cmd>Browse<cr>", mode = { "n", "x" }, desc = "Open in Browser" },
     },
@@ -71,7 +70,7 @@ return {
   },
   {
     "chrisgrieser/nvim-various-textobjs",
-    event = "BufEnter",
+    event = "VeryLazy",
     opts = {
       keymaps = {
         useDefaults = true,
@@ -89,7 +88,7 @@ return {
   {
     "nvim-mini/mini.jump",
     version = "*",
-    event = "BufEnter",
+    event = "VeryLazy",
     opts = {
       silent = true,
       delay = {

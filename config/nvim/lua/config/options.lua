@@ -23,6 +23,9 @@ opt.mouse = ""
 
 -- ui stuff
 opt.termguicolors = true
+opt.messagesopt = "history:100,wait:0"
+opt.cmdheight = 0
+opt.messagesopt = "history:100,hit-enter"
 
 -- editor
 opt.confirm = true

@@ -64,9 +64,9 @@ return {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "nvim-tree/nvim-web-devicons",
-      "folke/noice.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       "jmacadie/telescope-hierarchy.nvim",
+      "j-hui/fidget.nvim",
     },
     init = function()
       -- Workaround to lazy load telescope ui select
@@ -164,8 +164,8 @@ return {
       }))
 
       telescope.load_extension("fzf")
-      telescope.load_extension("noice")
       telescope.load_extension("hierarchy")
+      telescope.load_extension("fidget")
     end,
     -- stylua: ignore
     keys = {
@@ -174,8 +174,8 @@ return {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
       { "<leader>fl", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
       { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Grep string" },
-      { "<leader>fn", "<cmd>Telescope noice<cr>", desc = "Notifications" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<leader>fn", "<cmd>Telescope fidget<cr>", desc = "Notifications" },
 
       { "<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
       { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
