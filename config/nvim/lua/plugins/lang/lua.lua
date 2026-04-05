@@ -1,6 +1,6 @@
 return require("util.lsp").ensure_lang({
   ft = { "lua" },
-  tools = { "lua-language-server@3.16.4" },
+  tools = { "lua-language-server" },
   formatters = { "stylua" },
   other = {
     {

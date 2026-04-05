@@ -106,10 +106,4 @@ return {
       },
     },
   },
-  {
-    "benomahony/oil-git.nvim",
-    ft = "oil",
-    dependencies = { "stevearc/oil.nvim" },
-    opts = {},
-  },
 }

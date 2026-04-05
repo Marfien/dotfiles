@@ -1,7 +1,8 @@
 local timeout_seconds = 60
 local file_ignore_patterns = {
   ".git/",
-  ".cache",
+  ".cache/",
+  ".terraform/",
   "%.o",
   "%.a",
   "%.out",
@@ -129,11 +130,12 @@ return {
             shorten = { len = 1, exclude = { 1, -1 } },
           },
           additional_args = function(_)
-            return { "--trim", "--hidden" }
+            return { "--trim", "--hidden", "--no-ignore-vcs" }
           end,
         },
         find_files = vim.tbl_extend("keep", {
           hidden = true,
+          no_ignore = true,
           layout_config = {
             height = 0.8,
           },
