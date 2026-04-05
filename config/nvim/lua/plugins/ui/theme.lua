@@ -3,7 +3,8 @@ return {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
-    config = function()
+    -- schedule to somewhat delay it but before event = "VeryLazy"
+    config = vim.schedule_wrap(function()
       ---@diagnostic disable-next-line: missing-fields
       require("tokyonight").setup({
         on_highlights = function(hl, c)
@@ -15,6 +16,6 @@ return {
         end,
       })
       vim.cmd.colorscheme("tokyonight")
-    end,
+    end),
   },
 }

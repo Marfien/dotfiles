@@ -31,10 +31,11 @@ return {
   dependencies = {
     { "nvim-tree/nvim-web-devicons" },
   },
-  init = function()
+  config = function(_, opts)
     paths = require("util.paths")
     vim.opt.laststatus = 3
 
+    require("lualine").setup(opts)
     setup_autocmds()
   end,
   opts = {

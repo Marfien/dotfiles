@@ -48,11 +48,13 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "BufReadPre",
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     branch = "main",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "BufReadPost",
     opts = {
       select = {
         lookahead = false,

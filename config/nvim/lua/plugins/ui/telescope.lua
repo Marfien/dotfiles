@@ -67,7 +67,7 @@ return {
       "nvim-tree/nvim-web-devicons",
       "nvim-telescope/telescope-ui-select.nvim",
       "jmacadie/telescope-hierarchy.nvim",
-      "j-hui/fidget.nvim",
+      "rcarriga/nvim-notify",
     },
     init = function()
       -- Workaround to lazy load telescope ui select
@@ -167,7 +167,7 @@ return {
 
       telescope.load_extension("fzf")
       telescope.load_extension("hierarchy")
-      telescope.load_extension("fidget")
+      telescope.load_extension("notify")
     end,
     -- stylua: ignore
     keys = {
@@ -177,7 +177,7 @@ return {
       { "<leader>fl", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
       { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Grep string" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-      { "<leader>fn", "<cmd>Telescope fidget<cr>", desc = "Notifications" },
+      { "<leader>fn", "<cmd>Telescope notify<cr>", desc = "Notifications" },
 
       { "<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
       { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
