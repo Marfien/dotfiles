@@ -1,30 +1,32 @@
-vim.api.nvim_create_autocmd("User", {
-  pattern = "OilActionsPost",
-  callback = function()
-    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-      if vim.api.nvim_buf_is_loaded(bufnr) then
-        local name = vim.api.nvim_buf_get_name(bufnr)
-        if name ~= "" and vim.bo[bufnr].filetype ~= "oil" and vim.fn.filereadable(name) == 0 then
-          pcall(vim.api.nvim_buf_delete, bufnr, { force = true })
+vim.schedule(function()
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "OilActionsPost",
+    callback = function()
+      for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(bufnr) then
+          local name = vim.api.nvim_buf_get_name(bufnr)
+          if name ~= "" and vim.bo[bufnr].filetype ~= "oil" and vim.fn.filereadable(name) == 0 then
+            pcall(vim.api.nvim_buf_delete, bufnr, { force = true })
+          end
         end
       end
-    end
-  end,
-})
-
-if vim.fn.argc(-1) > 0 then
-  vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function()
-      vim.defer_fn(function()
-        local util = require("oil.util")
-        if util.is_oil_bufnr(vim.api.nvim_get_current_buf()) and util.get_preview_win() == nil then
-          require("oil").open_preview()
-        end
-      end, 1000)
-      return true
     end,
   })
-end
+
+  if vim.fn.argc(-1) > 0 then
+    vim.api.nvim_create_autocmd("BufEnter", {
+      callback = function()
+        vim.defer_fn(function()
+          local util = require("oil.util")
+          if util.is_oil_bufnr(vim.api.nvim_get_current_buf()) and util.get_preview_win() == nil then
+            require("oil").open_preview()
+          end
+        end, 1000)
+        return true
+      end,
+    })
+  end
+end)
 
 function _G.get_oil_winbar(buf)
   buf = buf or vim.g.statusline_winid

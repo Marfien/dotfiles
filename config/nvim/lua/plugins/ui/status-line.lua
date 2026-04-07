@@ -1,9 +1,8 @@
----@module 'util.paths'
-local paths = nil
 local cached_count = 0
 local status_message = ""
 
 vim.schedule(function()
+  local group = vim.api.nvim_create_augroup("status-line", {})
   vim.api.nvim_create_autocmd({ "BufNew", "BufAdd", "BufDelete", "VimEnter" }, {
     callback = vim.schedule_wrap(function()
       cached_count = 0
@@ -22,18 +21,15 @@ vim.schedule(function()
     end,
   })
 end)
+
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
   dependencies = {
     { "nvim-tree/nvim-web-devicons" },
   },
-  config = function(_, opts)
-    paths = require("util.paths")
+  init = function()
     vim.opt.laststatus = 3
-
-    require("lualine").setup(opts)
-    setup_autocmds()
   end,
   opts = {
     globalstatus = true,
@@ -45,7 +41,7 @@ return {
       lualine_a = { "mode" },
       lualine_b = {
         function()
-          return "󱉭 " .. vim.fs.basename(paths.project_root())
+          return "󱉭 " .. vim.fs.basename(require("util.paths").project_root())
         end,
         { "branch" },
       },
@@ -60,6 +56,7 @@ return {
         },
         {
           function()
+            local paths = require("util.paths")
             return paths.pretty_path(paths.project_root())
           end,
           color = function()

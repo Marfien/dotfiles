@@ -13,7 +13,7 @@ return {
         enable = true,
       },
       validate = true,
-      schemas = require("schemastore").yaml.schemas(),
+      schemas = {},
       schemaStore = {
         -- Must disable built-in schemaStore support to use
         -- schemas from SchemaStore.nvim plugin
@@ -32,5 +32,8 @@ return {
     --- during `LspAttach` it will return `false`. This hack sets the capability to `true` to facilitate
     --- autocmd's which check this capability
     client.server_capabilities.documentFormattingProvider = true
+  end,
+  before_init = function(_, config)
+    config.settings.yaml.schemas = require("schemastore").yaml.schemas()
   end,
 }

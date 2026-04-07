@@ -1,74 +1,72 @@
 local M = {}
 
-local function ensure_treesitter(ft)
-  return {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = ft,
-    },
-  }
+local mason_pkgs = {}
+local ts_parsers = {}
+local formatters_by_ft = {}
+
+---@param parsers string[]
+function M.ensure_treesitter(parsers)
+  vim.list_extend(ts_parsers, parsers)
 end
 
-local function ensure_tools(pkg)
-  return {
-    "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = pkg,
-    },
-  }
+---@param pkg? string[]
+function M.ensure_tools(pkg)
+  if pkg then
+    vim.list_extend(mason_pkgs, pkg)
+  end
 end
 
-local function ensure_formatters(ft, pkgs)
-  return {
-    ensure_tools(pkgs),
-    {
-      "stevearc/conform.nvim",
-      opts = {
-        formatters_by_ft = {
-          [ft] = pkgs,
-        },
-      },
-    },
-  }
+---@param filetypes string[]
+---@param pkgs string[]
+function M.ensure_formatters(filetypes, pkgs)
+  if not pkgs and not filetypes then
+    return
+  end
+
+  local map = {}
+  for _, ft in ipairs(filetypes) do
+    map[ft] = pkgs
+  end
+
+  formatters_by_ft = vim.tbl_extend("error", formatters_by_ft, map)
 end
 
 ---@class util.lsp.LangSpec
----@field tools? table<string>
----@field parsers? table<string>
----@field ft table
+---@field tools? string[]
+---@field parsers? string[]
+---@field ft string[]
 ---@field formatters? table
----@field other? table<string>
+---@field other? table
 
 ---Definition
 ---@param opts util.lsp.LangSpec
 ---@return table
 function M.ensure_lang(opts)
   opts = opts or {}
-  local plugins = opts.other or {}
 
-  table.insert(plugins, ensure_treesitter(opts.parsers or opts.ft))
+  M.ensure_treesitter(opts.parsers or opts.ft)
 
-  if opts.formatters then
-    for _, ft in ipairs(opts.ft) do
-      for _, pl in ipairs(ensure_formatters(ft, opts.formatters)) do
-        table.insert(plugins, pl)
-      end
-    end
-  end
+  M.ensure_formatters(opts.ft, opts.formatters)
 
-  if opts.tools then
-    table.insert(plugins, ensure_tools(opts.tools))
-  end
+  M.ensure_tools(opts.tools)
+  M.ensure_tools(opts.formatters)
 
-  return plugins
+  return opts.other or {}
 end
 
 function M.setup()
+  vim.lsp.config("*", {
+    capabilities = require("blink.cmp").get_lsp_capabilities(),
+  })
   local lsp_configs = vim.api.nvim_get_runtime_file("lsp/*.lua", true)
   for _, config in ipairs(lsp_configs) do
     local id = vim.fs.basename(config):gsub("%.lua$", "")
     vim.lsp.enable(id)
   end
+
+  require("conform").formatters_by_ft = formatters_by_ft
+  require("util.mason").setup(mason_pkgs)
+  require("nvim-treesitter").install(ts_parsers, { summary = true })
 end
 
 ---@param client string the name of the client to restart

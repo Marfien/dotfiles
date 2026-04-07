@@ -15,14 +15,14 @@ return {
         "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Condition: '))<cr>",
         desc = "Breakpoint Condition",
       },
-      { "<leader>dc", "<cmd>lua require('dap').continue()<cr>", desc = "Run/Continue" },
-      { "<leader>dC", "<cmd>lua require('dap').run_to_cursor()<cr>", desc = "Run to Cursor" },
-      { "<leader>dp", "<cmd>lua require('dap').pause()<cr>", desc = "Pause" },
-      { "<leader>dt", "<cmd>lua require('dap').terminate()<cr>", desc = "Terminate" },
+      { "<leader>dc", "<cmd>lua require('dap').continue()<cr>",          desc = "Run/Continue" },
+      { "<leader>dC", "<cmd>lua require('dap').run_to_cursor()<cr>",     desc = "Run to Cursor" },
+      { "<leader>dp", "<cmd>lua require('dap').pause()<cr>",             desc = "Pause" },
+      { "<leader>dt", "<cmd>lua require('dap').terminate()<cr>",         desc = "Terminate" },
 
-      { "<Down>", "<cmd>lua require('dap').step_over()<cr>", desc = "Setup Over" },
-      { "<Left>", "<cmd>lua require('dap').step_out()<cr>", desc = "Setup Out" },
-      { "<Right>", "<cmd>lua require('dap').step_into()<cr>", desc = "Setup Into" },
+      { "<Down>",     "<cmd>lua require('dap').step_over()<cr>",         desc = "Setup Over" },
+      { "<Left>",     "<cmd>lua require('dap').step_out()<cr>",          desc = "Setup Out" },
+      { "<Right>",    "<cmd>lua require('dap').step_into()<cr>",         desc = "Setup Into" },
     },
   },
   {
@@ -53,7 +53,7 @@ return {
     end,
     keys = {
       { "<leader>dd", "<cmd>lua require('dapui').toggle()<cr>", desc = "Toggle UI" },
-      { "<leader>de", "<cmd>lua require('dapui').eval()<cr>", desc = "Eval", mode = { "n", "v" } },
+      { "<leader>de", "<cmd>lua require('dapui').eval()<cr>",   desc = "Eval",     mode = { "n", "v" } },
     },
   },
   {
