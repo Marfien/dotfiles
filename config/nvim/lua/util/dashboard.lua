@@ -24,6 +24,16 @@ local text = [[
  
 I use Neovim (BTW)
 ]]
+---@type string[]
+local text_lines = {}
+
+local function ensure_text_lines()
+  if #text_lines == 0 then
+    for line in text:gmatch("[^\r\n]+") do
+      table.insert(text_lines, line)
+    end
+  end
+end
 
 local buf_prefix = "dashboard://"
 local win_buf_map = {}
@@ -49,12 +59,7 @@ local function format_lines(win_id)
   local win_width = vim.api.nvim_win_get_width(win_id)
   local win_height = vim.api.nvim_win_get_height(win_id)
 
-  ---@type string[]
-  local text_lines = {}
-  for line in text:gmatch("[^\r\n]+") do
-    table.insert(text_lines, line)
-  end
-
+  ensure_text_lines()
   -- Calculate the vertical padding
   local ver_padding = math.floor(win_height / 2) - math.floor(#text_lines / 2)
 
@@ -64,8 +69,9 @@ local function format_lines(win_id)
     table.insert(lines, "")
   end
   for _, line in ipairs(text_lines) do
-    if line ~= string.rep(" ", #line) then
-      local hor_padding = math.floor((win_width - string.len(line)) / 2)
+    -- %S maches any non space
+    if line:match("%S") then
+      local hor_padding = math.floor((win_width - #line) / 2)
       table.insert(lines, string.rep(" ", hor_padding) .. line:gsub(" *$", ""))
     else
       table.insert(lines, "")
@@ -79,7 +85,7 @@ local function format_lines(win_id)
 end
 
 local function create_win_buf(win_id)
-  local buf_id = vim.api.nvim_create_buf(true, true)
+  local buf_id = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_name(buf_id, buf_prefix .. win_id)
 
   vim.bo[buf_id].filetype = "dashboard"
@@ -93,8 +99,6 @@ local function create_win_buf(win_id)
 end
 
 local function draw_in_window(win_id)
-  vim.api.nvim_feedkeys("\28\14", "nx", false)
-
   local buf = win_buf_map[win_id]
   if not buf or not vim.api.nvim_buf_is_valid(buf) then
     buf = create_win_buf(win_id)
@@ -110,7 +114,10 @@ local function draw_in_window(win_id)
 end
 
 local function setup_autocmd()
+  local group = vim.api.nvim_create_augroup("dashboard", {})
+
   vim.api.nvim_create_autocmd("BufNew", {
+    group = group,
     callback = vim.schedule_wrap(function(event)
       if is_empty_buffer(event.buf) then
         -- Check if buffer is actually empty
@@ -124,6 +131,7 @@ local function setup_autocmd()
   })
 
   vim.api.nvim_create_autocmd("VimResized", {
+    group = group,
     callback = function()
       for _, win_id in ipairs(vim.api.nvim_list_wins()) do
         if shows_dashboard(win_id) then
@@ -134,6 +142,7 @@ local function setup_autocmd()
   })
 
   vim.api.nvim_create_autocmd("WinResized", {
+    group = group,
     callback = function()
       local win_id = vim.api.nvim_get_current_win()
       if shows_dashboard(win_id) then
@@ -144,11 +153,13 @@ local function setup_autocmd()
 end
 
 function M.setup()
-  if vim.fn.argc() == 0 then
-    vim.bo.bufhidden = "wipe"
-    draw_in_window(vim.api.nvim_get_current_win())
-  end
-  vim.schedule(setup_autocmd)
+  vim.schedule(function()
+    if vim.fn.argc() == 0 then
+      vim.bo.bufhidden = "wipe"
+      draw_in_window(vim.api.nvim_get_current_win())
+    end
+    setup_autocmd()
+  end)
 end
 
 return M

@@ -3,10 +3,8 @@ local paths = nil
 local cached_count = 0
 local status_message = ""
 
-local function setup_autocmds()
-  local group = vim.api.nvim_create_augroup("status-line", {})
+vim.schedule(function()
   vim.api.nvim_create_autocmd({ "BufNew", "BufAdd", "BufDelete", "VimEnter" }, {
-    group = group,
     callback = vim.schedule_wrap(function()
       cached_count = 0
       for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -23,8 +21,7 @@ local function setup_autocmds()
       status_message = ev.event == "RecordingEnter" and "@" .. vim.fn.reg_recording() or ""
     end,
   })
-end
-
+end)
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",

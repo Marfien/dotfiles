@@ -7,7 +7,7 @@ require("config.lazy")
 
 require("util.dashboard").setup()
 
-vim.schedule(function()
+vim.defer_fn(function()
   require("util.lsp").setup()
   require("config.usercmds")
-end)
+end, 100)
