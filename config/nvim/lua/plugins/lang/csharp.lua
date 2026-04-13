@@ -76,7 +76,7 @@ return require("util.lsp").ensure_lang({
   ft = { "cs" },
   -- netcoredbg must be compiled for Apple Silicon
   tools = (jit.os == "OSX" and jit.arch == "arm64") and { "roslyn" } or { "roslyn", "netcoredbg" },
-  formatters = { "clang-format" },
+  formatters = { "csharpier" },
   other = {
     {
       "mason-org/mason.nvim",
