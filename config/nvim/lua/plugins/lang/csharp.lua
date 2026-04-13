@@ -10,29 +10,41 @@ vim.lsp.config("roslyn", {
   },
 })
 
-vim.schedule(function()
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(event)
-      local client = vim.lsp.get_client_by_id(event.data.client_id)
-      if not client or client.name ~= "roslyn" then
-        return
-      end
+local function setup_dap()
+  local dotnet_root = require("util.brew").get_brew_path() .. "/opt/dotnet/libexec"
 
-      vim.api.nvim_buf_set_keymap(
-        event.buf,
-        "n",
-        "<localleader>cr",
-        "<cmd>lua require('util.csharp').run()",
-        { desc = "Run charp programm" }
-      )
-    end,
-  })
-end)
+  vim.fn.setenv("DOTNET_ROOT", dotnet_root)
+  vim.notify("Setting DOTNET_ROOT = " .. dotnet_root)
+
+  local dap = require("dap")
+
+  dap.adapters.coreclr = {
+    type = "executable",
+    command = require("mason-core.installer.InstallLocation").global():bin("netcoredbg"),
+    args = { "--interpreter=vscode" },
+  }
+
+  dap.configurations.cs = {
+    {
+      type = "coreclr",
+      name = "launch - netcoredbg",
+      request = "launch",
+      program = function()
+        local proj_file = vim.fs.find(function(name)
+          return name:match("%.csproj$")
+        end, { upward = true, type = "file", path = vim.api.nvim_buf_get_name(0) })[1]
+        local proj_dir = proj_file and vim.fs.dirname(proj_file) or vim.fn.getcwd()
+
+        return vim.fn.input("Path to dll: ", proj_dir .. "/bin/Debug/", "file")
+      end,
+    },
+  }
+end
 
 return require("util.lsp").ensure_lang({
   parsers = { "c_sharp" },
   ft = { "cs" },
-  tools = { "roslyn" },
+  tools = { "roslyn", "netcoredbg" },
   formatters = { "clang-format" },
   other = {
     {
@@ -46,7 +58,10 @@ return require("util.lsp").ensure_lang({
     {
       "seblyng/roslyn.nvim",
       lazy = false,
-      opts = {},
+      config = function()
+        vim.schedule(setup_dap)
+        require("roslyn").setup({})
+      end,
     },
   },
 })

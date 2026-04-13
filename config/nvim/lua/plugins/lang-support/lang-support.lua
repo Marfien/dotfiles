@@ -15,7 +15,14 @@ return {
   {
     "mason-org/mason.nvim",
     event = "VeryLazy",
-    opts = {},
+    opts_extend = {
+      "registries",
+    },
+    opts = {
+      registries = {
+        "github:mason-org/mason-registry",
+      },
+    },
     keys = {
       { "<leader>.m", "<cmd>Mason<cr>", desc = "Mason" },
       { "<leader>.p", "<cmd>LspInfo<cr>", desc = "LspInfo" },
