@@ -22,11 +22,16 @@ return {
     end,
   },
   {
-    "mrded/nvim-lsp-notify",
+    "j-hui/fidget.nvim",
     event = "LspAttach",
-    dependencies = {
-      "rcarriga/nvim-notify",
+    cmd = "Fidget",
+    opts = {
+      progress = {
+        ignore_empty_messages = true,
+      },
+      notification = {
+        --poll_rate = math.huge,
+      },
     },
-    opts = {},
   },
 }

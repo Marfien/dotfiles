@@ -113,3 +113,9 @@ vim.api.nvim_create_autocmd({ "VimEnter", "VimResized" }, {
     vim.opt.sidescrolloff = math.floor(vim.o.lines * 0.1)
   end,
 })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.fs.rm(vim.lsp.log.get_filename(), { force = true })
+  end,
+})

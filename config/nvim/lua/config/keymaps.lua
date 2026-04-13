@@ -60,11 +60,40 @@ map("n", "<tab>h", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 map("n", "<tab>x", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 
 -- unified search behavior
-map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
+local search_ns = vim.api.nvim_create_namespace("search")
+local function hl_search(blinktime)
+  vim.api.nvim_buf_clear_namespace(0, search_ns, 0, -1)
+
+  local search_pat = "\\c\\%#" .. vim.fn.getreg("/")
+  local m = vim.fn.matchadd("IncSearch", search_pat)
+  vim.cmd("redraw")
+  vim.cmd("sleep " .. blinktime * 1000 .. "m")
+
+  local sc = vim.fn.searchcount()
+  vim.api.nvim_buf_set_extmark(0, search_ns, vim.api.nvim_win_get_cursor(0)[1] - 1, 0, {
+    virt_text = { { "[" .. sc.current .. "/" .. sc.total .. "]", "Debug" } },
+    virt_text_pos = "eol",
+  })
+
+  vim.fn.matchdelete(m)
+  vim.cmd("redraw")
+end
+local function search_nav(forward)
+  return function()
+    local key = forward and (vim.v.searchforward == 1 and "n" or "N") or (vim.v.searchforward == 1 and "N" or "n")
+    vim.cmd("normal! " .. key .. "zv")
+    hl_search(0.1)
+  end
+end
+
 map({ "x", "o" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
-map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search Result" })
 map({ "x", "o" }, "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
-map("n", "<ESC>", "<cmd>noh<cr>", { desc = "End Highlighting" })
+map("n", "n", search_nav(true), { desc = "Next Search Result" })
+map("n", "N", search_nav(false), { desc = "Prev Search Result" })
+map("n", "<ESC>", function()
+  vim.cmd("noh")
+  vim.api.nvim_buf_clear_namespace(0, search_ns, 0, -1)
+end, { desc = "End Highlighting" })
 
 -- easier indenting
 map("v", "<", "<gv")

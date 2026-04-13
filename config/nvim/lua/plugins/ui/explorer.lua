@@ -43,7 +43,7 @@ end
 return {
   {
     "stevearc/oil.nvim",
-    lazy = vim.fn.argc(-1) == 0,
+    lazy = vim.fn.argc(-1) == 0 or vim.fn.isdirectory(vim.fn.argv(0, -1)) == 0,
     cmd = "Oil",
     dependencies = {
       { "nvim-tree/nvim-web-devicons", opts = {} },
