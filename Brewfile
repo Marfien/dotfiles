@@ -21,8 +21,6 @@ brew "git-lfs"
 brew "neovim"
 brew "tmux"
 brew "awscli"
-brew "supabase"
-brew "pgcli"
 
 brew "gnupg"
 brew "sops"
@@ -35,24 +33,20 @@ brew "openjdk@21"
 brew "openjdk@17"
 brew "openjdk"
 brew "dotnet"
-
 brew "uv"
 brew "node"
 brew "go"
 brew "rust"
-brew "kotlin"
 
 brew "gcc"
 brew "cmake"
-
-cask "android-commandlinetools" if OS.mac?
-cask "android-platform-tools" if OS.mac?
 
 # containers
 brew "colima" if not OS.mac?
 brew "docker"
 brew "docker-compose"
 brew "docker-buildx"
+cask "orbstack" if OS.mac?
 
 # zsh plugins
 brew "zsh"
@@ -84,14 +78,13 @@ cask "headlamp"
 cask "wezterm"
 cask "raycast"
 cask "zen" if OS.mac?
-cask "orbstack" if OS.mac?
 cask "sioyek"
 cask "discord"
 cask "anki"
 cask "spotify"
 cask "gimp"
 cask "curseforge" if OS.mac?
-cask "linearmouse"
+cask "linearmouse" if OS.mac?
 
 mas "Command X", id: 6448461551
 mas "Keynote", id: 409183694
@@ -99,4 +92,3 @@ mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Plash", id: 1494023538
 mas "Shareful", id: 1522267256
-mas "Tailscale", id: 1475387142
