@@ -153,13 +153,11 @@ local function setup_autocmd()
 end
 
 function M.setup()
-  vim.schedule(function()
-    if vim.fn.argc() == 0 then
-      vim.bo.bufhidden = "wipe"
-      draw_in_window(vim.api.nvim_get_current_win())
-    end
-    setup_autocmd()
-  end)
+  if vim.fn.argc() == 0 then
+    vim.bo.bufhidden = "wipe"
+    draw_in_window(vim.api.nvim_get_current_win())
+  end
+  vim.schedule(setup_autocmd)
 end
 
 return M

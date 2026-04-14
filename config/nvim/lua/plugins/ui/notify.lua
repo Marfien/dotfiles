@@ -1,6 +1,6 @@
 local function hijack_builtin()
   print = function(err)
-    vim.notify(err, vim.log.levels.INFO, { title = "Print" })
+    vim.notify(err, vim.log.levels.INFO, { title = "print()" })
   end
 end
 

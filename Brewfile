@@ -72,6 +72,11 @@ brew "fd"
 brew "tree-sitter-cli"
 brew "xclip" if OS.linux?
 
+# Claude code
+brew "bubblewrap"
+brew "socat"
+cask "claude-code"
+
 brew "mas" if OS.mac?
 
 cask "font-meslo-lg-nerd-font"

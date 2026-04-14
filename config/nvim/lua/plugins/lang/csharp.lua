@@ -63,9 +63,7 @@ local function setup_dap()
         end, { upward = true, type = "file", path = vim.api.nvim_buf_get_name(0) })[1]
         local proj_dir = proj_file and vim.fs.dirname(proj_file) or vim.fn.getcwd()
 
-        local build_dir = proj_dir .. "/bin/Debug/"
-
-        return vim.fn.input("Path to dll: ", build_dir, "file")
+        return vim.fn.input("Path to executable: ", proj_dir .. "/bin/Debug/", "file")
       end,
     },
   }
