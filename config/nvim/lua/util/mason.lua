@@ -70,7 +70,13 @@ local function check_packages(packages)
   local upgrade_str = ""
   for name, version_info in pairs(upgrade) do
     if version_info then
-      upgrade_str = upgrade_str .. "\n  " .. name .. ": " .. version_info.current .. " -> " .. version_info.requested
+      upgrade_str = upgrade_str
+        .. "\n  "
+        .. name
+        .. ": "
+        .. (version_info.current or "-/-")
+        .. " -> "
+        .. version_info.requested
     end
   end
 

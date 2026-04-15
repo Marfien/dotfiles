@@ -6,6 +6,17 @@ end, {
   desc = "Opens the Nvim LSP client log.",
 })
 
+vim.api.nvim_create_user_command("LspRestart", function()
+  vim
+    .iter(vim.lsp.get_clients())
+    :map(function(client)
+      return client.name
+    end)
+    :each(require("util.lsp").restart)
+end, {
+  desc = "Restarts all currently attached LSP clients",
+})
+
 vim.api.nvim_create_user_command("SpellStop", function()
   vim.opt_local.spell = false
 end, { desc = "Enables spell checking for the current buffer" })
