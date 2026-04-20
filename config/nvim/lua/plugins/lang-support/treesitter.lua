@@ -1,3 +1,7 @@
+local broken_indent_ft = {
+  "cs",
+}
+
 vim.schedule(function()
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
@@ -7,7 +11,9 @@ vim.schedule(function()
       if successful then
         vim.wo.foldmethod = "expr"
         vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        if not vim.list_contains(broken_indent_ft, vim.bo.ft) then
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
       end
     end,
   })
