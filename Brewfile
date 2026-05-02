@@ -74,7 +74,6 @@ cask "claude-code"
 brew "mas" if OS.mac?
 
 cask "font-meslo-lg-nerd-font"
-cask "headlamp"
 cask "wezterm"
 cask "raycast"
 cask "zen" if OS.mac?

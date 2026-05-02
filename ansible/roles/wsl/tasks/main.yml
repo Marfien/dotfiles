@@ -1,4 +1,0 @@
----
-- include_tasks: symlinks.yml
-- include_tasks: packages.yml
-- include_tasks: win_symlinks.yml
