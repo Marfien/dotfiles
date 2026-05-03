@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   home = {
     sessionPath = [ "$HOME/bin" ];
@@ -61,7 +61,7 @@
               explorer.exe "$(basename $1)"
             )
           else
-            echo 
+            echo 'Could not find native proxy executable.'
             return 1;
           fi
         '';
@@ -79,15 +79,21 @@
       };
       syntaxHighlighting.enable = true;
       plugins = [
-        # {
-        #   name = "omz completions";
-        #   file = "lib/completion.zsh";
-        #   src = pkgs.fetchFromGitHub {
-        #     owner = "ohmyzsh";
-        #     repo = "ohmyzsh";
-        #     hash = "2d5841740a7555fe10b4592673c4069713e66aba";
-        #   };
-        # }
+        {
+          name = "omz completions";
+          file = "lib/completion.zsh";
+          src = pkgs.fetchFromGitHub {
+            owner = "ohmyzsh";
+            repo = "ohmyzsh";
+            rev = "master";
+            sha256 = "sha256-m81bwO/bw5+grt9q8cGLzSJzk1ajJSCAkLpB6DjzuDo=";
+          };
+        }
+        {
+          name = "vi-mode";
+          src = pkgs.zsh-vi-mode;
+          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+        }
       ];
     };
     fzf.enable = true;

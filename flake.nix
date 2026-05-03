@@ -10,21 +10,21 @@
     };
 
     zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        # IMPORTANT: To ensure compatibility with the latest Firefox version, use nixpkgs-unstable.
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
   };
 
   outputs =
-    {
-      nixpkgs,
-      home-manager,
-      ...
-    }:
+    inputs@{ nixpkgs, home-manager, ... }:
     let
       makePkgs = system: import nixpkgs { inherit system; };
       mkHome =
-        inputs@{ system, modules }:
+        { system, modules }:
         home-manager.lib.homeManagerConfiguration {
           extraSpecialArgs = { inherit inputs; };
           pkgs = makePkgs system;

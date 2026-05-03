@@ -9,17 +9,7 @@ brew "k9s"
 brew "fluxcd/tap/flux"
 brew "opentofu"
 
-# data management
-brew "jq"
-brew "tree"
-brew "curl"
-brew "bat"
-
 # cli
-brew "git"
-brew "git-lfs"
-brew "neovim"
-brew "tmux"
 brew "awscli"
 
 brew "gnupg"
@@ -28,11 +18,6 @@ brew "sops"
 # development
 brew "maven"
 brew "gradle"
-brew "openjdk@8" if not OS.mac? # There is no ARM binary for JDK-8
-brew "openjdk@21"
-brew "openjdk@17"
-brew "openjdk"
-brew "dotnet"
 brew "uv"
 brew "node"
 brew "go"
@@ -41,13 +26,6 @@ brew "rust"
 brew "gcc"
 brew "cmake"
 
-# containers
-brew "colima" if not OS.mac?
-brew "docker"
-brew "docker-compose"
-brew "docker-buildx"
-cask "orbstack" if OS.mac?
-
 # zsh plugins
 brew "zsh"
 brew "zsh-autosuggestions"
@@ -55,15 +33,8 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 brew "fzf"
 brew "starship"
-brew "zsh-vi-mode"
 
 # lazy.nvim dependencies
-brew "rg"
-brew "luarocks"
-brew "texlive"
-brew "catimg"
-brew "fd"
-brew "tree-sitter-cli"
 brew "xclip" if OS.linux?
 
 # Claude code
@@ -73,15 +44,6 @@ cask "claude-code"
 
 brew "mas" if OS.mac?
 
-cask "font-meslo-lg-nerd-font"
-cask "wezterm"
-cask "raycast"
-cask "zen" if OS.mac?
-cask "sioyek"
-cask "discord"
-cask "anki"
-cask "spotify"
-cask "gimp"
 cask "curseforge" if OS.mac?
 cask "linearmouse" if OS.mac?
 

@@ -1,8 +1,11 @@
-{ specialArgs, pkgs, ... }:
+{ specialArgs, ... }:
 {
-  programs.firefox = {
+  imports = [
+    specialArgs.inputs.zen-browser.homeModules.twilight
+  ];
+  programs.zen-browser = {
     enable = true;
-    package = specialArgs.inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    setAsDefaultBrowser = true;
     languagePacks = [
       "de"
       "en-US"

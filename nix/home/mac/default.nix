@@ -1,6 +1,13 @@
 { pkgs, ... }:
 let
   username = "marvin";
+  withPriority =
+    pkg: priority:
+    pkg.overrideAttrs (oldAttrs: {
+      meta = oldAttrs.meta // {
+        inherit priority;
+      };
+    });
 in
 {
   imports = [
@@ -15,13 +22,13 @@ in
     stateVersion = "25.11";
 
     packages = with pkgs; [
-      orbstack
+      (withPriority orbstack 1)
       meslo-lg
       raycast
       # zen
       sioyek
       discord
-      anki
+      anki-bin
       spotify
     ];
   };
