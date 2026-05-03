@@ -26,21 +26,9 @@ brew "rust"
 brew "gcc"
 brew "cmake"
 
-# zsh plugins
-brew "zsh"
-brew "zsh-autosuggestions"
-brew "zsh-history-substring-search"
-brew "zsh-syntax-highlighting"
-brew "fzf"
-brew "starship"
-
 # lazy.nvim dependencies
 brew "xclip" if OS.linux?
 
-# Claude code
-brew "bubblewrap"
-brew "socat"
-cask "claude-code"
 
 brew "mas" if OS.mac?
 
