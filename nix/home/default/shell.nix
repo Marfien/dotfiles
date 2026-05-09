@@ -53,7 +53,7 @@
           fi
 
           local openExec=$(command -vp open)
-          if (( ? != 0 )); then
+          if (( ? == 0 )); then
             eval "$openExec $1"
           elif [ -n "$WSL_DISTRO_NAME" ]; then
             (

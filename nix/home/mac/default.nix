@@ -23,7 +23,7 @@ in
 
     packages = with pkgs; [
       (withPriority orbstack 1)
-      meslo-lg
+      nerd-fonts.meslo-lg
       raycast
       # zen
       sioyek
