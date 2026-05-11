@@ -1,7 +1,6 @@
 { lib, pkgs, ... }:
 {
   home = {
-    sessionPath = [ "$HOME/bin" ];
     shell = {
       enableZshIntegration = true;
     };
@@ -19,9 +18,11 @@
         saveNoDups = true;
       };
       historySubstringSearch.enable = true;
-      initContent = ''
+      initContent = lib.mkAfter ''
+        PATH="$PATH:$HOME/bin:$HOME/.dotnet/tools"
+
         if [ -n "$WSL_DISTRO_NAME" ]; then
-          export PATH="$PATH:/mnt/c/WINDOWS:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+          PATH="$PATH:/mnt/c/WINDOWS:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
           alias powershell="powershell.exe"
         fi
       '';
@@ -78,6 +79,10 @@
         '';
       };
       syntaxHighlighting.enable = true;
+      localVariables = {
+        # This prevents zsh-vi-mode from being lazy loaded and overriding fzf keymaps
+        ZVM_INIT_MODE = "sourcing";
+      };
       plugins = [
         {
           name = "omz completions";
@@ -96,7 +101,11 @@
         }
       ];
     };
-    fzf.enable = true;
+    fzf = {
+      enable = true;
+      changeDirWidgetCommand = "fd --type d";
+      defaultCommand = "fd --type f";
+    };
     starship = {
       enable = true;
       settings = {

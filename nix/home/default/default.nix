@@ -16,4 +16,7 @@
       allowUnfreePredicate = (_: true);
     };
   };
+  home = {
+    preferXdgDirectories = true;
+  };
 }

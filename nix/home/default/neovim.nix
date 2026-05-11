@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   home = {
     file = {
       "${config.xdg.configHome}/nvim" = {
@@ -15,6 +16,17 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    withNodeJs = true;
+    withPython3 = true;
+    initLua = with pkgs; ''
+      vim.g.nix = {
+        jdtls_path = "${jdt-language-server}",
+        lombok_path = "${lombok}",
+
+        vsc_java_debug = "${vscode-extensions.vscjava.vscode-java-debug}",
+        vsc_java_test = "${vscode-extensions.vscjava.vscode-java-test}",
+      }
+    '';
     extraPackages = with pkgs; [
       tree-sitter
       texliveFull
@@ -36,8 +48,9 @@
 
       # java
       jdt-language-server
-      # java-debug-adapter
-      # java-test
+      lombok
+      vscode-extensions.vscjava.vscode-java-debug
+      vscode-extensions.vscjava.vscode-java-test
 
       # python
       python313Packages.jedi-language-server

@@ -1,14 +1,13 @@
-local InstallLocation = require("mason-core.installer.InstallLocation")
 local jdtls = require("jdtls")
 local assets_path = vim.fn.stdpath("config") .. "/assets/jdtls"
-
-InstallLocation.global():initialize()
 
 ------- JDK Discovery -------
 local function get_openjdk_runtime(version)
   return {
     name = "JavaSE-" .. (version <= 8 and "1." .. version or version),
-    path = "~/.jdk/java@" .. version .. (jit.os == "OSX" and "/libexec/openjdk.jdk/Contents/Home/" or "/libexec/"),
+    path = vim.fs.abspath("~/.jdk/java")
+      .. version
+      .. (jit.os == "OSX" and ("/Library/Java/JavaVirtualMachines/zulu-" .. version .. ".jdk/Contents/Home") or ""),
   }
 end
 
@@ -31,7 +30,7 @@ local function get_cache_dir()
   return (os.getenv("XDG_CACHE_HOME") or vim.uv.os_homedir() .. "/.cache") .. "/jdtls"
 end
 
-local function get_shared_config_dir()
+local function get_system_config_file()
   local ext = ({
     Windows = "win",
     Linux = "linux",
@@ -45,14 +44,13 @@ local function get_shared_config_dir()
   return "config_" .. ext
 end
 
-local global = InstallLocation.global()
-local jdtls_path = global:package("jdtls")
-local lombok_jar = jdtls_path .. "/lombok.jar"
+local jdtls_path = vim.g.nix.jdtls_path .. "/share/java/jdtls"
+local lombok_jar = vim.g.nix.lombok_path .. "/share/java/lombok.jar"
 
 -- Using vim.lsp.config as it has higher priority than files inside lsp/
 vim.lsp.config("jdtls", {
   cmd = {
-    get_openjdk_runtime(24).path .. "/bin/java",
+    get_openjdk_runtime(21).path .. "/bin/java",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
     "-Dlog.protocol=true",
@@ -75,8 +73,8 @@ vim.lsp.config("jdtls", {
     vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
     "-data",
     get_cache_dir() .. "/workspace",
-    "-configuration",
-    jdtls_path .. "/" .. get_shared_config_dir(),
+    --"-configuration",
+    --jdtls_path .. "/" .. get_system_config_file(),
   },
   filetypes = { "jproperties", "java" },
 })
@@ -84,8 +82,9 @@ vim.lsp.config("jdtls", {
 ------- Bundles -------
 local function get_bundles()
   local bundle_globs = {
-    global:package("java-debug-adapter") .. "/extension/server/com.microsoft.java.debug.plugin-*.jar",
-    global:package("java-test") .. "/extension/server/*.jar",
+    vim.g.nix.vsc_java_debug
+      .. "/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar",
+    vim.g.nix.vsc_java_test .. "/share/vscode/extensions/vscjava.vscode-java-test/server/*.jar",
     assets_path .. "/bundles/*.jar",
   }
 

@@ -45,11 +45,8 @@ function M.ensure_lang(opts)
   opts = opts or {}
 
   M.ensure_treesitter(opts.parsers or opts.ft)
-
   M.ensure_formatters(opts.ft, opts.formatters)
-
   M.ensure_tools(opts.tools)
-  M.ensure_tools(opts.formatters)
 
   return opts.other or {}
 end

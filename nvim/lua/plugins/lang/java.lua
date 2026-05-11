@@ -1,6 +1,5 @@
 return require("util.lsp").ensure_lang({
   ft = { "java" },
-  tools = { "java-test", "java-debug-adapter" },
   build = function()
     ---@diagnostic disable-next-line: param-type-mismatch
     pcall(vim.cmd, "NeotestJava setup")
