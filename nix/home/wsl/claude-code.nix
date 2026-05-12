@@ -7,5 +7,5 @@
   programs.claude-code = {
     enable = true;
     # TODO: settings
-  }
+  };
 }

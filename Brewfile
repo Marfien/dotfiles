@@ -1,34 +1,5 @@
-tap "fluxcd/tap"
-
-# devops
-brew "minikube"
-brew "helm"
-brew "oras"
-brew "ansible"
-brew "k9s"
-brew "fluxcd/tap/flux"
-brew "opentofu"
-
-# cli
-brew "awscli"
-
 brew "gnupg"
 brew "sops"
-
-# development
-brew "maven"
-brew "gradle"
-brew "uv"
-brew "node"
-brew "go"
-brew "rust"
-
-brew "gcc"
-brew "cmake"
-
-# lazy.nvim dependencies
-brew "xclip" if OS.linux?
-
 
 brew "mas" if OS.mac?
 

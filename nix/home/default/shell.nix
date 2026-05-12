@@ -90,8 +90,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "ohmyzsh";
             repo = "ohmyzsh";
-            rev = "master";
-            sha256 = "sha256-m81bwO/bw5+grt9q8cGLzSJzk1ajJSCAkLpB6DjzuDo=";
+            rev = "e3e468d1388d262b0018350a1248a176bfb31660"; # commit hash
+            sha256 = "sha256-Wp9kDbzPh7jz9SAm38mn+yUBTlOrbpG2/64OW2ueqfs=";
           };
         }
         {

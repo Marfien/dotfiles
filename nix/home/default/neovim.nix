@@ -32,6 +32,7 @@
       texliveFull
 
       clang-tools
+      node
 
       # shell
       bash-language-server

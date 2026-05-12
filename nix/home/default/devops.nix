@@ -4,7 +4,7 @@
       fluxcd
       opentofu
       kubectl
+      docker-client
     ];
   };
-  programs.docker-cli.enable = true;
 }
