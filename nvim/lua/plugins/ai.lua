@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 local function select_model()
   ---@diagnostic disable-next-line: missing-parameter
   require("plenary.async").run(function()
-    local perfered_models = { "claude-opus-4.6", "gpt-5.3-codex", "auto" }
+    local perfered_models = { "claude-opus-4.6", "gpt-5.2-codex", "auto" }
 
     local models = require("CopilotChat.client"):models()
     for _, perfered_model in ipairs(perfered_models) do

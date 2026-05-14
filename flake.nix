@@ -17,29 +17,80 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    inputs@{ nixpkgs, home-manager, ... }:
+    inputs@{
+      nixpkgs,
+      home-manager,
+      nix-darwin,
+      ...
+    }:
     let
-      makePkgs = system: import nixpkgs { inherit system; };
       mkHome =
-        { system, modules }:
+        {
+          system,
+          modules,
+          username,
+        }:
         home-manager.lib.homeManagerConfiguration {
-          extraSpecialArgs = { inherit inputs; };
-          pkgs = makePkgs system;
-          modules = [ ./nix/home/default ] ++ modules;
+          extraSpecialArgs = {
+            inherit inputs;
+            inherit username;
+          };
+          pkgs = import nixpkgs { inherit system; };
+          modules = [
+            ./nix/home/default
+            {
+              inherit username;
+              homeDirectory = "/home/${username}";
+            }
+          ]
+          ++ modules;
+        };
+      mkDarwin =
+        {
+          system,
+          modules,
+          username,
+        }:
+        nix-darwin.lib.darwinSystem {
+          inherit system;
+          modules = [
+            home-manager.darwinModules.home-manager
+            ./nix/darwin/default
+            {
+              system.primaryUser = username;
+              users.users.${username} = {
+                home = "/Users/${username}";
+              };
+            }
+          ]
+          ++ modules;
+          specialArgs = {
+            inherit inputs;
+            inherit username;
+          };
         };
     in
     {
       homeConfigurations = {
-        mac = mkHome {
-          system = "aarch64-darwin";
-          modules = [ ./nix/home/mac ];
-        };
         wsl = mkHome {
-          pkgs = makePkgs "x86_64-linux";
+          system = "x86_64-linux";
+          username = "maha";
           modules = [ ./nix/home/wsl ];
+        };
+      };
+      darwinConfigurations = {
+        mac = mkDarwin {
+          system = "aarch64-darwin";
+          username = "marvin";
+          modules = [ ./nix/darwin/mac ];
         };
       };
     };

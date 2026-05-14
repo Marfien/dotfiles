@@ -19,7 +19,8 @@ in
     {
       packages = with pkgs; [
         jdk
-        dotnet-sdk
+        dotnet-sdk_10
+        dotnet-runtime_10
         maven
         gradle
       ];
