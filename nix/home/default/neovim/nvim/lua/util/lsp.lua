@@ -1,19 +1,11 @@
 local M = {}
 
-local mason_pkgs = {}
 local ts_parsers = {}
 local formatters_by_ft = {}
 
 ---@param parsers string[]
 function M.ensure_treesitter(parsers)
   vim.list_extend(ts_parsers, parsers)
-end
-
----@param pkg? string[]
-function M.ensure_tools(pkg)
-  if pkg then
-    vim.list_extend(mason_pkgs, pkg)
-  end
 end
 
 ---@param filetypes string[]
@@ -32,7 +24,6 @@ function M.ensure_formatters(filetypes, pkgs)
 end
 
 ---@class util.lsp.LangSpec
----@field tools? string[]
 ---@field parsers? string[]
 ---@field ft string[]
 ---@field formatters? table
@@ -46,7 +37,6 @@ function M.ensure_lang(opts)
 
   M.ensure_treesitter(opts.parsers or opts.ft)
   M.ensure_formatters(opts.ft, opts.formatters)
-  M.ensure_tools(opts.tools)
 
   return opts.other or {}
 end
@@ -62,7 +52,6 @@ function M.setup()
   end
 
   require("conform").formatters_by_ft = formatters_by_ft
-  require("util.mason").setup(mason_pkgs)
   require("nvim-treesitter").install(ts_parsers, { summary = true })
 end
 

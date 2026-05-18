@@ -99,8 +99,9 @@ end, { desc = "End Highlighting" })
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
--- Lazy UI
+-- UI
 map("n", "<leader>.l", "<cmd>Lazy<cr>", { desc = "Lazy" })
+map("n", "<leader>.p", "<cmd>LspInfo<cr>", { desc = "LSP Info" })
 
 -- Window management
 map("n", "<leader>wh", "<C-W>s", { desc = "Split Below", remap = true })

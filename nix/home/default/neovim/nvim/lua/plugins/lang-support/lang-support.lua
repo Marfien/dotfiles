@@ -13,22 +13,6 @@ vim.api.nvim_create_autocmd("User", {
 
 return {
   {
-    "mason-org/mason.nvim",
-    event = "VeryLazy",
-    opts_extend = {
-      "registries",
-    },
-    opts = {
-      registries = {
-        "github:mason-org/mason-registry",
-      },
-    },
-    keys = {
-      { "<leader>.m", "<cmd>Mason<cr>", desc = "Mason" },
-      { "<leader>.p", "<cmd>LspInfo<cr>", desc = "LspInfo" },
-    },
-  },
-  {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     opts = {
