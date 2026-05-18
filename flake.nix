@@ -47,8 +47,11 @@
           modules = [
             ./nix/home/default
             {
-              inherit username;
-              homeDirectory = "/home/${username}";
+              nixpkgs.config.allowUnfree = true;
+              home = {
+                inherit username;
+                homeDirectory = "/home/${username}";
+              };
             }
           ]
           ++ modules;

@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, ... }:
 let
   mountPath = "/mnt/c";
 in
@@ -9,9 +9,6 @@ in
     ./go.nix
   ];
   home = {
-    inherit username;
-    homeDirectory = "/home/${username}";
-
     sessionPath = [
       "${mountPath}/WINDOWS"
       "${mountPath}/WINDOWS/system32"
