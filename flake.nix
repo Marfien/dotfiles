@@ -22,12 +22,18 @@
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-homebrew = {
+      url = "github:zhaofengli/nix-homebrew";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     inputs@{
       nixpkgs,
       home-manager,
+      nix-homebrew,
       nix-darwin,
       ...
     }:
@@ -66,6 +72,7 @@
           inherit system;
           modules = [
             home-manager.darwinModules.home-manager
+            nix-homebrew.darwinModules.nix-homebrew
             ./nix/darwin/default
             {
               system.primaryUser = username;

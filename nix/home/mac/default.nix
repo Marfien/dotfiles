@@ -19,7 +19,6 @@ in
 
     packages = with pkgs; [
       (withPriority orbstack 1)
-      nerd-fonts.meslo-lg
       raycast
       sioyek
       discord

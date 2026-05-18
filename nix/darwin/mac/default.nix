@@ -8,6 +8,7 @@
   imports = [
     ./home-manager.nix
     ./dock.nix
+    ./brew.nix
   ];
 
   # nix config
@@ -22,6 +23,11 @@
     };
     enable = false;
   };
+
+  environment.shells = [ pkgs.zsh ];
+  fonts.packages = with pkgs; [
+    nerd-fonts.meslo-lg
+  ];
 
   nixpkgs.config.allowUnfree = true;
 
