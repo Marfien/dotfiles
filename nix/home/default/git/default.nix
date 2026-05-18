@@ -37,6 +37,7 @@ in
     settings = {
       user = {
         name = "Marvin Haase";
+        email = "contact@marfien.dev";
       };
       alias = {
         ec = "commit --allow-empty -m";
@@ -67,6 +68,12 @@ in
         "nvimdiff" = {
           layout = "LOCAL,MERGED,REMOTE";
         };
+      };
+      pull = {
+        rebase = true;
+      };
+      push = {
+        autoSetupRemove = true;
       };
     };
   };

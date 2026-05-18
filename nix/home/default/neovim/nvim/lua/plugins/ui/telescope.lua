@@ -1,8 +1,8 @@
 local timeout_seconds = 60
 local file_ignore_patterns = {
-  ".git/",
-  ".cache/",
-  ".terraform/",
+  "%.git/",
+  "%.cache/",
+  "%.terraform/",
   "%.o",
   "%.a",
   "%.out",

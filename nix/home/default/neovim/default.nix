@@ -7,7 +7,7 @@
   home = {
     file = {
       "${config.xdg.configHome}/nvim" = {
-        source = config.lib.file.mkOutOfStoreSymlink ../../../nvim;
+        source = config.lib.file.mkOutOfStoreSymlink ./nvim;
         recursive = true;
         force = true;
       };
@@ -32,7 +32,6 @@
       texliveFull
 
       clang-tools
-      node
 
       # shell
       bash-language-server

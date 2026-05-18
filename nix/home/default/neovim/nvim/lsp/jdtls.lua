@@ -7,7 +7,10 @@ local function get_openjdk_runtime(version)
     name = "JavaSE-" .. (version <= 8 and "1." .. version or version),
     path = vim.fs.abspath("~/.jdk/java")
       .. version
-      .. (jit.os == "OSX" and ("/Library/Java/JavaVirtualMachines/zulu-" .. version .. ".jdk/Contents/Home") or ""),
+      .. (
+        jit.os == "OSX" and ("/Library/Java/JavaVirtualMachines/zulu-" .. version .. ".jdk/Contents/Home")
+        or "/lib/openjdk"
+      ),
   }
 end
 
@@ -30,51 +33,17 @@ local function get_cache_dir()
   return (os.getenv("XDG_CACHE_HOME") or vim.uv.os_homedir() .. "/.cache") .. "/jdtls"
 end
 
-local function get_system_config_file()
-  local ext = ({
-    Windows = "win",
-    Linux = "linux",
-    OSX = "mac",
-  })[jit.os]
-
-  if ext == nil then
-    error("Unknown OS: " .. jit.os)
-  end
-
-  return "config_" .. ext
-end
-
-local jdtls_path = vim.g.nix.jdtls_path .. "/share/java/jdtls"
 local lombok_jar = vim.g.nix.lombok_path .. "/share/java/lombok.jar"
 
 -- Using vim.lsp.config as it has higher priority than files inside lsp/
 vim.lsp.config("jdtls", {
+  -- stylua: ignore
   cmd = {
-    get_openjdk_runtime(21).path .. "/bin/java",
-    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-    "-Declipse.product=org.eclipse.jdt.ls.core.product",
-    "-Dlog.protocol=true",
-    "-Dlog.level=ALL",
-    "-Dosgi.bundles.defaultStartLevel=4",
-    "-XX:+AlwaysPreTouch",
-    "-XX:+UseStringDeduplication",
-    "-XX:+UseParallelGC",
-    "-XX:GCTimeRatio=4",
-    "-XX:AdaptiveSizePolicyWeight=90",
-    "-Dsun.zip.disableMemoryMapping=true",
-    "-Xmx3G",
-    "--add-modules=ALL-SYSTEM",
-    "--add-opens",
-    "java.base/java.util=ALL-UNNAMED",
-    "--add-opens",
-    "java.base/java.lang=ALL-UNNAMED",
-    "-javaagent:" .. lombok_jar,
-    "-jar",
-    vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
-    "-data",
-    get_cache_dir() .. "/workspace",
-    --"-configuration",
-    --jdtls_path .. "/" .. get_system_config_file(),
+    "jdtls",
+    "--java-executable=" .. get_openjdk_runtime(21).path .. "/bin/java",
+    "--jvm-arg=-Xmx3G",
+    "--jvm-arg=-javaagent:" .. lombok_jar,
+    "-data", get_cache_dir() .. "/workspace",
   },
   filetypes = { "jproperties", "java" },
 })

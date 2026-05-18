@@ -5,7 +5,7 @@
     ./cli.nix
     ./git
     ./tmux.nix
-    ./neovim.nix
+    ./neovim
     ./sdk.nix
     ./devops.nix
   ];
