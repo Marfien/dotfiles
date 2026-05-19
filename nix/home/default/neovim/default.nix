@@ -18,6 +18,7 @@
     defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;
+    withRuby = false;
     initLua = with pkgs; ''
       vim.g.nix = {
         jdtls_path = "${jdt-language-server}",
