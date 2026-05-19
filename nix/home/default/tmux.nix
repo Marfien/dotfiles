@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   programs.tmux = {
     enable = true;
     terminal = ",xterm-256color:Tc";
@@ -24,6 +25,12 @@
       bind-key -T copy-mode-vi 'C-k' select-pane -U
       bind-key -T copy-mode-vi 'C-l' select-pane -R
       bind-key -T copy-mode-vi 'C-\' select-pane -l
+
+      # Open new panes with same cwd
+      bind c new-window -c "#{pane_current_path}"
+      bind C new-window -c "$HOME"
+      bind '-' split-window -c "#{pane_current_path}"
+      bind '|' split-window -h -c "#{pane_current_path}"
 
       # Statusbar
       set -g status-style bg=default
