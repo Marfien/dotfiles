@@ -24,7 +24,7 @@ return {
         function()
           local delete = require("mini.bufremove").delete
 
-          for _, buf in vim.api.nvim_list_bufs() do
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
             if vim.bo[buf].buflisted and not buf == vim.api.nvim_get_current_buf() then
               delete(buf)
             end
