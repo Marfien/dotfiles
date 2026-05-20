@@ -76,7 +76,7 @@ in
         rebase = true;
       };
       push = {
-        autoSetupRemove = true;
+        autoSetupRemote = true;
       };
     };
   };
