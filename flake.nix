@@ -90,7 +90,10 @@
         wsl = mkHome {
           system = "x86_64-linux";
           username = "maha";
-          modules = [ ./nix/home/wsl ];
+          modules = [
+            ./nix/modules/windows
+            ./nix/home/wsl
+          ];
         };
       };
       darwinConfigurations = {

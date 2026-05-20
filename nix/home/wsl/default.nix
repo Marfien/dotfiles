@@ -7,6 +7,7 @@ in
     ./shell.nix
     ./claude-code.nix
     ./go.nix
+    ./windows
   ];
   home = {
     sessionPath = [
