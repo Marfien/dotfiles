@@ -7,10 +7,12 @@ return require("util.lsp").ensure_lang({
       "GustavEikaas/easy-dotnet.nvim",
       dependencies = { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap", "nvim-telescope/telescope.nvim" },
       build = function()
-        vim.notify("Installing dotnet tooling:\n EasyDotnet, dotnet-ef")
-        vim.system({ "dotnet", "tool", "install", "--global", "EasyDotnet" }):wait()
-        vim.system({ "dotnet", "tool", "install", "--global", "dotnet-ef" }):wait()
-        vim.notify("Successfully installed dotnet tooling")
+        vim.uv.new_async(function()
+          vim.notify("Installing dotnet tooling:\n EasyDotnet, dotnet-ef")
+          vim.system({ "dotnet", "tool", "install", "--global", "EasyDotnet" }):wait()
+          vim.system({ "dotnet", "tool", "install", "--global", "dotnet-ef" }):wait()
+          vim.notify("Successfully installed dotnet tooling")
+        end)
       end,
       cmd = "Dotnet",
       ft = "cs",

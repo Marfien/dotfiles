@@ -19,16 +19,34 @@
     withNodeJs = true;
     withPython3 = true;
     withRuby = false;
-    initLua = with pkgs; ''
-      vim.g.nix = {
-        jdtls_path = "${jdt-language-server}",
-        lombok_path = "${lombok}",
+    sideloadInitLua = true;
+    initLua =
+      with pkgs;
+      # lua
+      ''
+        vim.g.nix = {
+          lombok = "${lombok}",
+          vsc_java_debug = "${vscode-extensions.vscjava.vscode-java-debug}",
+          vsc_java_test = "${vscode-extensions.vscjava.vscode-java-test}",
+        }
 
-        vsc_java_debug = "${vscode-extensions.vscjava.vscode-java-debug}",
-        vsc_java_test = "${vscode-extensions.vscjava.vscode-java-test}",
-      }
-    '';
+        -- bootstrap lazy.nvim
+        require("config.options")
+        require("config.keymaps")
+        require("config.autocmds")
+
+        require("config.lazy")
+
+        require("util.dashboard").setup()
+
+        vim.defer_fn(function()
+          require("util.lsp").setup()
+          require("config.usercmds")
+        end, 100)
+      '';
+    plugins = [ pkgs.vimPlugins.lazy-nvim ];
     extraPackages = with pkgs; [
+      cargo
       tree-sitter
       texliveFull
 
@@ -95,6 +113,5 @@
       yaml-language-server
       gitlab-ci-ls
     ];
-    sideloadInitLua = true;
   };
 }

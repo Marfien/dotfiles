@@ -97,7 +97,6 @@ return {
   },
   {
     "saghen/blink.cmp",
-    version = "1.*",
     dependencies = {
       "pxwg/blink-cmp-copilot-chat",
     },

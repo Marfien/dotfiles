@@ -23,6 +23,7 @@ return {
         timeout_ms = 500,
         lsp_format = "fallback",
       },
+      formatters_by_ft = require("util.lsp").formatters_by_ft,
     },
     keys = {
       { "<leader>.c", "<cmd>ConformInfo<cr>", desc = "Conform" },
@@ -54,8 +55,11 @@ return {
   {
     "saghen/blink.cmp",
     event = "InsertEnter",
-    version = "1.*",
+    build = function()
+      require("blink.cmp").build():wait(60000)
+    end,
     dependencies = {
+      "saghen/blink.lib",
       "rafamadriz/friendly-snippets",
     },
     opts = {

@@ -48,7 +48,10 @@ in
         again = "commit -C HEAD --amend --no-edit";
         rollback = "reset --hard";
         push-skip = "push -o ci.skip";
+        # force push
         pfush = "push --force-with-lease";
+        # pull push
+        ppush = ''!f() { git pull --rebase && git push "$@" }; f'';
         s = "status";
         p = "push";
         sdiff = "diff --staged";

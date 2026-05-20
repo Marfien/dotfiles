@@ -33,7 +33,7 @@ local function get_cache_dir()
   return (os.getenv("XDG_CACHE_HOME") or vim.uv.os_homedir() .. "/.cache") .. "/jdtls"
 end
 
-local lombok_jar = vim.g.nix.lombok_path .. "/share/java/lombok.jar"
+local lombok_jar = vim.g.nix.lombok .. "/share/java/lombok.jar"
 
 -- Using vim.lsp.config as it has higher priority than files inside lsp/
 vim.lsp.config("jdtls", {
