@@ -6,6 +6,8 @@ require("lazy").setup({
   spec = {
     -- Spell files for German and English
     "AlxHnr/vim-spell-files",
+    -- bit hacky to exclude lazy.nvim from updates as it is managed by nix/home-manager
+    { 'folke/lazy.nvim',              enabled = false, },
     { import = "plugins" },
     { import = "plugins.lang-support" },
     { import = "plugins.ui" },
