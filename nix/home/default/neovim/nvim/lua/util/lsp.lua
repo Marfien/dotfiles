@@ -20,7 +20,7 @@ function M.ensure_formatters(filetypes, pkgs)
     map[ft] = pkgs
   end
 
-  M.formatters_by_ft = vim.tbl_extend("error", M.formatters_by_ft, map)
+  M.formatters_by_ft = vim.tbl_extend("force", M.formatters_by_ft, map)
 end
 
 ---@class util.lsp.LangSpec

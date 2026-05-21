@@ -3,7 +3,6 @@
   config,
   ...
 }:
-
 let
   cfg = config.windows;
   mountPath = "/mnt/c";
@@ -12,69 +11,98 @@ let
   wslpath = "/bin/wslpath";
   awk = "/bin/awk";
 
+  requireAdmin =
+    script:
+    # bash
+    ''
+      IS_ADMIN=$(${powershell} -noprofile -noprofile '(New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)')
+      # Removed the windows line ending (idk why it takes two chars)
+      IS_ADMIN=$(echo "$IS_ADMIN" | head -c-2)
+      if [ "$IS_ADMIN" == "True" ]; then
+        ${script}
+      elif [ -n "$TMUX" ]; then
+        echo "Administrator priviledges are not available from within tmux. Please exit before running." 2>&1
+      else
+        echo "Missing Administrator priviledges." 2>&1
+      fi
+    '';
+
   symlinkScript =
     links:
-    lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (
-        target: source:
-        # bash
-        ''
-          WIN_TARGET="$(${wslpath} -w "${target}")"
-          WIN_SOURCE="$(${wslpath} -w "${source}")"
+    requireAdmin (
+      lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (
+          target: source:
+          # bash
+          ''
+            # The target needs to be removed. Otherwise, wslpath runs into an Input-/Output-Error
+            rm -rf "${target}"
+            WIN_TARGET="$(${wslpath} -w "${target}")"
+            WIN_SOURCE="$(${wslpath} -w "${source}")"
 
-          echo "Setting up link for: ${source} -> ${target}"
+            echo "Setting up link for: ${source} -> ${target}"
 
-          # Remove stale symlink or file at target location via PowerShell
-          ${powershell} -NoProfile -NonInteractive -Command "
-            \$target = '$WIN_TARGET'
-            if (Test-Path -LiteralPath \$target) {
-              Remove-Item -Force -Recurse -LiteralPath \$target
-            }
-            \$parent = Split-Path \$target
-            if (-not (Test-Path \$parent)) {
-              New-Item -ItemType Directory -Force -Path \$parent | Out-Null
-            }
-            New-Item -ItemType SymbolicLink -Path \$target -Target '$WIN_SOURCE' | Out-Null
-          " >/dev/null || true
-        '') links
+            # Remove stale symlink or file at target location via PowerShell
+            ${powershell} -NoProfile -NonInteractive -Command "
+              \$target = '$WIN_TARGET'
+              if (Test-Path -LiteralPath \$target) {
+                Remove-Item -Force -Recurse -LiteralPath \$target
+              }
+              \$parent = Split-Path \$target
+              if (-not (Test-Path \$parent)) {
+                New-Item -ItemType Directory -Force -Path \$parent | Out-Null
+              }
+              New-Item -ItemType SymbolicLink -Path \$target -Target '$WIN_SOURCE' | Out-Null
+            " >/dev/null || true
+          '') links
+      )
     );
 
   packageScript =
-    packages:
+    packages: upgradeAll:
     let
       packageList = lib.concatStringsSep " " (map (p: "'${p}'") packages);
+      upgradeAllString = lib.boolToString upgradeAll;
     in
-    # bash
-    ''
-      INSTALLED=$(${choco} list --no-color 2>/dev/null || true)
-      INSTALLED=$(echo "$INSTALLED" \
-        | grep -E '^[A-Za-z]' \
-        | grep -v '^Chocolatey' \
-        | ${awk} '{print tolower($1)}')
+    requireAdmin
+      # bash
+      ''
+        INSTALLED=$(${choco} list --no-color 2>/dev/null || true)
+        INSTALLED=$(echo "$INSTALLED" \
+          | grep -E '^[A-Za-z]' \
+          | grep -v '^Chocolatey' \
+          | ${awk} '{print tolower($1)}')
 
-      DESIRED=(${packageList})
+        DESIRED=(${packageList})
 
-      IS_ADMIN=$(${powershell} -noprofile -noprofile '(New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)')
-      if [ "$(echo "$IS_ADMIN" | cut -c1-1)" != "T" ]; then
-        echo "Cannot install packages without administrator permissions."
-        echo "|$IS_ADMIN|"
-        exit
-      fi
-
-      for pkg in "''${DESIRED[@]}"; do
-        pkg_lower="$(echo "$pkg" | tr '[:upper:]' '[:lower:]')"
-        if echo "$INSTALLED" | grep -qx "$pkg_lower"; then
-          ${choco} upgrade "$pkg" -y --no-progress 2>/dev/null || true
-        else
-          ${choco} install "$pkg" -y --no-progress 2>/dev/null || true
+        if ${upgradeAllString}; then
+          echo "Upgrading all packages"
+          ${choco} upgrade all; >/dev/null || true
         fi
-      done
-    '';
+
+        for pkg in "''${DESIRED[@]}"; do
+          pkg_lower="$(echo "$pkg" | tr '[:upper:]' '[:lower:]')"
+          if ! ${upgradeAllString} && echo "$INSTALLED" | grep -qx "$pkg_lower"; then
+            echo "Upgrading $pkg"
+            ${choco} upgrade "$pkg" -y --no-progress >/dev/null || true
+          else
+            echo "Installing $pkg"
+            ${choco} install "$pkg" -y --no-progress >/dev/null || true
+          fi
+        done
+      '';
 
 in
 {
   options.windows = {
     enable = lib.mkEnableOption "Chocolatey package manager and Windows symlink management";
+
+    chocoUpgradeAll = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Upgrade all chocolatey packages, not just the ones managed by chocoPackages.";
+      example = true;
+    };
 
     chocoPackages = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -92,12 +120,12 @@ in
       default = { };
       description = ''
         Windows symlinks to create, as { target = source } pairs.
-        Paths in /nix/store are translated to \\wsl.localhost\NixOS\... UNC paths.
+        Paths in /nix/store are translated to \\wsl.localhost\<distro>\... UNC paths.
         Paths under /mnt/c are translated to C:\... style paths.
         Symlinks are recreated on every activation to track nix-store updates.
       '';
       example = {
-        "/mnt/c/Users/User/AppData/Roaming/alacritty/alacritty.toml" = "/nix/store/xxx-alacritty.toml";
+        "/mnt/c/Users//AppData/Roaming/alacritty/alacritty.toml" = ./xxx-alacritty.toml;
       };
     };
   };
@@ -105,9 +133,9 @@ in
   config = lib.mkIf cfg.enable {
     home.activation.windowsChocolatey = lib.hm.dag.entryAfter [ "writeBoundary" ] (
       lib.optionalString (cfg.chocoPackages != [ ]) ''
-        if [ -x "${choco}" ]; then
+        if [ -x "${choco}" ] && [ -x "${powershell}" ]; then
           echo "syncing choco packages..."
-          ${packageScript cfg.chocoPackages}
+          ${packageScript cfg.chocoPackages cfg.chocoUpgradeAll}
         else
           echo "choco.exe not found, skipping package sync"
         fi
