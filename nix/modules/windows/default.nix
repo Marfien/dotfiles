@@ -20,7 +20,7 @@ let
       IS_ADMIN=$(echo "$IS_ADMIN" | head -c-2)
       if [ "$IS_ADMIN" == "True" ]; then
         ${script}
-      elif [ -n "$TMUX" ]; then
+      elif [ -n "''${TMUX:-}" ]; then
         echo "Administrator priviledges are not available from within tmux. Please exit before running." 2>&1
       else
         echo "Missing Administrator priviledges." 2>&1
