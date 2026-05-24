@@ -26,7 +26,7 @@ in
       ];
 
       sessionVariables = {
-        DOTNET_ROOT = "${pkgs.dotnet-sdk}/share/dotnet";
+        DOTNET_ROOT = "${pkgs.dotnet-sdk_10}/share/dotnet";
       };
     }
   ];

@@ -7,7 +7,7 @@ in
 {
   system.defaults.dock = {
     persistent-apps = [
-      (mkHomeManagerApp "Zen Browser (Twilight)")
+      (mkHomeManagerApp "Zen Browser (Beta)")
       (mkHomeManagerApp "WezTerm")
       (mkSystemApp "Mail")
       (mkHomeManagerApp "Discord")

@@ -1,7 +1,7 @@
 { lib, specialArgs, ... }:
 {
   imports = [
-    specialArgs.inputs.zen-browser.homeModules.twilight
+    specialArgs.inputs.zen-browser.homeModules.beta
   ];
   programs.zen-browser =
     let
@@ -56,7 +56,7 @@
           spacesForce = true;
           pinsForce = true;
           settings = {
-            "browser.warnOnQuitShortcut" = true;
+            "browser.warnOnQuitShortcut" = false;
             "zen.workspaces.continue-where-left-off" = true;
             "zen.view.show-newtab-button-top" = true;
             "zen.urlbar.behavior" = "normal";
