@@ -122,7 +122,3 @@ map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" 
 map({ "n", "x" }, "<leader>ck", vim.lsp.buf.signature_help, { desc = "Code Signature" })
 map("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Code Signature" })
 map({ "n", "x" }, "K", vim.lsp.buf.hover, { desc = "Hover Documentation" }) -- See `:help K` for why this keymap
-
--- sessions
-map("n", "<leader>ss", require("util.session").store, { desc = "Store" })
-map("n", "<leader>sl", require("util.session").load, { desc = "Load" })

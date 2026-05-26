@@ -36,8 +36,7 @@
         require("config.autocmds")
 
         require("config.lazy")
-
-        require("util.dashboard").setup()
+        require("features").setup()
 
         vim.defer_fn(function()
           require("util.lsp").setup()

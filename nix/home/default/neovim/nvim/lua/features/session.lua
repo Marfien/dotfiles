@@ -50,4 +50,10 @@ function M.load(id)
   end
 end
 
+-- sessions
+function M.setup()
+  vim.api.nvim_set_keymap("n", "<leader>ss", "%!v:lua.require('features.session').store()", { desc = "Store Session" })
+  vim.api.nvim_set_keymap("n", "<leader>sl", "%!v:lua.require('features.session').load()", { desc = "Load Session" })
+end
+
 return M

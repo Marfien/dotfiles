@@ -48,7 +48,7 @@ function M.pretty_path(relative)
     if #parts > 3 then
       parts = { parts[1], "…", parts[#parts - 1], parts[#parts] }
     end
-  -- Not within root
+    -- Not within root
   else
     parts = vim.split(path, "/")
 
@@ -58,6 +58,10 @@ function M.pretty_path(relative)
   end
 
   local dir_string = table.concat(parts, "/")
+
+  if dir_string == "" or dir_string == "." then
+    return " "
+  end
 
   if vim.bo.readonly == 1 then
     dir_string = dir_string .. " 󰌾 "
