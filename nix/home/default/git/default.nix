@@ -51,7 +51,7 @@ in
         # force push
         pfush = "push --force-with-lease";
         # pull push
-        ppush = ''!f() { git pull --rebase && git push "$@" }; f'';
+        ppush = ''!f() { git pull --rebase && git push "$@"; }; f'';
         s = "status";
         p = "push";
         sdiff = "diff --staged";
