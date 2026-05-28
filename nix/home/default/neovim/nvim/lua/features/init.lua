@@ -1,12 +1,13 @@
 local modules = {
   "dashboard",
-  "session"
+  "session",
+  "status-line"
 }
 
 return {
   setup = function()
     for _, module in ipairs(modules) do
-      require("features." .. module)
+      require("features." .. module).setup()
     end
   end
 }
