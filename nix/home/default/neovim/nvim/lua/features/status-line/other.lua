@@ -60,7 +60,7 @@ function M.setup_autocmds(group)
     update(key, func())
   end
 
-  create("DirChanged", M.key.project_dir, project_dir)
+  create({ "DirChanged", "BufEnter" }, M.key.project_dir, project_dir)
   create("BufEnter", M.key.git_branch, git_branch)
   create("BufEnter", M.key.fileformat, fileformat)
   create("BufEnter", M.key.fileencoding, fileencoding)
