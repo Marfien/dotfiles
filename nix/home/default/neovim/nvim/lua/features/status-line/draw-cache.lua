@@ -18,7 +18,7 @@ local function section(hl, keys)
     if i ~= 1 then
       local content = components[key]
       if content ~= nil and content ~= "" then
-        result = result .. sep .. content
+        result = result .. hl .. sep .. content
       end
     end
   end

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    pkgs.mas
+    mas
   ];
   homebrew = {
     enable = true;

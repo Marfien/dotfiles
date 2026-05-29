@@ -20,10 +20,15 @@ local state = {
 local function get_lsp_states()
   local components = {}
 
-  for client, state_icon in pairs(lsp_states) do
-    local name = vim.lsp.get_client_by_id(client).name
-    table.insert(components, name)
-    table.insert(components, state_icon)
+  for client_id, state_icon in pairs(lsp_states) do
+    if state_icon ~= nil then
+      local client = vim.lsp.get_client_by_id(client_id)
+      if client and client.attached_buffers[vim.api.nvim_get_current_buf()] then
+        local name = client.name
+        table.insert(components, name)
+        table.insert(components, state_icon)
+      end
+    end
   end
 
   return vim.fn.join(components, " ")
@@ -42,6 +47,14 @@ function M.setup_autocmds(group)
       update()
     end
   })
+  vim.api.nvim_create_autocmd("LspDetach", {
+    group = group,
+    callback = function(event)
+      local client_id = event.data.client_id
+      lsp_states[client_id] = nil
+      update()
+    end
+  })
 
   vim.api.nvim_create_autocmd("LspProgress", {
     group = group,
@@ -57,6 +70,10 @@ function M.setup_autocmds(group)
 
       update()
     end
+  })
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = group,
+    callback = update
   })
 
   update()
