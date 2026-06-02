@@ -26,7 +26,9 @@ local function get_lsp_states()
       if client and client.attached_buffers[vim.api.nvim_get_current_buf()] then
         local name = client.name
         table.insert(components, name)
-        table.insert(components, state_icon)
+        if #state_icon > 0 then
+          table.insert(components, state_icon)
+        end
       end
     end
   end
@@ -43,7 +45,7 @@ function M.setup_autocmds(group)
     group = group,
     callback = function(event)
       local client_id = event.data.client_id
-      lsp_states[client_id] = state.attached
+      lsp_states[client_id] = lsp_states[client_id] or state.attached
       update()
     end
   })
@@ -51,8 +53,11 @@ function M.setup_autocmds(group)
     group = group,
     callback = function(event)
       local client_id = event.data.client_id
-      lsp_states[client_id] = nil
-      update()
+      local client = vim.lsp.get_client_by_id(client_id)
+      if client and #client.attached_buffers == 0 then
+        lsp_states[client_id] = nil
+        update()
+      end
     end
   })
 

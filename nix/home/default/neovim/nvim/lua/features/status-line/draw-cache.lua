@@ -8,22 +8,16 @@ local drawing = false
 local sep = " │ "
 
 local function section(hl, keys)
-  if type(keys) == "string" then
-    local content = components[keys]
-    return content and (hl .. " " .. content .. " ") or ""
-  end
-
-  local result = hl .. " " .. components[keys[1]]
+  local rendered = {}
   for i, key in ipairs(keys) do
-    if i ~= 1 then
-      local content = components[key]
-      if content ~= nil and content ~= "" then
-        result = result .. hl .. sep .. content
-      end
-    end
+    rendered[i] = components[key]
   end
 
-  return result .. " "
+  rendered = vim.tbl_filter(function(value)
+    return value and (type(value) == "number" or #value > 0)
+  end, rendered)
+
+  return hl .. " " .. vim.fn.join(rendered, hl .. sep) .. " "
 end
 
 local function build()

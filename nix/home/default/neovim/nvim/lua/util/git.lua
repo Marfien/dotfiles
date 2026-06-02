@@ -47,9 +47,18 @@ local url_patterns = {
 
 local fallback_patterns = url_patterns["gitlab%.com"]
 
+local function exec(cmd)
+  local call = vim.system(cmd, { text = true }):wait()
+  return call.code, call.stdout
+end
+
 function M.get_remotes(cwd)
-  local proc = vim.fn.system({ "git", "-C", cwd, "remote", "-v" })
-  local unparsed_remotes = vim.split(vim.trim(proc), "\n")
+  local code, out = exec({ "git", "-C", cwd, "remote", "-v" })
+  if code ~= 0 then
+    return nil
+  end
+
+  local unparsed_remotes = vim.split(vim.trim(out), "\n")
   local remotes = {}
   for _, line in ipairs(unparsed_remotes) do
     local name, remote_url = line:match("(%S+)%s+(%S+)%s+%(fetch%)")
@@ -67,18 +76,18 @@ end
 
 function M.get_branch(cwd)
   cwd = cwd or vim.fn.getcwd()
-  local proc = vim.fn.system({ "git", "-C", cwd, "rev-parse", "--abbrev-ref", "HEAD" })
-  return vim.split(vim.trim(proc), "\n")[1]
+  local code, out = exec({ "git", "-C", cwd, "rev-parse", "--abbrev-ref", "HEAD" })
+  return code == 0 and vim.split(vim.trim(out), "\n")[1] or nil
 end
 
 function M.get_file_path(file, cwd)
-  local proc = vim.fn.system({ "git", "-C", cwd, "ls-files", "--full-name", file })
-  return vim.split(vim.trim(proc), "\n")[1]
+  local code, out = exec({ "git", "-C", cwd, "ls-files", "--full-name", file })
+  return code == 0 and vim.split(vim.trim(out), "\n")[1] or nil
 end
 
 function M.get_last_commit(file, cwd)
-  local proc = vim.fn.system({ "git", "-C", cwd, "log", "-n", "1", "--pretty=format:%H", "--", file })
-  return vim.split(vim.trim(proc), "\n")[1]
+  local code, out = exec({ "git", "-C", cwd, "log", "-n", "1", "--pretty=format:%H", "--", file })
+  return code == 0 and vim.split(vim.trim(out), "\n")[1] or nil
 end
 
 function M.get_repo(remote)
@@ -128,9 +137,7 @@ function M.open(opts)
     line = opts.line or vim.fn.line("."),
   }
 
-  print(fields.branch .. " " .. fields.commit .. " " .. fields.file)
-
-  local function open(remote)
+  local function open_remote(remote)
     local repo = M.get_repo(remote.url)
     local url = M.get_url(repo, fields)
 
@@ -140,11 +147,11 @@ function M.open(opts)
 
   local remotes = M.get_remotes(cwd)
 
-  if #remotes == 0 then
+  if remotes == nil or #remotes == 0 then
     vim.notify("No remotes found", vim.log.levels.WARN)
     return
   elseif #remotes == 1 then
-    open(remotes[1])
+    open_remote(remotes[1])
     return
   end
 
@@ -153,7 +160,7 @@ function M.open(opts)
     format_item = function(item)
       return item.name .. (" "):rep(8 - #item.name) .. " (" .. item.url .. ")"
     end,
-  }, open)
+  }, open_remote)
 end
 
 return M

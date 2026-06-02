@@ -11,7 +11,7 @@ function M.setup_autocmds(group)
   vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
     group = group,
     callback = function(ev)
-      status_message = ev.event == "RecordingEnter" and "@" .. vim.fn.reg_recording() or ""
+      status_message = ev.event == "RecordingEnter" and "%#Constant#@" .. vim.fn.reg_recording() or ""
       update()
     end,
   })

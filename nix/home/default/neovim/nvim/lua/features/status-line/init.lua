@@ -10,7 +10,7 @@ local filename = require("features.status-line.filename")
 function M.setup()
   local layout = {
     { mode.key }, { other.key.project_dir, other.key.git_branch }, { buf_counter.key, filename.key },
-    { lsp_info.key, rec_msg }, { other.key.fileformat, other.key.fileencoding }, { other.key.cursor_position }
+    { lsp_info.key, rec_msg.key }, { other.key.fileformat, other.key.fileencoding }, { other.key.cursor_position }
   }
 
   vim.schedule(function()
