@@ -20,7 +20,7 @@ local function fileformat()
 end
 
 local function fileencoding()
-  local result = vim.opt.fileencoding:get()
+  local result = string.upper(vim.opt.fileencoding:get())
 
   if vim.opt.bomb:get() then
     result = result .. ' [BOM]'
