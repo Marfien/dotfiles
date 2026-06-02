@@ -11,15 +11,15 @@ local modes = {
   ["n"] = { "NORMAL", accents.default },
   ["no"] = { "NORMAL", accents.default },
   ["v"] = { "VISUAL", accents.visual },
-  ["V"] = { "VISUAL LINE", accents.visual },
-  [""] = { "VISUAL BLOCK", accents.visual },
+  ["V"] = { "V-LINE", accents.visual },
+  [""] = { "V-BLOCK", accents.visual },
   ["s"] = { "SELECT", accents.default },
-  ["S"] = { "SELECT LINE", accents.default },
-  [""] = { "SELECT BLOCK", accents.default },
+  ["S"] = { "S-LINE", accents.default },
+  [""] = { "S-BLOCK", accents.default },
   ["i"] = { "INSERT", accents.insert },
   ["ic"] = { "INSERT", accents.insert },
   ["R"] = { "REPLACE", accents.replace },
-  ["Rv"] = { "VISUAL REPLACE", accents.replace },
+  ["Rv"] = { "V-REPL", accents.replace },
   ["c"] = { "COMMAND", accents.other },
   ["cv"] = { "VIM EX", accents.other },
   ["ce"] = { "EX", accents.other },
@@ -35,13 +35,13 @@ local M = {}
 
 M.key = "mode"
 
-function M.get_current_mode()
+local function get_current_mode()
   local current_mode = vim.api.nvim_get_mode().mode
   return unpack(modes[current_mode] or modes.fallback)
 end
 
 local function update()
-  local display, color = M.get_current_mode()
+  local display, color = get_current_mode()
 
   local draw_cache = require("features.status-line.draw-cache")
   draw_cache.update(M.key, display)

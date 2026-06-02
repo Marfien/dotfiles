@@ -54,7 +54,7 @@ function M.setup_autocmds(group)
     callback = function(event)
       local client_id = event.data.client_id
       local client = vim.lsp.get_client_by_id(client_id)
-      if client and #client.attached_buffers == 0 then
+      if not client or #client.attached_buffers == 0 then
         lsp_states[client_id] = nil
         update()
       end
