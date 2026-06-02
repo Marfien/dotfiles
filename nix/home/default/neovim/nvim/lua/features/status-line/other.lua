@@ -30,14 +30,37 @@ local function fileencoding()
 end
 
 local function cursor_position()
-  local mode = vim.fn.mode()
-  if mode == "V" or mode == "v" or mode == "\22" then
-    local start_line = vim.fn.line("v")
-    local end_line = vim.fn.line(".")
-    return math.min(start_line, end_line) .. ".." .. math.max(start_line, end_line)
-  end
-  local loc = vim.api.nvim_win_get_cursor(0)
-  return loc[1] .. ":" .. loc[2]
+  local _, line, col, _ = unpack(vim.fn.getpos("."))
+
+  local additional_switch = {
+    V = function()
+      local start_line = vim.fn.line("v")
+      return math.abs(line - start_line) + 1
+    end,
+    v = function()
+      local _, from_line, from_col, _ = unpack(vim.fn.getpos("v"))
+      local reverse = from_line > line or (from_line == line and from_col > col)
+
+      local content = vim.fn.join(vim.api.nvim_buf_get_text(0,
+        (reverse and line or from_line) - 1,
+        (reverse and col or from_col) - 1,
+        (reverse and from_line or line) - 1,
+        reverse and from_col or col,
+        {}
+      ), "")
+
+      return #content
+    end,
+    ["\22"] = function()
+      local _, from_line, from_col, _ = unpack(vim.fn.getpos("v"))
+
+      return (math.abs(line - from_line) + 1) .. "," .. (math.abs(col - from_col) + 1)
+    end
+  }
+  local generator = additional_switch[vim.fn.mode()]
+  local additional = generator and (" (" .. generator() .. ")") or ""
+
+  return line .. ":" .. col .. additional
 end
 
 M.key = {

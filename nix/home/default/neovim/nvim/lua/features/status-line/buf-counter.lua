@@ -9,7 +9,7 @@ local function update()
       cached_count = cached_count + 1
     end
   end
-  require("features.status-line.draw-cache").update(M.key, cached_count)
+  require("features.status-line.draw-cache").update(M.key, " " .. cached_count)
 end
 
 function M.setup_autocmds(group)
