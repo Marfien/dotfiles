@@ -15,29 +15,31 @@ local file_ignore_patterns = {
 
 local resume_timeout = nil
 
-vim.api.nvim_create_autocmd({ "BufLeave", "BufWinLeave" }, {
-  callback = function(event)
-    if vim.bo[event.buf].filetype ~= "TelescopePrompt" then
-      return
-    end
+local function setup_autocmd()
+  vim.api.nvim_create_autocmd({ "BufLeave", "BufWinLeave" }, {
+    callback = function(event)
+      if vim.bo[event.buf].filetype ~= "TelescopePrompt" then
+        return
+      end
 
-    if resume_timeout ~= nil then
-      resume_timeout:stop()
-      resume_timeout:close()
-    end
+      if resume_timeout ~= nil then
+        resume_timeout:stop()
+        resume_timeout:close()
+      end
 
-    resume_timeout = vim.uv.new_timer()
+      resume_timeout = vim.uv.new_timer()
 
-    if resume_timeout == nil then
-      vim.notify("Could not retrieve new timer")
-      return
-    end
+      if resume_timeout == nil then
+        vim.notify("Could not retrieve new timer")
+        return
+      end
 
-    resume_timeout:start(1000 * timeout_seconds, 0, function()
-      resume_timeout = nil
-    end)
-  end,
-})
+      resume_timeout:start(1000 * timeout_seconds, 0, function()
+        resume_timeout = nil
+      end)
+    end,
+  })
+end
 
 local function resume_or_find()
   if resume_timeout then
@@ -156,6 +158,7 @@ return {
       },
     },
     config = function(_, opts)
+      setup_autocmd()
       local telescope = require("telescope")
       telescope.setup(vim.tbl_deep_extend("force", opts, {
         extensions = {
@@ -171,22 +174,22 @@ return {
     end,
     -- stylua: ignore
     keys = {
-      { "<leader><space>", resume_or_find, desc = "Resume or find files" },
+      { "<leader><space>", resume_or_find,                                     desc = "Resume or find files" },
 
-      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
-      { "<leader>fl", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
-      { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Grep string" },
-      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-      { "<leader>fn", "<cmd>Telescope notify<cr>", desc = "Notifications" },
+      { "<leader>ff",      "<cmd>Telescope find_files<cr>",                    desc = "Find files" },
+      { "<leader>fl",      "<cmd>Telescope live_grep<cr>",                     desc = "Live grep" },
+      { "<leader>fs",      "<cmd>Telescope grep_string<cr>",                   desc = "Grep string" },
+      { "<leader>fb",      "<cmd>Telescope buffers<cr>",                       desc = "Buffers" },
+      { "<leader>fn",      "<cmd>Telescope notify<cr>",                        desc = "Notifications" },
 
-      { "<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
-      { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
-      { "gr", "<cmd>Telescope lsp_references<cr>", desc = "Find References" },
-      { "gd", "<cmd>Telescope lsp_definitions<cr>",  desc = "Goto Definition" },
-      { "gC", "<cmd>Telescope hierarchy incoming_calls<cr>", desc = "Call Stack" },
+      { "<leader>cs",      "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
+      { "gI",              "<cmd>Telescope lsp_implementations<cr>",           desc = "Find Implementation" },
+      { "gr",              "<cmd>Telescope lsp_references<cr>",                desc = "Find References" },
+      { "gd",              "<cmd>Telescope lsp_definitions<cr>",               desc = "Goto Definition" },
+      { "gC",              "<cmd>Telescope hierarchy incoming_calls<cr>",      desc = "Call Stack" },
 
-      { "<leader>gb", "<cmd>Telescope git_branches<cr>",  desc = "Branches" },
-      { "<leader>gs", "<cmd>Telescope git_stash<cr>",  desc = "Stashed Files" },
+      { "<leader>gb",      "<cmd>Telescope git_branches<cr>",                  desc = "Branches" },
+      { "<leader>gs",      "<cmd>Telescope git_stash<cr>",                     desc = "Stashed Files" },
     },
   },
 }
