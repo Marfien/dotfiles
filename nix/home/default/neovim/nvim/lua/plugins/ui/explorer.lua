@@ -43,6 +43,7 @@ end
 return {
   {
     "stevearc/oil.nvim",
+    ---@diagnostic disable-next-line: param-type-mismatch
     lazy = vim.fn.argc(-1) == 0 or vim.fn.isdirectory(vim.fn.argv(0, -1)) == 0,
     cmd = "Oil",
     dependencies = {
@@ -70,6 +71,7 @@ return {
         override = function(config)
           ---@type vim.api.keyset.win_config
           return vim.tbl_deep_extend("force", config, {
+            col = 0,
             width = vim.o.columns,
             height = vim.o.lines,
           })

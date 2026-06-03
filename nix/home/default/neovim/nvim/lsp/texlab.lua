@@ -46,11 +46,11 @@ return {
       diagnosticsDelay = 300,
       latexFormatter = "latexindent",
       latexindent = {
-        ["local"] = nil, -- local is a reserved keyword
+        ["local"] = nil,
         modifyLineBreaks = false,
       },
       bibtexFormatter = "texlab",
-      formatterLineLength = 80,
+      formatterLineLength = 120,
     },
   },
 }
