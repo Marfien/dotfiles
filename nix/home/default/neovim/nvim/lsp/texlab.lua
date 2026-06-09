@@ -2,9 +2,11 @@
 local outdir = "build/out/"
 local auxdir = "build/aux/"
 
+local texlab_path = vim.fn.exepath("texlab")
+
 ---@type vim.lsp.Config
 return {
-  cmd = { "texlab" },
+  cmd = { texlab_path },
   filetypes = { "tex", "plaintex", "bib" },
   root_markers = { ".git", ".latexmkrc", "latexmkrc", ".texlabroot", "texlabroot", "Tectonic.toml" },
   settings = {
@@ -30,8 +32,8 @@ return {
           "--reuse-window",
           "--execute-command",
           "toggle_synctex",
-          --"--inverse-search",
-          --'texlab inverse-search -i "%%1" -l %%2',
+          "--inverse-search",
+          (vim.env.WSL_DISTRO_NAME and "wsl -- " or "") .. texlab_path .. ' inverse-search -i "%%1" -l %%2',
           "--forward-search-file",
           "%f",
           "--forward-search-line",
