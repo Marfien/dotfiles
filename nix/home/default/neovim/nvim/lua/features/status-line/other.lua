@@ -6,7 +6,8 @@ local function project_dir()
 end
 
 local function git_branch()
-  return " " .. require("util.git").get_branch()
+  local branch = require("util.git").get_branch()
+  return branch and (" " .. branch) or ""
 end
 
 local function fileformat()
