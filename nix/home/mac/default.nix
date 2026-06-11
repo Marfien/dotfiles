@@ -19,11 +19,12 @@ in
 
     packages = with pkgs; [
       (withPriority orbstack 1)
-      raycast
       sioyek
-      discord
+      # issures with autoupdate
+      #raycast
+      #discord
+      #spotify
       anki-bin
-      spotify
     ];
   };
 }

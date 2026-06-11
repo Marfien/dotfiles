@@ -10,6 +10,9 @@
     casks = [
       "curseforge"
       "linearmouse"
+      "discord"
+      "raycast"
+      "spotify"
     ];
 
     #masApps = {
