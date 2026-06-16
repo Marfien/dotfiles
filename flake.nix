@@ -48,7 +48,7 @@
           };
           pkgs = import nixpkgs { inherit system; };
           modules = [
-            ./nix/home/default
+            ./home/default
             {
               nixpkgs.config.allowUnfree = true;
               home = {
@@ -70,7 +70,7 @@
           modules = [
             home-manager.darwinModules.home-manager
             nix-homebrew.darwinModules.nix-homebrew
-            ./nix/darwin/default
+            ./darwin/default
             {
               system.primaryUser = username;
               users.users.${username} = {
@@ -91,8 +91,8 @@
           system = "x86_64-linux";
           username = "maha";
           modules = [
-            ./nix/modules/windows
-            ./nix/home/wsl
+            ./modules/windows
+            ./home/wsl
           ];
         };
       };
@@ -100,7 +100,7 @@
         mac = mkDarwin {
           system = "aarch64-darwin";
           username = "marvin";
-          modules = [ ./nix/darwin/mac ];
+          modules = [ ./darwin/mac ];
         };
       };
     };
