@@ -55,7 +55,10 @@
   ],
   "profiles": {
     "defaults": {
-      "colorScheme": "Tokyo Night Storm",
+      "colorScheme": {
+        "dark": "Tokyo Night Storm",
+        "light": "Tokyo Night Day"
+      },
       "font": {
         "face": "MesloLGL Nerd Font Mono",
         "size": 11
