@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -22,27 +23,28 @@
     sideloadInitLua = true;
     initLua =
       with pkgs;
-      # lua
-      ''
-        vim.g.nix = {
-          lombok = "${lombok}",
-          vsc_java_debug = "${vscode-extensions.vscjava.vscode-java-debug}",
-          vsc_java_test = "${vscode-extensions.vscjava.vscode-java-test}",
-        }
+      lib.mkBefore
+        # lua
+        ''
+          vim.g.nix = {
+            lombok = "${lombok}",
+            vsc_java_debug = "${vscode-extensions.vscjava.vscode-java-debug}",
+            vsc_java_test = "${vscode-extensions.vscjava.vscode-java-test}",
+          }
 
-        -- bootstrap lazy.nvim
-        require("config.options")
-        require("config.keymaps")
-        require("config.autocmds")
+          -- bootstrap lazy.nvim
+          require("config.options")
+          require("config.keymaps")
+          require("config.autocmds")
 
-        require("config.lazy")
-        require("features").setup()
+          require("config.lazy")
+          require("features").setup()
 
-        vim.defer_fn(function()
-          require("util.lsp").setup()
-          require("config.usercmds")
-        end, 100)
-      '';
+          vim.defer_fn(function()
+            require("util.lsp").setup()
+            require("config.usercmds")
+          end, 100)
+        '';
     plugins = [ pkgs.vimPlugins.lazy-nvim ];
     extraPackages = with pkgs; [
       cargo

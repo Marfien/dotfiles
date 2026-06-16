@@ -7,6 +7,7 @@ in
     ./shell.nix
     ./claude-code.nix
     ./go.nix
+    ./neovim.nix
     ./windows
   ];
   home = {
