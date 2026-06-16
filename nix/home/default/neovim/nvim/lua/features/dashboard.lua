@@ -40,10 +40,10 @@ local win_buf_map = {}
 
 local function is_empty_buffer(buf)
   return vim.api.nvim_buf_is_valid(buf)
-    and vim.bo[buf].buflisted
-    and vim.bo[buf].filetype == ""
-    and vim.bo[buf].modifiable
-    and vim.api.nvim_buf_get_name(buf) == ""
+      and vim.bo[buf].buflisted
+      and vim.bo[buf].filetype == ""
+      and vim.bo[buf].modifiable
+      and vim.api.nvim_buf_get_name(buf) == ""
 end
 
 local function is_dashboard_buffer(buf)
@@ -144,9 +144,10 @@ local function setup_autocmd()
   vim.api.nvim_create_autocmd("WinResized", {
     group = group,
     callback = function()
-      local win_id = vim.api.nvim_get_current_win()
-      if shows_dashboard(win_id) then
-        draw_in_window(win_id)
+      for _, win_id in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if shows_dashboard(win_id) then
+          draw_in_window(win_id)
+        end
       end
     end,
   })
@@ -161,3 +162,4 @@ function M.setup()
 end
 
 return M
+
