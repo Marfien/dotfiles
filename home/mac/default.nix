@@ -21,6 +21,7 @@ in
     packages = with pkgs; [
       (withPriority orbstack 1)
       sioyek
+      prismlauncher
       # issures with autoupdate
       #raycast
       #discord
