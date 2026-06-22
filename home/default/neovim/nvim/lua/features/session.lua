@@ -52,8 +52,9 @@ end
 
 -- sessions
 function M.setup()
-  vim.api.nvim_set_keymap("n", "<leader>ss", "%!v:lua.require('features.session').store()", { desc = "Store Session" })
-  vim.api.nvim_set_keymap("n", "<leader>sl", "%!v:lua.require('features.session').load()", { desc = "Load Session" })
+  vim.api.nvim_set_keymap("n", "<leader>ss", "<cmd>lua require('features.session').store()<cr>",
+    { desc = "Store Session" })
+  vim.api.nvim_set_keymap("n", "<leader>sl", "<cmd>lua require('features.session').load()<cr>", { desc = "Load Session" })
 end
 
 return M
