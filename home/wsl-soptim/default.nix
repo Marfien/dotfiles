@@ -17,8 +17,6 @@ in
       "${mountPath}/WINDOWS/System32/WindowsPowerShell/v1.0/"
     ];
 
-    stateVersion = "25.11";
-
     packages = with pkgs; [
       awscli2
       xclip

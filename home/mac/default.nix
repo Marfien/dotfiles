@@ -16,8 +16,6 @@ in
     ./neovim.nix
   ];
   home = {
-    stateVersion = "25.11";
-
     packages = with pkgs; [
       (withPriority orbstack 1)
       sioyek

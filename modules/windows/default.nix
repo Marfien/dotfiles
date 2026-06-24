@@ -58,6 +58,19 @@ let
       )
     );
 
+  copyScript =
+    copies:
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (
+        target: source:
+        # bash
+        ''
+          echo "Copying: ${source} -> ${target}"
+          mkdir -p "$(dirname "${target}")"
+          cp -f "${source}" "${target}"
+        '') copies
+    );
+
   packageScript =
     packages: upgradeAll:
     let
@@ -128,6 +141,19 @@ in
         "/mnt/c/Users//AppData/Roaming/alacritty/alacritty.toml" = ./xxx-alacritty.toml;
       };
     };
+
+    copy = lib.mkOption {
+      type = lib.types.attrsOf lib.types.pathInStore;
+      default = { };
+      description = ''
+        Windows files to copy, as { target = source } pairs.
+        Unlike symlinks, the file content is copied to the target location.
+        Parent directories are created automatically.
+      '';
+      example = {
+        "/mnt/c/Users//AppData/Local/some-app/config.json" = ./config.json;
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -150,6 +176,13 @@ in
         else
           echo "powershell.exe not found, skipping symlinks"
         fi
+      ''
+    );
+
+    home.activation.windowsCopy = lib.hm.dag.entryAfter [ "windowsSymlinks" ] (
+      lib.optionalString (cfg.copy != { }) ''
+        echo "copying Windows files..."
+        ${copyScript cfg.copy}
       ''
     );
   };
