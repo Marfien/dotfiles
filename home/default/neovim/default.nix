@@ -49,7 +49,9 @@
     extraPackages = with pkgs; [
       cargo
       tree-sitter
+      gnumake
       texliveFull
+      gcc
 
       clang-tools
 

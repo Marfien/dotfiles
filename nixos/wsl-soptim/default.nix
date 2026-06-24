@@ -1,7 +1,9 @@
 { username, pkgs, ... }:
 {
+  imports = [ ./shell.nix ];
+
   networking = {
-    hostName = "nixos";
+    hostName = "wsl-soptim";
     search = [ "soptim.net" ];
   };
 
