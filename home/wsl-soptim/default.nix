@@ -9,6 +9,7 @@ in
     ./go.nix
     ./neovim.nix
     ./windows
+    ./ssh.nix
   ];
   home = {
     sessionPath = [
