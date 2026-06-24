@@ -1,6 +1,10 @@
-{ username, pkgs, ... }:
+{ username, ... }:
 {
   imports = [ ./shell.nix ];
+
+  wsl.interop = {
+    register = true;
+  };
 
   networking = {
     hostName = "wsl-soptim";

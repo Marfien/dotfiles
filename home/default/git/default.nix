@@ -56,15 +56,11 @@ in
         p = "push";
         sdiff = "diff --staged";
       };
-      init = {
-        defaultBranch = "main";
-      };
-      core = {
-        autocrlf = "input";
-      };
-      merge = {
-        tool = "nvimdiff";
-      };
+
+      init.defaultBranch = "main";
+      core.autocrlf = "input";
+
+      merge.tool = "nvimdiff";
       mergetool = {
         prompt = false;
         keepBackup = false;
@@ -72,12 +68,10 @@ in
           layout = "LOCAL,MERGED,REMOTE";
         };
       };
-      pull = {
-        rebase = true;
-      };
-      push = {
-        autoSetupRemote = true;
-      };
+
+      pull.rebase = true;
+      push.autoSetupRemote = true;
+      safe.directory = [ "/etc/nixos/" ];
     };
   };
 }

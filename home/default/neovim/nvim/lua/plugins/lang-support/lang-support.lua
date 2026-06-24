@@ -56,7 +56,7 @@ return {
     "saghen/blink.cmp",
     event = "InsertEnter",
     build = function()
-      require("blink.cmp").build():wait(60000)
+      require("blink.cmp").build():pwait(6000)
     end,
     dependencies = {
       "saghen/blink.lib",
