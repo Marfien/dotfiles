@@ -109,6 +109,8 @@
             {
               wsl.enable = true;
               wsl.defaultUser = username;
+              # There is an issue with the new dbus implementation on wsl
+              services.dbus.implementation = "dbus";
             }
           ]
           ++ modules;
