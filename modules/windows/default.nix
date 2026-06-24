@@ -159,22 +159,22 @@ in
   config = lib.mkIf cfg.enable {
     home.activation.windowsChocolatey = lib.hm.dag.entryAfter [ "writeBoundary" ] (
       lib.optionalString (cfg.chocoPackages != [ ]) ''
-        if [ -x "${choco}" ] && [ -x "${powershell}" ]; then
+        if [ -x "${choco}" ] && ${powershell} -NoProfile -NonInteractive -Command "exit 0" 2>/dev/null; then
           echo "syncing choco packages..."
           ${packageScript cfg.chocoPackages cfg.chocoUpgradeAll}
         else
-          echo "choco.exe not found, skipping package sync"
+          echo "choco.exe or WSL interop not available, skipping package sync"
         fi
       ''
     );
 
     home.activation.windowsSymlinks = lib.hm.dag.entryAfter [ "windowsChocolatey" ] (
       lib.optionalString (cfg.symlinks != { }) ''
-        if [ -x "${powershell}" ]; then
+        if ${powershell} -NoProfile -NonInteractive -Command "exit 0" 2>/dev/null; then
           echo "updating Windows symlinks..."
           ${symlinkScript cfg.symlinks}
         else
-          echo "powershell.exe not found, skipping symlinks"
+          echo "WSL interop not available, skipping symlinks"
         fi
       ''
     );
