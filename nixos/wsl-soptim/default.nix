@@ -4,7 +4,10 @@
 
   wsl.interop = {
     register = true;
+    includePath = false;
   };
+
+  wsl.wslConf.interop.appendWindowsPath = false;
 
   networking = {
     hostName = "wsl-soptim";
