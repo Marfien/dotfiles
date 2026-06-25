@@ -23,6 +23,7 @@ in
         dotnet-runtime_10
         maven
         gradle
+        gcc
       ];
 
       sessionVariables = {

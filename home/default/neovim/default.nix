@@ -51,7 +51,6 @@
       tree-sitter
       gnumake
       texliveFull
-      gcc
 
       clang-tools
 
