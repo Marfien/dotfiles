@@ -1,6 +1,9 @@
 { username, ... }:
 {
-  imports = [ ./shell.nix ];
+  imports = [
+    ./shell.nix
+    ./certs
+  ];
 
   wsl.interop = {
     register = true;
