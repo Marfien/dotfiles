@@ -15,11 +15,9 @@ let
     };
 in
 {
-  home = {
-    file."bin/git-smart-clone" = {
-      source = ./git-smart-clone.sh;
-      executable = true;
-    };
+  home.file."bin/git-smart-clone" = {
+    source = ./git-smart-clone.sh;
+    executable = true;
   };
   programs.git = {
     enable = true;
