@@ -1,51 +1,116 @@
-# dotfiles
+# Dotfiles
 
-This repository contains all dotfiles/config files laying in user home directory
-(commonly known as `~`)
+Nix flake-based system and home configuration for macOS (nix-darwin) and NixOS (WSL).
 
-## Prerequirements
+## Configurations
 
-Make sure you have `git` and `ansible` installed on your system.
+| Name         | Type       | System         | User   | Description                  |
+|--------------|------------|----------------|--------|------------------------------|
+| `mac`        | nix-darwin | aarch64-darwin | marvin | macOS workstation            |
+| `wsl-soptim` | NixOS/WSL  | x86_64-linux   | maha   | WSL environment for work     |
 
-Clone this repository into your home directory:
+## Repository Structure
 
-```shell
-git clone git@github.com:Marfien/dotfiles.git ~/.dotfiles/
+```
+.
+├── flake.nix              # Flake entrypoint with all system definitions
+├── modules/
+│   ├── hm-system.nix      # Shared home-manager integration module
+│   └── windows/           # Windows/WSL-specific modules
+├── darwin/
+│   ├── default.nix        # Shared darwin configuration
+│   └── mac/               # mac-specific: Homebrew, Dock, fonts
+├── nixos/
+│   ├── default.nix        # Shared NixOS configuration
+│   └── wsl-soptim/        # WSL config: networking, docker, certs
+└── home/
+    ├── default/           # Shared home-manager config (all hosts)
+    │   ├── shell.nix      # Zsh, fzf, starship
+    │   ├── cli.nix        # CLI tools (jq, bat, fd, ripgrep, ...)
+    │   ├── git/           # Git configuration
+    │   ├── tmux.nix       # Tmux
+    │   ├── neovim/        # Neovim configuration
+    │   ├── sdk.nix        # JDK, .NET, Maven, Gradle, Go
+    │   └── devops.nix     # kubectl, fluxcd, opentofu, docker-client
+    ├── mac/               # macOS-specific: WezTerm, browser, shell extras
+    └── wsl-soptim/        # WSL-specific: SSH, Go, Claude Code, shell extras
 ```
 
-## Setup
+## Flake Inputs
 
-Depending on your operating system, you need to execute on of the
-following commands next:
+- **nixpkgs** (nixos-unstable)
+- **home-manager** (master)
+- **nix-darwin**
+- **nix-homebrew**
+- **nixos-wsl**
+- **zen-browser**
 
-### Linux/MacOS
+The Nix implementation used is [Lix](https://lix.systems).
 
-This will prompt you for your password twice. One for sudo access and one for the
-become of ansible.
-The `sudo true` creates a sudo session which allows ansible to install brew in
-non-interactive mode.
+## Initial Install
 
-```shell
-sudo true && ansible-playbook \
-  -i ~/.dotfiles/ansible/hosts \
-  --ask-become-pass \
-  --extra-vars 'dotfiles_home=~/.dotfiles' \
-  ansible/<wsl|workstation>.yml
+### Prerequisites
+
+Install Nix with flakes support. The [Determinate Systems installer](https://zero-to-nix.com/start/install) is recommended as it enables flakes by default.
+
+### nix-darwin (macOS)
+
+```sh
+git clone https://github.com/Marfien/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+nix run nix-darwin -- switch --flake .#mac
 ```
 
-## Fast forward
+After the initial build, use `darwin-rebuild` directly:
 
-Example script for Debian/Ubuntu:
+```sh
+darwin-rebuild switch --flake ~/.dotfiles#mac
+```
 
-```shell
-sudo apt install git ansible -y
-ssh-keygen -t ed25519 -C 'My new workstation'
-# Add ssh key to github
-DOTFILES_HOME="$HOME/.dotfiles"
-git clone git@github.com:Marfien/dotfiles.git "$DOTFILES_HOME"
-sudo true && ansible-playbook \
-  -i ansible/hosts \
-  --ask-become-pass \
-  --extra-vars "dotfiles_home=$DOTFILES_HOME" \
-  ansible/workstation.yml
+### NixOS (WSL)
+
+1. Install [NixOS-WSL](https://github.com/nix-community/NixOS-WSL) following their instructions.
+2. Clone and apply the configuration:
+
+```sh
+git clone https://github.com/Marfien/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+sudo nixos-rebuild switch --flake .#wsl-soptim
+```
+
+### Home-Manager (standalone)
+
+If you only want the home-manager configuration without a full system rebuild:
+
+```sh
+git clone https://github.com/Marfien/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+nix run home-manager -- switch --flake .#<username>
+```
+
+> Note: Standalone home-manager configurations are not currently exported by this flake. Use the full system commands above.
+
+## How to Upgrade
+
+Update all flake inputs to their latest versions and rebuild:
+
+```sh
+cd ~/.dotfiles
+nix flake update
+```
+
+Then apply the updated configuration:
+
+```sh
+# macOS
+darwin-rebuild switch --flake ~/.dotfiles#mac
+
+# NixOS / WSL
+sudo nixos-rebuild switch --flake ~/.dotfiles#wsl-soptim
+```
+
+To update a single input:
+
+```sh
+nix flake update home-manager
 ```
