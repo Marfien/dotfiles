@@ -53,14 +53,16 @@
             return 1
           fi
 
-          local openExec=$(command -vp open)
+          local openExec
+          openExec=$(command -vp open)
           if (( ? == 0 )); then
             eval "$openExec $1"
           elif [ -n "$WSL_DISTRO_NAME" ]; then
-            (
-              cd "$(dirname $1)" || return 1
-              explorer.exe "$(basename $1)"
-            )
+            if [ -f "$1" ] || [ -d "$1" ]; then
+              explorer.exe "$(wslpath -wa "$1")"
+            else
+              explorer.exe "$1"
+            fi
           else
             echo 'Could not find native proxy executable.'
             return 1;

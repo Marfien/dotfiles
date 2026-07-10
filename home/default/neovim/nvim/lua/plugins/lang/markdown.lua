@@ -5,7 +5,7 @@ return require("util.lsp").ensure_lang({
   other = {
     {
       "MeanderingProgrammer/render-markdown.nvim",
-      ft = "markdown",
+      ft = { "markdown", "copilot-chat" },
       dependencies = {
         "nvim-treesitter/nvim-treesitter",
         "nvim-tree/nvim-web-devicons",
@@ -19,6 +19,7 @@ return require("util.lsp").ensure_lang({
             enabled = true,
           },
         },
+        file_types = { "markdown", "copilot-chat" }
       },
     },
   },

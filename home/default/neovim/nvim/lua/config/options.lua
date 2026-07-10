@@ -65,6 +65,7 @@ opt.linebreak = true
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true
+opt.smartcase = true
 
 opt.inccommand = "nosplit" -- preview incremental substitution
 opt.jumpoptions = "view"
