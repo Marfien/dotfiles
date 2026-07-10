@@ -7,7 +7,7 @@ let
     in
     {
       file."${home}".source = pkgs."jdk${version}";
-      shellAliases."mvn${version}" = ''JAVA_HOME="${home}" mvn'';
+      shellAliases."mvn${version}" = ''JAVA_HOME="$HOME/${home}" mvn'';
     };
 in
 {
