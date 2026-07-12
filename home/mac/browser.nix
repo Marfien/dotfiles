@@ -2,6 +2,7 @@
 {
   imports = [
     specialArgs.inputs.zen-browser.homeModules.beta
+    ./zen-signing-fix.nix
   ];
   programs.zen-browser =
     let
