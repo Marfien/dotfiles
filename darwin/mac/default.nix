@@ -7,6 +7,7 @@
   imports = [
     ./dock.nix
     ./brew.nix
+    ./omlx.nix
   ];
 
   environment.shells = [ pkgs.zsh ];
