@@ -64,7 +64,7 @@ lsp_util.ensure_lang({
 
 lsp_util.ensure_lang({
   ft = { "nix" },
-  formatters = { "nixpkgs-fmt", "nixfmt" },
+  formatters = { "nixfmt" },
 })
 
 return {}

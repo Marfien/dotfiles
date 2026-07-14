@@ -1,7 +1,7 @@
 return require("util.lsp").ensure_lang({
   parsers = { "go", "gomod", "gowork", "gosum" },
   ft = { "go", "gosum", "gomod", "gowork" },
-  formatters = { "goimports", "gofumpt" },
+  formatters = { "goimports-reviser", "gofumpt" },
   other = {
     {
       "leoluz/nvim-dap-go",

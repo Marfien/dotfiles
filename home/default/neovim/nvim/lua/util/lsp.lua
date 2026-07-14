@@ -15,12 +15,9 @@ function M.ensure_formatters(filetypes, pkgs)
     return
   end
 
-  local map = {}
   for _, ft in ipairs(filetypes) do
-    map[ft] = pkgs
+    M.formatters_by_ft[ft] = pkgs
   end
-
-  M.formatters_by_ft = vim.tbl_extend("force", M.formatters_by_ft, map)
 end
 
 ---@class util.lsp.LangSpec

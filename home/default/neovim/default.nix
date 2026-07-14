@@ -62,7 +62,7 @@
       # go
       delve
       gofumpt
-      gosimports
+      goimports-reviser
       golangci-lint
       golangci-lint-langserver
       gopls
@@ -105,7 +105,6 @@
       tofu-ls
 
       # nix
-      nixpkgs-fmt
       nixfmt
       nixd
 
