@@ -4,6 +4,21 @@ local auxdir = "build/aux/"
 
 local texlab_path = vim.fn.exepath("texlab")
 
+vim.schedule(function()
+  vim.api.nvim_create_autocmd("OptionSet", {
+    pattern = "textwidth",
+    callback = function()
+      vim.lsp.config("texlab", {
+        settings = {
+          texlab = {
+            formatterLineLength = vim.o.textwidth
+          }
+        }
+      })
+    end
+  })
+end)
+
 ---@type vim.lsp.Config
 return {
   cmd = { texlab_path },
