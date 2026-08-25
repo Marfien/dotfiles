@@ -56,7 +56,7 @@ return {
     "saghen/blink.cmp",
     event = "InsertEnter",
     build = function()
-      require("blink.cmp").build():pwait(6000)
+      require("blink.cmp").download():pwait(6000)
     end,
     dependencies = {
       "saghen/blink.lib",
@@ -81,7 +81,7 @@ return {
         menu = {
           draw = {
             columns = {
-              { "kind_icon",        "label", gap = 1 },
+              { "kind_icon", "label", gap = 1 },
               { "label_description" },
               { "source_name" },
             },
