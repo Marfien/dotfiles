@@ -18,14 +18,17 @@
         saveNoDups = true;
       };
       historySubstringSearch.enable = true;
-      initContent = lib.mkAfter ''
-        PATH="$PATH:$HOME/bin:$HOME/.dotnet/tools"
+      initContent =
+        lib.mkAfter
+          # bash
+          ''
+            PATH="$PATH:$HOME/bin:$HOME/.dotnet/tools"
 
-        if [ -n "$WSL_DISTRO_NAME" ]; then
-          PATH="$PATH:/mnt/c/WINDOWS:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
-          alias powershell="powershell.exe"
-        fi
-      '';
+            if [ -n "$WSL_DISTRO_NAME" ]; then
+              PATH="$PATH:/mnt/c/WINDOWS:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+              alias powershell="powershell.exe"
+            fi
+          '';
       sessionVariables = {
         LS_COLORS = "di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43";
       };
@@ -47,38 +50,56 @@
         k = "kubectl";
       };
       siteFunctions = {
-        open = ''
-          if (( # != 1)); then
-            echo "usage: open <file>" >&2
-            return 1
-          fi
-
-          local openExec
-          openExec=$(command -vp open)
-          if (( ? == 0 )); then
-            eval "$openExec $1"
-          elif [ -n "$WSL_DISTRO_NAME" ]; then
-            if [ -f "$1" ] || [ -d "$1" ]; then
-              explorer.exe "$(wslpath -wa "$1")"
-            else
-              explorer.exe "$1"
+        open =
+          # bash
+          ''
+            if (( # != 1)); then
+              echo "usage: open <file>" >&2
+              return 1
             fi
-          else
-            echo 'Could not find native proxy executable.'
-            return 1;
-          fi
-        '';
-        dckr = ''
-          local image="''${@:$#}"
-          local -a args
-          if (( $# > 1 )); then
-            args=("''${@:1:(( $# - 1 ))}")
-          else
-            args=();
-          fi
 
-          docker run --rm -it -v "$(pwd):/mnt" -w /mnt --entrypoint '/bin/sh' "''${args[@]}" "$image" -c '(command -v zsh && exec zsh) || (command -v bash && exec bash) || (command -v ash && exec ash) || sh'
-        '';
+            local openExec
+            openExec=$(command -vp open)
+            if (( ? == 0 )); then
+              eval "$openExec $1"
+            elif [ -n "$WSL_DISTRO_NAME" ]; then
+              if [ -f "$1" ] || [ -d "$1" ]; then
+                explorer.exe "$(wslpath -wa "$1")"
+              else
+                explorer.exe "$1"
+              fi
+            else
+              echo 'Could not find native proxy executable.'
+              return 1;
+            fi
+          '';
+        dckr =
+          # bash
+          ''
+            local image="''${@:$#}"
+            local -a args
+            if (( $# > 1 )); then
+              args=("''${@:1:(( $# - 1 ))}")
+            else
+              args=();
+            fi
+
+            docker run --rm -it -v "$(pwd):/mnt" -w /mnt --entrypoint '/bin/sh' "''${args[@]}" "$image" -c '(command -v zsh && exec zsh) || (command -v bash && exec bash) || (command -v ash && exec ash) || sh'
+          '';
+        vipe =
+          # bash
+          ''
+            local file=$(mktemp)
+            if [ "$1" != "-n" ]; then
+              cat - >"$file"
+            fi
+
+            if "$EDITOR" "$file"; then
+              cat "$file"
+            else
+              return 1
+            fi
+          '';
       };
       syntaxHighlighting.enable = true;
       localVariables = {
