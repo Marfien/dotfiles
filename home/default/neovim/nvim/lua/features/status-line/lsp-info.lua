@@ -5,8 +5,8 @@ M.key = "lsp_info"
 local symbols = {
   -- Use standard unicode characters for the spinner and done symbols:
   loading = "",
-  done = '✓',
-  separator = ' ',
+  done = "✓",
+  separator = " ",
 }
 
 local lsp_states = {}
@@ -47,7 +47,7 @@ function M.setup_autocmds(group)
       local client_id = event.data.client_id
       lsp_states[client_id] = lsp_states[client_id] or state.attached
       update()
-    end
+    end,
   })
   vim.api.nvim_create_autocmd("LspDetach", {
     group = group,
@@ -58,7 +58,7 @@ function M.setup_autocmds(group)
         lsp_states[client_id] = nil
         update()
       end
-    end
+    end,
   })
 
   vim.api.nvim_create_autocmd("LspProgress", {
@@ -67,18 +67,21 @@ function M.setup_autocmds(group)
       local progress_kind = event.data.params.value.kind
       local client_id = event.data.client_id
 
+      local prev_state = lsp_states[client_id]
       if progress_kind == "begin" then
         lsp_states[client_id] = state.working
       elseif progress_kind == "end" then
         lsp_states[client_id] = state.done
       end
 
-      update()
-    end
+      if prev_state ~= lsp_states[client_id] then
+        update()
+      end
+    end,
   })
   vim.api.nvim_create_autocmd("BufEnter", {
     group = group,
-    callback = update
+    callback = update,
   })
 
   update()
