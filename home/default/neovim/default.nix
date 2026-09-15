@@ -62,6 +62,7 @@
       # go
       delve
       gofumpt
+      gosimports
       goimports-reviser
       golangci-lint
       golangci-lint-langserver
@@ -72,11 +73,6 @@
       lombok
       vscode-extensions.vscjava.vscode-java-debug
       vscode-extensions.vscjava.vscode-java-test
-
-      # python
-      python313Packages.jedi-language-server
-      python313Packages.debugpy
-      black
 
       # kotlin
       kotlin-language-server
@@ -89,11 +85,6 @@
       # lua
       lua-language-server
       stylua
-
-      # csharp
-      roslyn-ls
-      csharpier
-      netcoredbg
 
       # latex
       tex-fmt

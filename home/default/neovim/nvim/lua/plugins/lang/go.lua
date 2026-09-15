@@ -1,7 +1,7 @@
 return require("util.lsp").ensure_lang({
   parsers = { "go", "gomod", "gowork", "gosum" },
   ft = { "go", "gosum", "gomod", "gowork" },
-  formatters = { "goimports-reviser", "gofumpt" },
+  formatters = { "goimports-reviser", "gosimports", "gofumpt" },
   other = {
     {
       "leoluz/nvim-dap-go",
@@ -26,6 +26,17 @@ return require("util.lsp").ensure_lang({
               },
             })
           end,
+        },
+      },
+    },
+    {
+      "stevearc/conform.nvim",
+      opts = {
+        formatters = {
+          gosimports = {
+            command = "gosimports",
+            args = { "-srcdir", "$DIRNAME" },
+          },
         },
       },
     },

@@ -28,13 +28,6 @@ lsp_util.ensure_lang({
   formatters = { "ktfmt" },
 })
 
--- python
-lsp_util.ensure_lang({
-  parsers = { "python" },
-  ft = { "py" },
-  formatters = { "black" },
-})
-
 -- shell
 lsp_util.ensure_lang({
   ft = { "sh", "zsh", "bash" },

@@ -15,6 +15,7 @@ return {
   {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
+    opts_extend = { "formatters" },
     opts = {
       log_level = vim.log.levels.WARN,
       notify_on_error = true,
@@ -55,6 +56,7 @@ return {
   {
     "saghen/blink.cmp",
     event = "InsertEnter",
+    versoin = "*",
     build = function()
       require("blink.cmp").download():pwait(6000)
     end,
