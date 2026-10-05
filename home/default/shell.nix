@@ -50,29 +50,6 @@
         k = "kubectl";
       };
       siteFunctions = {
-        open =
-          # bash
-          ''
-            if (( # != 1)); then
-              echo "usage: open <file>" >&2
-              return 1
-            fi
-
-            local openExec
-            openExec=$(command -vp open)
-            if (( ? == 0 )); then
-              eval "$openExec $1"
-            elif [ -n "$WSL_DISTRO_NAME" ]; then
-              if [ -f "$1" ] || [ -d "$1" ]; then
-                explorer.exe "$(wslpath -wa "$1")"
-              else
-                explorer.exe "$1"
-              fi
-            else
-              echo 'Could not find native proxy executable.'
-              return 1;
-            fi
-          '';
         dckr =
           # bash
           ''
@@ -85,20 +62,6 @@
             fi
 
             docker run --rm -it -v "$(pwd):/mnt" -w /mnt --entrypoint '/bin/sh' "''${args[@]}" "$image" -c '(command -v zsh && exec zsh) || (command -v bash && exec bash) || (command -v ash && exec ash) || sh'
-          '';
-        vipe =
-          # bash
-          ''
-            local file=$(mktemp)
-            if [ "$1" != "-n" ]; then
-              cat - >"$file"
-            fi
-
-            if "$EDITOR" "$file"; then
-              cat "$file"
-            else
-              return 1
-            fi
           '';
       };
       syntaxHighlighting.enable = true;
@@ -126,7 +89,7 @@
     };
     fzf = {
       enable = true;
-      changeDirWidgetCommand = "fd --type d";
+      changeDirWidget.command = "fd --type d";
       defaultCommand = "fd --type f";
     };
     starship = {
