@@ -48,6 +48,7 @@
         p = "clippaste";
 
         k = "kubectl";
+        cdp = "cd $(fd --type d --base-directory ~/workspace --hidden -- '^\\.git$' | sed 's|\\.git/$||' | fzf)";
       };
       siteFunctions = {
         dckr =
