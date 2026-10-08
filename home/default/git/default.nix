@@ -1,19 +1,4 @@
 { ... }:
-let
-  mkIncludeMail =
-    {
-      urlPattern,
-      email,
-    }:
-    {
-      condition = "hasconfig:remote.*.url:${urlPattern}";
-      contents = {
-        user = {
-          email = email;
-        };
-      };
-    };
-in
 {
   home.file."bin/git-smart-clone" = {
     source = ./git-smart-clone.sh;
@@ -23,14 +8,14 @@ in
     enable = true;
     lfs.enable = true;
     includes = [
-      (mkIncludeMail {
-        urlPattern = "https://*.soptim.net/*/**";
-        email = "marvin.haase@soptim.de";
-      })
-      (mkIncludeMail {
-        urlPattern = "git@*.soptim.net:*/**";
-        email = "marvin.haase@soptim.de";
-      })
+      {
+        condition = "gitdir:~/workspace/soptim/**";
+        contents = {
+          user = {
+            email = "marvin.haase@soptim.de";
+          };
+        };
+      }
     ];
     settings = {
       user = {
