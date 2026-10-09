@@ -13,5 +13,7 @@
             end)
           end)
         end)
+
+        vim.env.CARGO_TARGET_AARCH64_APPLE_DARWIN_LINKER = "/usr/bin/clang"
       '';
 }
