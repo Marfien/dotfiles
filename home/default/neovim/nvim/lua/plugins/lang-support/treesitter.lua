@@ -2,7 +2,7 @@ local broken_indent_ft = {
   "cs",
 }
 
-vim.schedule(function()
+local register_autocmd = function()
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
     group = vim.api.nvim_create_augroup("ts_features", {}),
@@ -17,15 +17,20 @@ vim.schedule(function()
       end
     end,
   })
-end)
+end
+
+if vim.fn.argc(-1) > 0 and vim.fn.filereadable(vim.fn.argv(0, -1)) == 1 then
+  register_autocmd()
+else
+  vim.schedule(register_autocmd)
+end
 
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "BufReadPre",
-    branch = "main",
+    lazy = false,
     build = function()
-      require("nvim-treesitter").update()
+      require("nvim-treesitter.install").update({ summary = false })
     end,
   },
   {

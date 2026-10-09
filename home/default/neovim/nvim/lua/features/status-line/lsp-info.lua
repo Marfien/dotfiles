@@ -49,6 +49,7 @@ function M.setup_autocmds(group)
       update()
     end,
   })
+
   vim.api.nvim_create_autocmd("LspDetach", {
     group = group,
     callback = function(event)
@@ -66,12 +67,15 @@ function M.setup_autocmds(group)
     callback = function(event)
       local progress_kind = event.data.params.value.kind
       local client_id = event.data.client_id
-
       local prev_state = lsp_states[client_id]
+
       if progress_kind == "begin" then
         lsp_states[client_id] = state.working
       elseif progress_kind == "end" then
         lsp_states[client_id] = state.done
+      else
+        -- Other kinds are not relevant
+        return
       end
 
       if prev_state ~= lsp_states[client_id] then

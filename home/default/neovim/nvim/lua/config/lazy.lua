@@ -7,7 +7,7 @@ require("lazy").setup({
     -- Spell files for German and English
     "AlxHnr/vim-spell-files",
     -- bit hacky to exclude lazy.nvim from updates as it is managed by nix/home-manager
-    { 'folke/lazy.nvim',              enabled = false, },
+    { "folke/lazy.nvim", enabled = false },
     { import = "plugins" },
     { import = "plugins.lang-support" },
     { import = "plugins.ui" },
@@ -23,7 +23,7 @@ require("lazy").setup({
   checker = {
     enabled = true,
     notify = true,
-    frequency = 93600, -- once every day
+    frequency = 7 * 93600, -- once every week
   },
   change_detection = {
     enabled = false,
