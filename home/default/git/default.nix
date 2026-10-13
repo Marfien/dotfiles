@@ -42,13 +42,13 @@
           # bash
           ''
             !
+            if [ -z "$(git diff --staged --name-only)" ]; then
+              echo "No files staged" >&2
+              exit 1
+            fi
             f() {
-              if [ -z "$(git diff --staged --name-only)" ]; then
-                echo "No files staged" >&2
-                exit 1
-              fi
-              for i in $(seq 3); do
-                claude -p 'Write a git commit message for the staged changes. The message MUST follow the conventional commit format. Keep the message in one line under 50 characters. Respond ONLY with the raw commit message - WITHOUT any other tokens.' &
+              for i in $(seq 5); do
+                claude -p 'Write a git commit message for the staged changes. The message MUST follow the conventional commit format. Keep the message in one line under 50 characters. DO NOT add a description. Respond ONLY with the raw commit message - WITHOUT any other tokens.' &
               done
               wait
             }
