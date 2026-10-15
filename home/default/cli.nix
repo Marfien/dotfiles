@@ -1,8 +1,8 @@
 {
-  lib,
   pkgs,
   ...
-}: {
+}:
+{
   home = {
     packages = with pkgs; [
       jq
@@ -11,6 +11,7 @@
       bat
       fd
       ripgrep
+      just
     ];
   };
 }

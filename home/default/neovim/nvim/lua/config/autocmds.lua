@@ -119,3 +119,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.fs.rm(vim.lsp.log.get_filename(), { force = true })
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "json,yaml",
+  callback = function()
+    vim.wo.conceallevel = 0
+  end,
+})
