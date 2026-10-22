@@ -14,6 +14,7 @@ in
       "autohotkey"
       "sioyek"
       "android-sdk"
+      "wezterm"
     ];
     symlinks = {
       "${mountHome}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/mac-umlauts.ahk" =

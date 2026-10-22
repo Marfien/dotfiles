@@ -10,6 +10,7 @@ in
     ./neovim.nix
     ./windows
     ./ssh.nix
+    ./term.nix
   ];
   home = {
     sessionPath = [

@@ -11,7 +11,6 @@ in
 {
   imports = [
     ./shell.nix
-    ./wezterm
     ./browser.nix
     ./neovim.nix
   ];

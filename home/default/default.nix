@@ -8,6 +8,7 @@
     ./neovim
     ./sdk.nix
     ./devops.nix
+    ./term.nix
   ];
   programs.home-manager.enable = true;
   home = {
