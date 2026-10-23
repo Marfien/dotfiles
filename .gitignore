@@ -1,5 +1,2 @@
-
-config/zsh/.zsh_history
 .DS_Store
-
-lazy-lock.json
+.env
