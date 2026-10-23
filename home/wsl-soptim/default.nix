@@ -11,6 +11,7 @@ in
     ./windows
     ./ssh.nix
     ./term.nix
+    ./git.nix
   ];
   home = {
     sessionPath = [

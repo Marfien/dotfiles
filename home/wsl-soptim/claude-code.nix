@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   notifyScript =
     pkgs.writeShellScript "notify-windows"
@@ -27,7 +27,7 @@ let
     pkgs.writeShellScript "claude-api-key"
       # bash
       ''
-        cat "''${XDG_CONFIG_HOME:-$HOME/.config}/claude/api-key"
+        cat "${config.xdg.configHome}/claude/api-key"
       '';
   mkNotifyHook = msg: {
     hooks = [
@@ -45,6 +45,7 @@ in
   ];
   programs.claude-code = {
     enable = true;
+    configDir = "${config.home.homeDirectory}/.claude";
     settings = {
       inherit apiKeyHelper;
       env = {
