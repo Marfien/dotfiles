@@ -1,10 +1,8 @@
-vim.schedule(function()
-  vim.filetype.add({
-    pattern = {
-      [".*%.gitlab%-ci%.ya?ml"] = "yaml.gitlab",
-    },
-  })
-end)
+vim.filetype.add({
+  pattern = {
+    [".*%.gitlab%-ci%.ya?ml"] = "yaml.gitlab",
+  },
+})
 
 return require("util.lsp").ensure_lang({
   ft = { "yaml" },
