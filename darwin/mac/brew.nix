@@ -1,8 +1,5 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  environment.systemPackages = with pkgs; [
-    mas
-  ];
   homebrew = {
     enable = true;
     enableZshIntegration = true;
