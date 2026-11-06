@@ -20,7 +20,6 @@ in
       sioyek
       prismlauncher
       # issures with autoupdate
-      #raycast
       #discord
       #spotify
       anki-bin

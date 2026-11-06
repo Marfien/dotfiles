@@ -8,7 +8,6 @@
       "curseforge"
       "linearmouse"
       "discord"
-      "raycast"
       "spotify"
     ];
 
