@@ -105,15 +105,4 @@ return {
       },
     },
   },
-  {
-    "folke/todo-comments.nvim",
-    cmd = "TodoTelescope",
-    event = { "BufReadPost" },
-    opts = {
-      signs = false,
-    },
-    keys = {
-      { "<leader>ft", "<cmd>:TodoTelescope<cr>", desc = "Find TODOs" },
-    },
-  },
 }
