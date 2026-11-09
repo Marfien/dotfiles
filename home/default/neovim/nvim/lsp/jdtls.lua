@@ -54,7 +54,9 @@ local function get_bundles()
     vim.g.nix.vsc_java_debug
       .. "/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar",
     vim.g.nix.vsc_java_test .. "/share/vscode/extensions/vscjava.vscode-java-test/server/*.jar",
-    assets_path .. "/bundles/*.jar",
+    -- lsp4mp + quarkus, see lsp/lsp4mp.lua
+    vim.g.nix.vsc_microprofile .. "/jars/*.jar",
+    vim.g.nix.vsc_quarkus .. "/jars/com.redhat.microprofile.jdt.quarkus.jar",
   }
 
   local found_bundles = {}
@@ -85,8 +87,12 @@ end
 return {
   init_options = {
     bundles = get_bundles(),
-    extendedClientCapabilities = jdtls.extendedClientCapabilities,
+    extendedClientCapabilities = vim.tbl_extend("force", jdtls.extendedClientCapabilities, {
+      -- required for bundles sending client commands, e.g. microprofile/propertiesChanged
+      executeClientCommandSupport = true,
+    }),
   },
+  handlers = require("util.jdtls_bridge").jdtls_handlers(),
   on_attach = function(_, buf)
     jdtls.setup_dap()
 
@@ -101,7 +107,6 @@ return {
     map("v", "rc", "<ESC><Cmd>lua require'jdtls'.extract_constant(true)<CR>", "Extract Constant")
     map("v", "rm", "<ESC><Cmd>lua require'jdtls'.extract_method(true)<CR>", "Extract Method")
   end,
-  filetype = { "java", "jproperties" },
   settings = {
     java = {
       autobuild = { enabled = false },
@@ -151,7 +156,7 @@ return {
       format = {
         enabled = true,
         settings = {
-          url = assets_path .. "jdtls/codestyle.xml",
+          url = assets_path .. "/codestyle.xml",
         },
       },
       inlayHints = {
@@ -167,7 +172,7 @@ return {
         organizeImports = true,
       },
       settings = {
-        url = assets_path .. "jdtls/settings.pref",
+        url = assets_path .. "/settings.pref",
       },
       signatureHelp = { enabled = true },
       sources = {

@@ -4,6 +4,22 @@
   lib,
   ...
 }:
+let
+  # Not packaged in nixpkgs. Provides lsp4mp (server) and its jdtls bundles.
+  vscode-microprofile = pkgs.vscode-utils.extensionFromVscodeMarketplace {
+    publisher = "redhat";
+    name = "vscode-microprofile";
+    version = "0.18.0";
+    hash = "sha256-TG2OrJpS7uPfjpbInNMEJi2bi6dZl28dTlQ2RGuuT5A=";
+  };
+  # Not packaged in nixpkgs. Provides the quarkus lsp4mp extension, the quarkus jdtls bundle and qute.
+  vscode-quarkus = pkgs.vscode-utils.extensionFromVscodeMarketplace {
+    publisher = "redhat";
+    name = "vscode-quarkus";
+    version = "1.24.0";
+    hash = "sha256-6vzeLdgqlGpgGmKoEQj9rHnecmC69tKwRsj6BfUOhzE=";
+  };
+in
 {
   home = {
     file = {
@@ -30,6 +46,8 @@
             lombok = "${lombok}",
             vsc_java_debug = "${vscode-extensions.vscjava.vscode-java-debug}",
             vsc_java_test = "${vscode-extensions.vscjava.vscode-java-test}",
+            vsc_microprofile = "${vscode-microprofile}/share/vscode/extensions/redhat.vscode-microprofile",
+            vsc_quarkus = "${vscode-quarkus}/share/vscode/extensions/redhat.vscode-quarkus",
           }
 
           -- bootstrap lazy.nvim
