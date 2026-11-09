@@ -90,7 +90,7 @@ let
 
         if ${upgradeAllString}; then
           echo "Upgrading all packages"
-          ${choco} upgrade all; >/dev/null || true
+          ${choco} upgrade all >/dev/null || true
         fi
 
         for pkg in "''${DESIRED[@]}"; do
@@ -120,7 +120,7 @@ in
     chocoPackages = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
-      description = "Chocolatey packages to keep installed. Packages absent from this list will be removed.";
+      description = "Chocolatey packages to keep installed.";
       example = [
         "spotify"
         "discord"
