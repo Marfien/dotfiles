@@ -93,7 +93,6 @@ local language_id_mapping = {
 return {
   cmd = { "ltex-ls-plus" },
   filetypes = {
-    "bib",
     "context",
     "gitcommit",
     "html",

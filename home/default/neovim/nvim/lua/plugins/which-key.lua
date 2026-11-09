@@ -27,7 +27,6 @@ return {
       { "<leader>s", group = "Session" },
       { "<tab>", group = "Tabs" },
       { "<localleader>l", group = "Latex" },
-      { "<localleader>a", group = "Android" },
     },
     plugins = {
       spelling = {

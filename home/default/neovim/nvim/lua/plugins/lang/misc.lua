@@ -2,16 +2,11 @@ local lsp_util = require("util.lsp")
 
 lsp_util.ensure_treesitter({
   "css",
-  "ruby",
   "csv",
   "dockerfile",
   "editorconfig",
   "git_config",
-  "helm",
   "html",
-  "http",
-  "jq",
-  "pug",
   "sql",
 })
 
@@ -19,13 +14,6 @@ lsp_util.ensure_treesitter({
 lsp_util.ensure_lang({
   ft = { "json", "json5" },
   formatters = { "prettier" },
-})
-
--- kotlin
-lsp_util.ensure_lang({
-  ft = { "kt", "kts" },
-  parsers = { "kotlin" },
-  formatters = { "ktfmt" },
 })
 
 -- shell
