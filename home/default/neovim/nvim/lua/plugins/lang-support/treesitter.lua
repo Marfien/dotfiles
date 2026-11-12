@@ -30,7 +30,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = function()
-      require("nvim-treesitter.install").update({ summary = false })
+      require("nvim-treesitter.install").update({}, { summary = false })
     end,
   },
   {

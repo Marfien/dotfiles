@@ -12,20 +12,6 @@ vim.schedule(function()
       end
     end,
   })
-
-  if vim.fn.argc(-1) > 0 then
-    vim.api.nvim_create_autocmd("BufEnter", {
-      callback = function()
-        vim.defer_fn(function()
-          local util = require("oil.util")
-          if util.is_oil_bufnr(vim.api.nvim_get_current_buf()) and util.get_preview_win() == nil then
-            require("oil").open_preview()
-          end
-        end, 1000)
-        return true
-      end,
-    })
-  end
 end)
 
 function _G.get_oil_winbar(buf)
@@ -100,12 +86,12 @@ return {
     keys = {
       {
         "-",
-        "<cmd>Oil --preview --float<cr>",
+        "<cmd>Oil --float<cr>",
         desc = "Oil (parent)",
       },
       {
         "_",
-        "<cmd>Oil --preview --float " .. vim.fn.getcwd() .. "<cr>",
+        "<cmd>Oil --float " .. vim.fn.getcwd() .. "<cr>",
         desc = "Oil (cwd)",
       },
     },

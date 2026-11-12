@@ -1,35 +1,12 @@
-{ lib, pkgs, ... }:
-let
-  mkJDK =
-    version:
-    let
-      home = ".jdk/java${version}";
-    in
-    {
-      file."${home}".source = pkgs."jdk${version}";
-      shellAliases."mvn${version}" = ''JAVA_HOME="$HOME/${home}" mvn'';
-    };
-in
+{ pkgs, ... }:
 {
-  home = lib.mkMerge [
-    (mkJDK "8")
-    (mkJDK "17")
-    (mkJDK "21")
-    (mkJDK "") # latest
-    {
-      packages = with pkgs; [
-        jdk
-        dotnet-sdk_10
-        dotnet-runtime_10
-        maven
-        gradle
-        gcc
-      ];
-
-      sessionVariables = {
-        DOTNET_ROOT = "${pkgs.dotnet-sdk_10}/share/dotnet";
-      };
-    }
+  home.packages = with pkgs; [
+    jdk25
+    dotnet-sdk_10
+    dotnet-runtime_10
+    maven
+    gradle
+    gcc
   ];
   programs.go.enable = true;
 }
