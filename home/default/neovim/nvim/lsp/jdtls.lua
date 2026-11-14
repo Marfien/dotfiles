@@ -151,7 +151,9 @@ return {
         downloadSources = true,
       },
       edit = {
-        smartSemicolonDetection = true,
+        smartSemicolonDetection = {
+          enabled = true,
+        },
       },
       format = {
         enabled = true,
