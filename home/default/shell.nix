@@ -17,6 +17,15 @@
         ignoreSpace = true;
         saveNoDups = true;
       };
+      completionInit =
+        # bash
+        ''
+          autoload -Uz compinit
+          for dump in ~/.zcompdump(N.mh+24); do
+            compinit -d ~/.zcompdump
+          done
+          compinit -C -d ~/.zcompdump
+        '';
       historySubstringSearch.enable = true;
       initContent =
         lib.mkAfter
