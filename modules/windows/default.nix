@@ -6,10 +6,8 @@
 let
   cfg = config.windows;
   mountPath = "/mnt/c";
-  choco = "${mountPath}/ProgramData/chocolatey/bin/choco.exe";
   powershell = "${mountPath}/WINDOWS/System32/WindowsPowerShell/v1.0//powershell.exe";
   wslpath = "/bin/wslpath";
-  awk = "/bin/awk";
 
   requireAdmin =
     script:
@@ -71,60 +69,48 @@ let
         '') copies
     );
 
+  # winget is an App Execution Alias, so it is invoked through PowerShell instead
+  # of relying on the Windows PATH being available inside the activation script.
+  winget = args: ''${powershell} -NoProfile -NonInteractive -Command "winget ${args}; exit \$LASTEXITCODE"'';
+  wingetFlags = "--silent --accept-package-agreements --accept-source-agreements --disable-interactivity";
+
+  # Not wrapped in requireAdmin: winget elevates per installer via UAC, and some
+  # installers (e.g. Spotify) refuse to run from an elevated session.
   packageScript =
     packages: upgradeAll:
-    let
-      packageList = lib.concatStringsSep " " (map (p: "'${p}'") packages);
-      upgradeAllString = lib.boolToString upgradeAll;
-    in
-    requireAdmin
+    lib.optionalString upgradeAll ''
+      echo "Upgrading all packages"
+      ${winget "upgrade --all ${wingetFlags}"} >/dev/null || true
+    ''
+    + lib.concatMapStrings (
+      pkg:
       # bash
       ''
-        INSTALLED=$(${choco} list --no-color 2>/dev/null || true)
-        INSTALLED=$(echo "$INSTALLED" \
-          | grep -E '^[A-Za-z]' \
-          | grep -v '^Chocolatey' \
-          | ${awk} '{print tolower($1)}')
-
-        DESIRED=(${packageList})
-
-        if ${upgradeAllString}; then
-          echo "Upgrading all packages"
-          ${choco} upgrade all >/dev/null || true
-        fi
-
-        for pkg in "''${DESIRED[@]}"; do
-          pkg_lower="$(echo "$pkg" | tr '[:upper:]' '[:lower:]')"
-          if ! ${upgradeAllString} && echo "$INSTALLED" | grep -qx "$pkg_lower"; then
-            echo "Upgrading $pkg"
-            ${choco} upgrade "$pkg" -y --no-progress >/dev/null || true
-          else
-            echo "Installing $pkg"
-            ${choco} install "$pkg" -y --no-progress >/dev/null || true
-          fi
-        done
-      '';
+        # `winget install` upgrades the package if it is already installed
+        echo "Installing/upgrading ${pkg}"
+        ${winget "install --id '${pkg}' --exact --source winget ${wingetFlags}"} >/dev/null || true
+      '') packages;
 
 in
 {
   options.windows = {
-    enable = lib.mkEnableOption "Chocolatey package manager and Windows symlink management";
+    enable = lib.mkEnableOption "winget package and Windows symlink management";
 
-    chocoUpgradeAll = lib.mkOption {
+    wingetUpgradeAll = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Upgrade all chocolatey packages, not just the ones managed by chocoPackages.";
+      description = "Upgrade all winget packages, not just the ones managed by wingetPackages.";
       example = true;
     };
 
-    chocoPackages = lib.mkOption {
+    wingetPackages = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
-      description = "Chocolatey packages to keep installed.";
+      description = "winget package IDs (from the `winget` source) to keep installed and up to date.";
       example = [
-        "spotify"
-        "discord"
-        "powertoys"
+        "Spotify.Spotify"
+        "Discord.Discord"
+        "Microsoft.PowerToys"
       ];
     };
 
@@ -157,18 +143,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.activation.windowsChocolatey = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-      lib.optionalString (cfg.chocoPackages != [ ]) ''
-        if [ -x "${choco}" ] && ${powershell} -NoProfile -NonInteractive -Command "exit 0" 2>/dev/null; then
-          echo "syncing choco packages..."
-          ${packageScript cfg.chocoPackages cfg.chocoUpgradeAll}
+    home.activation.windowsWinget = lib.hm.dag.entryAfter [ "writeBoundary" ] (
+      lib.optionalString (cfg.wingetPackages != [ ]) ''
+        if ${winget "--version"} >/dev/null 2>&1; then
+          echo "syncing winget packages..."
+          ${packageScript cfg.wingetPackages cfg.wingetUpgradeAll}
         else
-          echo "choco.exe or WSL interop not available, skipping package sync"
+          echo "winget or WSL interop not available, skipping package sync"
         fi
       ''
     );
 
-    home.activation.windowsSymlinks = lib.hm.dag.entryAfter [ "windowsChocolatey" ] (
+    home.activation.windowsSymlinks = lib.hm.dag.entryAfter [ "windowsWinget" ] (
       lib.optionalString (cfg.symlinks != { }) ''
         if ${powershell} -NoProfile -NonInteractive -Command "exit 0" 2>/dev/null; then
           echo "updating Windows symlinks..."

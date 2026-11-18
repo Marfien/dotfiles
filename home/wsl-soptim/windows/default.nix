@@ -5,16 +5,15 @@ in
 {
   windows = {
     enable = true;
-    chocoPackages = [
-      "nerd-fonts-Meslo"
-      "spotify"
-      "powertoys"
-      "discord"
-      "anki"
-      "autohotkey"
-      "sioyek"
-      "android-sdk"
-      "wezterm"
+    wingetPackages = [
+      "DEVCOM.JetBrainsMonoNerdFont"
+      "Spotify.Spotify"
+      "Microsoft.PowerToys"
+      "Discord.Discord"
+      "Anki.Anki"
+      "AutoHotkey.AutoHotkey"
+      "ahrm.sioyek"
+      "wez.wezterm"
     ];
     symlinks = {
       "${mountHome}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/mac-umlauts.ahk" =

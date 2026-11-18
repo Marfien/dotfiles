@@ -16,7 +16,7 @@ Nix flake-based system and home configuration for macOS (nix-darwin) and NixOS (
 ├── flake.nix              # Flake entrypoint with all system definitions
 ├── modules/
 │   ├── hm-system.nix      # Shared home-manager integration module
-│   └── windows/           # `windows.*` options: Chocolatey, symlinks, file copies
+│   └── windows/           # `windows.*` options: winget, symlinks, file copies
 ├── darwin/
 │   ├── default.nix        # Shared darwin configuration
 │   └── mac/               # mac-specific: Homebrew, Dock, fonts
@@ -37,15 +37,15 @@ Nix flake-based system and home configuration for macOS (nix-darwin) and NixOS (
     └── wsl-soptim/        # WSL-specific: SSH, Go, Claude Code, shell extras
         ├── term.nix       # Syncs WezTerm config to the Windows host
         ├── neovim.nix     # Neovim light/dark theme follows Windows
-        └── windows/       # Chocolatey packages, AutoHotkey, Windows Terminal, .wslconfig
+        └── windows/       # winget packages, AutoHotkey, Windows Terminal, .wslconfig
 ```
 
 ## Highlights
 
 - **Light/dark mode sync** – WezTerm and Neovim follow the OS appearance on both macOS and Windows.
-- **Windows management from WSL** – the `windows` home-manager module (`modules/windows`) installs Chocolatey
+- **Windows management from WSL** – the `windows` home-manager module (`modules/windows`) installs winget
   packages and creates symlinks/copies on the Windows side during activation. Requires WSL interop and,
-  for packages and symlinks, an elevated shell (not inside tmux).
+  for symlinks, an elevated shell (not inside tmux).
 - **Git aliases** – e.g. `git cc` generates five conventional-commit message candidates for the staged
   changes with Claude Code and lets you pick one via `fzf`; `git ppush` pulls with rebase, then pushes.
 
